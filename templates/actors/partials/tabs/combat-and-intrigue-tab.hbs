@@ -1,0 +1,419 @@
+{{!--
+    Derived fields carry NO name attribute on purpose. A readonly input still
+    submits, so naming them meant the sheet wrote its own computed values back
+    over the stored ones on every save - and two of them (composure, health,
+    combat defense) reused the *value* name for the *total* box, so the total
+    overwrote the value. Only fields the player actually edits are named.
+--}}
+<div class="tab flexrow" data-group="primary" data-tab="combat-and-intrigue">
+    <section class="derived-statistics">
+        <header class="header-field">
+            <span>{{localize "CS.ui.combatIntrigue.destinyPoints"}}</span>
+        </header>
+        <section class="destiny flexrow">
+            <section class="">
+            </section>
+            <section class="">
+            </section>
+            <section class="flexrow">
+                {{> (csFormGroup) labelText="Current:" id="system.destinyPoints.current" value=character.destinyPoints.current inputCssClass="small-field" placeHOlder="Current" dataType="Number" }}
+                {{> (csFormGroup) labelText="Max:" id="system.destinyPoints.max" value=character.destinyPoints.max inputCssClass="small-field" placeHOlder="Max" dataType="Number" }}
+            </section>
+        </section>
+        <section class="intrigue">
+            <header class="header-field">
+                <span>{{localize "CS.ui.combatIntrigue.intrigue"}}</span>
+            </header>
+            <section class="content flexrow">
+                <section class="stats">
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.intrigueDefense"}}</span>
+                    </header>
+
+                    <div class="form-group">
+                        <span class="form-fields">
+                              <input
+                                      type="text"
+                                      value="{{character.derivedStats.intrigueDefense.value}}"
+                                      placeholder="{{localize 'CS.ui.common.value'}}"
+                                      readonly="readonly"
+                                      data-dtype="Number"
+                              />
+                            <b>+</b>
+                              <input
+                                      name="system.derivedStats.intrigueDefense.modifier"
+                                      type="text"
+                                      value="{{character.derivedStats.intrigueDefense.modifier}}"
+                                      placeholder="{{localize 'CS.ui.common.modifier'}}"
+                                      data-dtype="Number"
+                              />
+                            <b>=</b>
+                            <input
+                                    type="text"
+                                    value="{{character.derivedStats.intrigueDefense.total}}"
+                                    placeholder="{{localize 'CS.ui.common.total'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                        </span>
+                    </div>
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.composure"}}</span>
+                    </header>
+                    <div class="form-group">
+                        <span class="form-fields">
+                            <input
+                                    type="text"
+                                    value="{{character.derivedStats.composure.value}}"
+                                    placeholder="{{localize 'CS.ui.common.value'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>+</b>
+                            <input
+                                    name="system.derivedStats.composure.modifier"
+                                    type="text"
+                                    value="{{character.derivedStats.composure.modifier}}"
+                                    placeholder="{{localize 'CS.ui.common.modifier'}}"
+                                    data-dtype="Number"
+                            />
+                            <b>=</b>
+                            <input
+                                    type="text"
+                                    value="{{character.derivedStats.composure.total}}"
+                                    placeholder="{{localize 'CS.ui.common.total'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                        </span>
+                    </div>
+                    {{> (csFormGroup) labelText="Current:" id="system.derivedStats.composure.current" value=character.derivedStats.composure.current inputCssClass="" placeHolder="Current" dataType="Number" }}
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.frustration"}}</span>
+                    </header>
+                    {{> (ratingCheckbox) max=character.derivedStats.frustration.total currentValue=character.derivedStats.frustration.current dataType="Frustration" }}
+                    {{!-- "Stress" is not a mechanic of this edition, so the track
+                          is not offered. system.currentStress stays in
+                          template.json so that no actor data is destroyed. --}}
+                </section>
+                <section class="disposition">
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.currentDisposition"}}</span>
+                    </header>
+                    <div class="disposition-list">
+                        {{#each dispositions}}
+                                <div class="disposition option capitalize {{showIfEquals this.rating ../character.currentDisposition "selected"}}" data-id="{{this.rating}}">
+                                    {{this.rating}} - {{localize this.name}} ({{this.persuasionModifier}} / {{this.deceptionModifier}})
+                                </div>
+                        {{/each}}
+                    </div>
+                </section>
+                <section class="techniques">
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.techniques"}}</span>
+                    </header>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>{{localize "CS.ui.combatIntrigue.technique"}}</th>
+                            <th>{{localize "CS.ui.combatIntrigue.influence"}}</th>
+                            <th>{{localize "CS.ui.combatIntrigue.persuasion"}}</th>
+                            <th>{{localize "CS.ui.combatIntrigue.deception"}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each techniques}}
+                        <tr>
+                            <td class="capitalize">{{this.name}}</td>
+                            <td>{{this.influence}}</td>
+                            <td class="rollable" id="persuasion:{{this.name}}:{{formulaToStr this.persuasion}}"><a>{{format-formula this.persuasion}}</a></td>
+                            <td class="rollable" id="deception:{{this.name}}:{{formulaToStr this.deception}}"><a>{{format-formula this.deception}}</a></td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </section>
+        <section class="combat">
+            <header class="header-field">
+                <span>{{localize "CS.ui.combatIntrigue.combat"}}</span>
+            </header>
+            <section class="content flexrow">
+                <section class="stats">
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.combatDefense"}}</span>
+                    </header>
+                    <div class="form-group">
+                        <span class="form-fields">
+                            <input
+                                    type="text"
+                                    value="{{character.derivedStats.combatDefense.value}}"
+                                    placeholder="{{localize 'CS.ui.common.value'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>+</b>
+                            <input
+                                    name="system.derivedStats.combatDefense.modifier"
+                                    type="text"
+                                    value="{{character.derivedStats.combatDefense.modifier}}"
+                                    placeholder="{{localize 'CS.ui.common.modifier'}}"
+                                    data-dtype="Number"
+                            />
+                            <b>=</b>
+                            <input
+                                    type="text"
+                                    value="{{character.derivedStats.combatDefense.total}}"
+                                    placeholder="{{localize 'CS.ui.common.total'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                        </span>
+                    </div>
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.health"}}</span>
+                    </header>
+                    <div class="form-group">
+                        <span class="form-fields">
+                            <input
+                                    type="text"
+                                    value="{{character.derivedStats.health.value}}"
+                                    placeholder="{{localize 'CS.ui.common.value'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>+</b>
+                            <input
+                                    name="system.derivedStats.health.modifier"
+                                    type="text"
+                                    value="{{character.derivedStats.health.modifier}}"
+                                    placeholder="{{localize 'CS.ui.common.modifier'}}"
+                                    data-dtype="Number"
+                            />
+                            <b>=</b>
+                            <input
+                                    type="text"
+                                    value="{{character.derivedStats.health.total}}"
+                                    placeholder="{{localize 'CS.ui.common.total'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="system.derivedStats.health.current">{{localize "CS.ui.common.current"}}</label>
+                        <span class="form-fields">
+                            <input
+                                    id="system.derivedStats.health.current"
+                                    name="system.derivedStats.health.current"
+                                    type="text"
+                                    value="{{character.derivedStats.health.current}}"
+                                    placeholder="{{localize 'CS.ui.common.current'}}"
+                                    data-dtype="Number"
+                            />
+                        </span>
+                    </div>
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.fatigue"}}</span>
+                    </header>
+                    {{> (ratingCheckbox) max=character.derivedStats.fatigue.total currentValue=character.derivedStats.fatigue.current dataType="Fatigue" }}
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.movement"}}</span>
+                    </header>
+                    <div class="form-group cs-movement">
+                        <label>{{localize "CS.ui.combatIntrigue.move"}}</label>
+                        <span class="form-fields">
+                            <input
+                                    type="text"
+                                    value="{{character.movement.base}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.baseMovement'}}"
+                                    placeholder="{{localize 'CS.ui.combatIntrigue.base'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>+</b>
+                            <input
+                                    type="text"
+                                    value="{{character.movement.runBonus}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.runBonusHint'}}"
+                                    placeholder="{{localize 'CS.ui.combatIntrigue.run'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>-</b>
+                            <input
+                                    type="text"
+                                    value="{{character.movement.bulk}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.bulkHint'}}"
+                                    placeholder="{{localize 'CS.ui.common.bulk'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>+</b>
+                            <input
+                                    name="system.movement.modifier"
+                                    type="text"
+                                    value="{{character.movement.modifier}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.otherMoveModifier'}}"
+                                    placeholder="{{localize 'CS.ui.common.modifier'}}"
+                                    data-dtype="Number"
+                            />
+                            <b>=</b>
+                            <input
+                                    class="cs-total"
+                                    type="text"
+                                    value="{{character.movement.total}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.yardsPerMove'}}"
+                                    placeholder="{{localize 'CS.ui.common.total'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                        </span>
+                    </div>
+                    <div class="form-group cs-movement">
+                        <label>{{localize "CS.ui.combatIntrigue.sprint"}}</label>
+                        <span class="form-fields">
+                            <input
+                                    type="text"
+                                    value="{{character.movement.total}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.movement'}}"
+                                    placeholder="{{localize 'CS.ui.combatIntrigue.move'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>&times;</b>
+                            <input
+                                    name="system.movement.sprintMultiplier"
+                                    type="text"
+                                    value="{{character.movement.sprintMultiplier}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.sprintMultHint'}}"
+                                    placeholder="{{localize 'CS.ui.combatIntrigue.mult'}}"
+                                    data-dtype="Number"
+                            />
+                            <b>-</b>
+                            <input
+                                    type="text"
+                                    value="{{character.movement.bulk}}"
+                                    title="{{localize 'CS.ui.common.bulk'}}"
+                                    placeholder="{{localize 'CS.ui.common.bulk'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                            <b>=</b>
+                            <input
+                                    class="cs-total"
+                                    type="text"
+                                    value="{{character.movement.sprintTotal}}"
+                                    title="{{localize 'CS.ui.combatIntrigue.yardsSprint'}}"
+                                    placeholder="{{localize 'CS.ui.common.total'}}"
+                                    readonly="readonly"
+                                    data-dtype="Number"
+                            />
+                        </span>
+                    </div>
+                </section>
+                <section class="healthState">
+                    <header class="subheader-field flexrow">
+                        <div class="header-title">
+                            <span>{{localize "CS.ui.combatIntrigue.injuries"}}</span> <span class="cs-count">({{currentInjuries}} / {{maxInjuries}})</span>
+                        </div>
+                        <div class="header-field-add">
+                            <a class="injury-create" title="{{localize 'CS.ui.combatIntrigue.takeInjury'}}"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </header>
+                    <ol class="injuries-list list resizable" data-base-size="150">
+                        {{#each character.injuries as |injury id|}}
+                            <li class="injury flexrow" data-item-id="{{id}}">
+                                <!--suppress HtmlFormInputWithoutLabel -->
+                                <input
+                                        class="big-field"
+                                        type="text"
+                                        name="system.injuries.{{id}}"
+                                        value="{{injury}}"
+                                        placeholder="{{localize 'CS.ui.combatIntrigue.description'}}"
+                                        data-dtype="String"
+                                />
+                                <a class="injury-control item-controls" data-id="{{id}}" data-action="delete" title="{{localize 'CS.ui.combatIntrigue.removeInjury'}}"><i class="fas fa-trash"></i></a>
+                            </li>
+                        {{/each}}
+                    </ol>
+                    <header class="subheader-field flexrow">
+                        <div class="header-title">
+                            <span>{{localize "CS.ui.combatIntrigue.wounds"}}</span> <span class="cs-count">({{currentWounds}} / {{maxWounds}})</span>
+                        </div>
+                        <div class="header-field-add">
+                            <a class="wound-create" title="{{localize 'CS.ui.combatIntrigue.takeWound'}}"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </header>
+                    <ol class="wounds-list list resizable" data-base-size="150">
+                        {{#each character.wounds as |wound id|}}
+                            <li class="wound flexrow" data-item-id="{{id}}">
+                                <!--suppress HtmlFormInputWithoutLabel -->
+                                <input
+                                        class="big-field"
+                                        type="text"
+                                        name="system.wounds.{{id}}"
+                                        value="{{wound}}"
+                                        placeholder="{{localize 'CS.ui.combatIntrigue.description'}}"
+                                        data-dtype="String"
+                                />
+                                <a class="wound-control item-controls" data-id="{{id}}" data-action="delete" title="{{localize 'CS.ui.combatIntrigue.removeWound'}}"><i class="fas fa-trash"></i></a>
+                            </li>
+                        {{/each}}
+                    </ol>
+                </section>
+                <section class="weapons">
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.equippedWeapons"}}</span>
+                    </header>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>{{localize "CS.ui.combatIntrigue.weapon"}}</th>
+                            <th>{{localize "CS.ui.common.test"}}</th>
+                            <th>{{localize "CS.ui.common.damage"}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each character.owned.weapons as |weapon index|}}
+                            {{#ifDifferent weapon.system.equipped ../notEquipped}}
+                                <tr>
+                                    <td>{{weapon.name}} {{showIfEquals weapon.system.equipped 3 "(Off-hand)" : ""}}</td>
+                                    <td class="rollable" id="weapon-test:{{weapon.name}}:{{formulaToStr weapon.formula}}">
+                                        <a>{{format-formula weapon.formula}}</a>
+                                    </td>
+                                    <td> {{weapon.damageValue}}</td>
+                                </tr>
+                            {{/ifDifferent}}
+                        {{/each}}
+                        </tbody>
+                    </table>
+                    <header class="subheader-field">
+                        <span>{{localize "CS.ui.combatIntrigue.equippedArmor"}}</span>
+                    </header>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>{{localize "CS.ui.combatIntrigue.armor"}}</th>
+                            <th>{{localize "CS.ui.common.rating"}}</th>
+                            <th>{{localize "CS.ui.common.penalty"}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each character.owned.armors as |armor index|}}
+                            {{#ifDifferent armor.system.equipped ../notEquipped}}
+                                <tr>
+                                    <td>{{armor.name}}</td>
+                                    <td>{{armor.system.rating}}</td>
+                                    <td>{{armor.system.penalty}}</td>
+                                </tr>
+                            {{/ifDifferent}}
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </section>
+    </section>
+</div>

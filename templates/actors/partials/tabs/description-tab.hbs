@@ -1,0 +1,254 @@
+<div class="tab description flexrow" data-group="primary" data-tab="actor-description">
+    <section class="profile-picture">
+        <div class="profile-img-container flex">
+            <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" alt="{{actor.name}} Picture" />
+        </div>
+    </section>
+    <section class="general">
+        <section class="section-split flexrow">
+            <section class="appearance">
+                <header class="header-field">
+                    <span>{{localize "CS.ui.description.appearance"}}</span>
+                </header>
+                <div class="form-group">
+                    <label for="system.height">{{localize "CS.ui.description.heightLabel"}}</label>
+                    <span class="form-fields">
+                        <input
+                                id="system.height"
+                                class="size75"
+                                name="system.height"
+                                type="text"
+                                value="{{character.height}}"
+                                placeholder="{{localize 'CS.ui.description.height'}}"
+                                data-dtype="String"
+                        />
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="system.weight">{{localize "CS.ui.description.weightLabel"}}</label>
+                    <span class="form-fields">
+                          <input
+                                  id="system.weight"
+                                  class="size75"
+                                  name="system.weight"
+                                  type="text"
+                                  value="{{character.weight}}"
+                                  placeholder="{{localize 'CS.ui.common.weight'}}"
+                                  data-dtype="Number"
+                          />
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="system.eyeColor">{{localize "CS.ui.description.eyeColorLabel"}}</label>
+                    <span class="form-fields">
+                          <input
+                                  id="system.eyeColor"
+                                  class="size75"
+                                  name="system.eyeColor"
+                                  type="text"
+                                  value="{{character.eyeColor}}"
+                                  placeholder="{{localize 'CS.ui.description.eyeColor'}}"
+                                  data-dtype="String"
+                          />
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="system.hairColor">{{localize "CS.ui.description.hairColorLabel"}}</label>
+                    <span class="form-fields">
+                          <input
+                                  id="system.hairColor"
+                                  class="size75"
+                                  name="system.hairColor"
+                                  type="text"
+                                  value="{{character.hairColor}}"
+                                  placeholder="{{localize 'CS.ui.description.hairColor'}}"
+                                  data-dtype="String"
+                          />
+                    </span>
+                </div>
+            </section>
+            <section class="mannerisms">
+                <section class="experience flexrow">
+                    <div class="form-group">
+                        <label for="system.experience.spent">{{localize "CS.ui.description.xpSpentLabel"}}</label>
+                        <span class="form-fields">
+                          <input
+                                  id="system.experience.spent"
+                                  class=""
+                                  name="system.experience.spent"
+                                  type="text"
+                                  value="{{character.experience.spent}}"
+                                  placeholder="{{localize 'CS.ui.description.spent'}}"
+                                  data-dtype="Number"
+                          />
+                    </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="system.experience.total">{{localize "CS.ui.description.xpTotalLabel"}}</label>
+                        <span class="form-fields">
+                          <input
+                                  id="system.experience.total"
+                                  class=""
+                                  name="system.experience.total"
+                                  type="text"
+                                  value="{{character.experience.total}}"
+                                  placeholder="{{localize 'CS.ui.common.total'}}"
+                                  data-dtype="Number"
+                          />
+                        </span>
+                    </div>
+                    <div class="form-group glory">
+                        <label for="system.glory">{{localize "CS.ui.description.gloryLabel"}}</label>
+                        <span class="form-fields">
+                          <input
+                                  id="system.glory"
+                                  class=""
+                                  name="system.glory"
+                                  type="text"
+                                  value="{{character.glory}}"
+                                  placeholder="{{localize 'CS.ui.common.current'}}"
+                                  data-dtype="Number"
+                          />
+                        </span>
+                    </div>
+                </section>
+                <header class="header-field">
+                    <span>{{localize "CS.ui.description.mannerisms"}}</span>
+                </header>
+
+                <div class="form-group">
+                    <span class="form-fields">
+                        <input
+                                id="system.mannerisms"
+                                class="big-field"
+                                name="system.mannerisms"
+                                type="text"
+                                value="{{character.mannerisms}}"
+                                placeholder="{{localize 'CS.ui.description.mannerisms'}}"
+                                data-dtype="String"
+                        />
+                    </span>
+                </div>
+                <header class="header-field">
+                    <span>{{localize "CS.ui.description.features"}}</span>
+                </header>
+
+                <div class="form-group">
+                    <span class="form-fields">
+                        <input
+                                id="system.distinguishingFeatures"
+                                class="big-field"
+                                name="system.distinguishingFeatures"
+                                type="text"
+                                value="{{character.distinguishingFeatures}}"
+                                placeholder="{{localize 'CS.ui.description.features'}}"
+                                data-dtype="String"
+                        />
+                    </span>
+                </div>
+            </section>
+        </section>
+        <section class="concept">
+            <header class="header-field">
+                <span>{{localize "CS.ui.description.concept"}}</span>
+            </header>
+            <div class="form-group">
+                <label for="system.vice">{{localize "CS.ui.description.viceLabel"}}</label>
+                <span class="form-fields">
+                  <input
+                          id="system.vice"
+                          class="big-field"
+                          name="system.vice"
+                          type="text"
+                          value="{{character.vice}}"
+                          placeholder="{{localize 'CS.ui.description.vice'}}"
+                          data-dtype="String"
+                  />
+            </span>
+            </div>
+            <div class="form-group">
+                <label for="system.virtue">{{localize "CS.ui.description.virtueLabel"}}</label>
+                <span class="form-fields">
+                  <input
+                          id="system.virtue"
+                          class="big-field"
+                          name="system.virtue"
+                          type="text"
+                          value="{{character.virtue}}"
+                          placeholder="{{localize 'CS.ui.description.virtue'}}"
+                          data-dtype="String"
+                  />
+            </span>
+            </div>
+            <div class="form-group">
+                <label for="system.goal">{{localize "CS.ui.description.goalLabel"}}</label>
+                <span class="form-fields">
+                  <input
+                          id="system.goal"
+                          class="big-field"
+                          name="system.goal"
+                          type="text"
+                          value="{{character.goal}}"
+                          placeholder="{{localize 'CS.ui.description.goal'}}"
+                          data-dtype="String"
+                  />
+            </span>
+            </div>
+            <div class="form-group">
+                <label for="system.motivation">{{localize "CS.ui.description.motivationLabel"}}</label>
+                <span class="form-fields">
+                  <input
+                          id="system.motivation"
+                          class="big-field"
+                          name="system.motivation"
+                          type="text"
+                          value="{{character.motivation}}"
+                          placeholder="{{localize 'CS.ui.description.motivation'}}"
+                          data-dtype="String"
+                  />
+            </span>
+            </div>
+        </section>
+    </section>
+    <section class="personal-history">
+        <header class="header-field">
+            <span>{{localize "CS.ui.description.history"}}</span>
+        </header>
+        <div class="form-group">
+            {{editor character.personalHistory target="system.personalHistory" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+    <section class="allies">
+        <header class="header-field">
+            <span>{{localize "CS.ui.description.allies"}}</span>
+        </header>
+        <div class="form-group">
+            {{editor character.allies target="system.allies" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+    <section class="enemies">
+        <header class="header-field">
+            <span>{{localize "CS.ui.description.enemies"}}</span>
+        </header>
+        <div class="form-group">
+            {{editor character.enemies target="system.enemies" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+    <section class="oaths">
+        <header class="header-field">
+            <span>{{localize "CS.ui.description.oaths"}}</span>
+        </header>
+        <div class="form-group">
+            {{editor character.oaths target="system.oaths" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+    <section class="motto">
+        <header class="header-field">
+            <span>{{localize "CS.ui.description.motto"}}</span>
+        </header>
+        <div class="form-group">
+            {{editor character.motto target="system.motto" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+
+</div>

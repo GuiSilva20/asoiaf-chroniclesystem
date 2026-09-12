@@ -1,0 +1,473 @@
+import { CSActorSheet } from './csActorSheet.js';
+import { CSConstants } from '../../system/csConstants.js';
+import SystemUtils from '../../utils/systemUtils.js';
+import LOGGER from '../../utils/logger.js';
+import { ChronicleSystem } from '../../system/ChronicleSystem.js';
+import { CSHoldingItem } from '../../items/cs-holding-item.js';
+
+export class CSHouseActorSheet extends CSActorSheet {
+    itemTypesPermitted = ['event', 'holding'];
+
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            classes: ['chroniclesystem', 'sheet', 'house', 'actor'],
+            template:
+                'systems/chroniclesystem/templates/actors/houses/house-sheet.hbs',
+            width: 800,
+            height: 600,
+            tabs: [
+                {
+                    navSelector: '.tabs',
+                    contentSelector: '.sheet-body',
+                    initial: 'resources',
+                },
+            ],
+            dragDrop: [
+                { dragSelector: '.item-list .item', dropSelector: null },
+            ],
+        });
+    }
+
+    getData(options) {
+        let data = super.getData(options);
+
+        this.splitItemsByType(data);
+
+        let house = data.actor.getCSData();
+
+        house.historicalEvents = this._checkNull(data.itemsByType['event']);
+
+        this.prepareHoldingData(house, data);
+
+        this.prepareRolesData(house, data);
+
+        this.prepareFortuneData(house, data);
+
+        return data;
+    }
+
+    prepareRolesData(house, data) {
+        house.head = data.actor.getCharactersFromRole(data.actor.roleMap.HEAD);
+        house.steward = data.actor.getCharactersFromRole(
+            data.actor.roleMap.STEWARD
+        );
+        house.heirs = data.actor.getCharactersFromRole(data.actor.roleMap.HEIR);
+        house.family = data.actor.getCharactersFromRole(
+            data.actor.roleMap.FAMILY
+        );
+        house.retainers = data.actor.getCharactersFromRole(
+            data.actor.roleMap.RETAINER
+        );
+        house.servants = data.actor.getCharactersFromRole(
+            data.actor.roleMap.SERVANT
+        );
+    }
+
+    prepareFortuneData(house, data) {
+        if (!house.steward.id) return;
+        house.fortune = {
+            lawMod: data.actor.getLawModifier(),
+            populationMod: data.actor.getPopulationModifier(),
+            holdingsDice: data.actor.getHoldingsDice(),
+            holdingsFlat: data.actor.getHoldingsModifier(),
+            holdingsMod: '0',
+        };
+
+        house.fortune.holdingsMod =
+            house.fortune.holdingsDice && house.fortune.holdingsDice !== 0
+                ? `${house.fortune.holdingsDice}d6`
+                : '';
+        house.fortune.holdingsMod +=
+            house.fortune.holdingsFlat && house.fortune.holdingsFlat !== 0
+                ? house.fortune.holdingsFlat > 0
+                    ? `${!!house.fortune.holdingsMod ? ' + ' : ''}${
+                          house.fortune.holdingsFlat
+                      }`
+                    : `${!!house.fortune.holdingsMod ? ' - ' : ''}${
+                          -(house.fortune.holdingsFlat)
+                      }`
+                : '';
+
+        const steward = game.actors.get(house.steward.id);
+        let stewardshipFormula = ChronicleSystem.getActorAbilityFormula(
+            steward,
+            SystemUtils.localize(ChronicleSystem.keyConstants.STATUS),
+            SystemUtils.localize(ChronicleSystem.keyConstants.STEWARDSHIP)
+        );
+        stewardshipFormula.pool += house.fortune.holdingsDice;
+        stewardshipFormula.modifier =
+            stewardshipFormula.modifier +
+            house.fortune.lawMod +
+            house.fortune.populationMod +
+            house.fortune.holdingsFlat;
+        house.fortune.formula = stewardshipFormula;
+    }
+
+    prepareHoldingData(house, data) {
+        house.holdings = {
+            defense: [],
+            influence: [],
+            lands: [],
+            law: [],
+            population: [],
+            power: [],
+            wealth: [],
+        };
+        this.resetResourceInvestments(house);
+
+        let holdings = this._checkNull(data.itemsByType['holding']);
+        holdings.forEach((holding) => {
+            let doc = this.actor.getEmbeddedDocument('Item', holding._id);
+            house.holdings[holding.system.resource].push(holding);
+            house[holding.system.resource].invested += doc.getTotalInvested();
+            house[holding.system.resource].hasHoldings = true;
+        });
+    }
+
+    resetResourceInvestments(house) {
+        house.defense.invested = 0;
+        house.influence.invested = 0;
+        house.lands.invested = 0;
+        house.law.invested = 0;
+        house.population.invested = 0;
+        house.power.invested = 0;
+        house.wealth.invested = 0;
+    }
+
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        if (!this.options.editable) return;
+
+        html.find('.family-list').on(
+            'click',
+            '.item-control',
+            this._onclickMemberControl.bind(this)
+        );
+        html.find('.servants-list').on(
+            'click',
+            '.item-control',
+            this._onclickMemberControl.bind(this)
+        );
+        html.find('.member-add').click(this._onAddMember.bind(this));
+        html.find('.member-name').click(this._openActorSheet.bind(this));
+        html.find('.resource-edit').click(this._openResourceEditor.bind(this));
+        html.find('.regenerate-resources').click(
+            this._regenerateResources.bind(this)
+        );
+    }
+
+    async _onclickMemberControl(event) {
+        event.preventDefault();
+        // the row also listens for clicks to toggle its description
+        event.stopPropagation();
+        const a = event.currentTarget;
+        const actorId = a.dataset.id;
+        const action = a.dataset.action;
+        const role = a.dataset.role;
+
+        if (action === 'delete') {
+            await this.actor.removeCharacterFromHouse(actorId, role);
+            return;
+        }
+
+        if (action === 'edit') {
+            const actor = game.actors.get(actorId);
+            if (!actor) {
+                ui.notifications.warn(
+                    SystemUtils.localize('CS.notifications.memberNotFound')
+                );
+                return;
+            }
+            const record = this._getMemberRecord(role, actorId);
+            await this.showCharacterRoleDialog(actor, {
+                role: role,
+                description: record ? record.description : '',
+            });
+        }
+    }
+
+    /** The stored {id, description} entry for a member, whatever shape the role uses. */
+    _getMemberRecord(role, actorId) {
+        const members =
+            this.actor.getCSData().members[this.actor.roleMap[role]];
+        if (Array.isArray(members))
+            return members.find((member) => member.id === actorId);
+        return members && members.id === actorId ? members : undefined;
+    }
+
+    /** Adds a member without needing the character to be dragged onto the sheet. */
+    async _onAddMember(event) {
+        event.preventDefault();
+        const defaultRole = event.currentTarget.dataset.role || 'FAMILY';
+
+        const candidates = {};
+        for (const actor of game.actors) {
+            if (actor.type === 'character') candidates[actor.id] = actor.name;
+        }
+
+        if (Object.keys(candidates).length === 0) {
+            ui.notifications.warn(
+                SystemUtils.localize('CS.notifications.noCharactersToAdd')
+            );
+            return;
+        }
+
+        await this.showCharacterRoleDialog(null, {
+            role: defaultRole,
+            candidates: candidates,
+        });
+    }
+
+    async _regenerateResources(event) {
+        event.preventDefault();
+        await this.actor.regenerateAllStartingResources();
+    }
+
+    async _openResourceEditor(ev) {
+        ev.preventDefault();
+        let data = super.getData();
+        let resourceId = ev.currentTarget.dataset.id;
+        let resourceName = ev.currentTarget.dataset.name;
+
+        if (!resourceId || !resourceName) return;
+
+        const template = CSConstants.Templates.Dialogs.HOUSE_RESOURCE_EDITOR;
+        const html = await renderTemplate(template, {
+            startingValue: data.actor.getCSData()[resourceId].startingValue,
+            description: data.actor.getCSData()[resourceId].description,
+            resourceId: resourceId,
+        });
+        return new Promise((resolve) => {
+            const data = {
+                title: SystemUtils.format(
+                    'CS.dialogs.houseResourceEditor.title',
+                    { resourceName: resourceName }
+                ),
+                content: html,
+                buttons: {
+                    normal: {
+                        label: SystemUtils.localize('CS.dialogs.actions.save'),
+                        callback: (html) =>
+                            resolve(
+                                this._processResourceEdition(
+                                    html[0].querySelector('form')
+                                )
+                            ),
+                    },
+                    cancel: {
+                        label: SystemUtils.localize(
+                            'CS.dialogs.actions.cancel'
+                        ),
+                        callback: (html) => resolve({ cancelled: true }),
+                    },
+                },
+                default: 'normal',
+                close: () => resolve({ cancelled: true }),
+            };
+            new Dialog(data, null).render(true);
+        });
+    }
+
+    _processResourceEdition(formData) {
+        this.actor.changeResource(
+            formData.resourceId.value,
+            formData.startingValue.value,
+            formData.description.value
+        );
+        return true;
+    }
+
+    _openActorSheet(ev) {
+        ev.preventDefault();
+        const id = ev.currentTarget.dataset.id;
+        const actor = game.actors.get(id);
+        if (actor) actor.sheet.render(true);
+    }
+
+    isItemPermitted(type) {
+        return this.itemTypesPermitted.includes(type);
+    }
+    /** @override */
+    async _onDropActor(event, data) {
+        LOGGER.trace(
+            'On Drop Actor | CSHouseActorSheet | csHouseActorSheet.js'
+        );
+        event.preventDefault();
+        if (!this.actor.isOwner) return false;
+
+        fromUuid(data.uuid).then((value) => {
+            let actor = value;
+            if (actor && actor.type === 'character') {
+                this.showCharacterRoleDialog(actor);
+            }
+        });
+    }
+
+    async _onDropItemCreate(itemData) {
+        let embeddedItem = [];
+        let itemsToCreate = [];
+        let data = [];
+
+        let eventsCanGenerateModifiers = [];
+
+        data = data.concat(itemData);
+        for (let i = 0; i < data.length; i++) {
+            const doc = data[i];
+            if (this.isItemPermitted(doc.type)) {
+                if (doc.type === 'event') {
+                    await this.showAddingEventDialog(doc).then((result) => {
+                        if (!result.cancelled) {
+                            let generateData = this._processAddingEvent(result);
+                            if (generateData.canGenerate) {
+                                eventsCanGenerateModifiers.push({
+                                    doc: doc.name,
+                                    choices: generateData.choices,
+                                });
+                            }
+                            itemsToCreate.push(doc);
+                        }
+                    });
+                } else {
+                    itemsToCreate.push(doc);
+                }
+            }
+        }
+
+        if (itemsToCreate.length > 0) {
+            this.actor
+                .createEmbeddedDocuments('Item', itemsToCreate)
+                .then(function (result) {
+                    result.forEach((item) => {
+                        let event = eventsCanGenerateModifiers.find(
+                            (ev) => ev.doc === item.name
+                        );
+                        if (event) item.generateModifiers(event.choices);
+                        item.onObtained(item.actor);
+                    });
+                    embeddedItem.concat(result);
+                });
+        }
+
+        return embeddedItem;
+    }
+
+    async showAddingEventDialog(event) {
+        LOGGER.trace(
+            'show adding event dialog | CSHouseActorSheet |' +
+                ' csHouseActorSheet.js'
+        );
+        const template = CSConstants.Templates.Dialogs.ADDING_HOUSE_EVENT;
+        const html = await renderTemplate(template, {
+            data: event,
+            choices: CSConstants.HouseResources,
+            id: event.id,
+        });
+        return new Promise((resolve) => {
+            const data = {
+                title: SystemUtils.localize(
+                    'CS.dialogs.addingHouseEvent.title'
+                ),
+                content: html,
+                buttons: {
+                    normal: {
+                        label: SystemUtils.localize('CS.dialogs.actions.save'),
+                        callback: (html) =>
+                            resolve({
+                                data: html[0].querySelector('form'),
+                                event: event,
+                            }),
+                    },
+                    cancel: {
+                        label: SystemUtils.localize(
+                            'CS.dialogs.actions.cancel'
+                        ),
+                        callback: (html) => resolve({ cancelled: true }),
+                    },
+                },
+                default: 'normal',
+                close: () => resolve({ cancelled: true }),
+            };
+            new Dialog(data, null).render(true);
+        });
+    }
+
+    _processAddingEvent(formData) {
+        if (!formData.data.generateModifiers.checked)
+            return { canGenerate: false };
+
+        let choices = [];
+        for (let i = 1; i <= formData.event.data.numberOfChoices; i++) {
+            choices.push(formData.data[`resource_${i}`].value);
+        }
+        return { canGenerate: true, choices: choices };
+    }
+
+    /**
+     * @param actor              the character being placed, or null when the
+     *                           dialog should offer a list to pick from
+     * @param options.role       role pre-selected in the dialog
+     * @param options.description  description pre-filled in the dialog
+     * @param options.candidates {id: name} map to choose from when actor is null
+     */
+    async showCharacterRoleDialog(actor, options = {}) {
+        LOGGER.trace(
+            'show character role dialog | CSHouseActorSheet |' +
+                ' csHouseActorSheet.js'
+        );
+        const {role = 'HEAD', description = '', candidates = null} = options;
+        const template = CSConstants.Templates.Dialogs.CHARACTER_ROLE_IN_HOUSE;
+        const html = await renderTemplate(template, {
+            choices: CSConstants.HouseRoles,
+            value: role,
+            id: actor ? actor.id : '',
+            description: description,
+            actors: candidates,
+        });
+        return new Promise((resolve) => {
+            const data = {
+                title: actor
+                    ? SystemUtils.format('CS.dialogs.characterRole.title', {
+                          actorName: actor.name,
+                      })
+                    : SystemUtils.localize('CS.dialogs.characterRole.addTitle'),
+                content: html,
+                buttons: {
+                    normal: {
+                        label: SystemUtils.localize('CS.dialogs.actions.save'),
+                        callback: (html) =>
+                            resolve(
+                                this._processCharacterRole(
+                                    html[0].querySelector('form')
+                                )
+                            ),
+                    },
+                    cancel: {
+                        label: SystemUtils.localize(
+                            'CS.dialogs.actions.cancel'
+                        ),
+                        callback: (html) => resolve({ cancelled: true }),
+                    },
+                },
+                default: 'normal',
+                close: () => resolve({ cancelled: true }),
+            };
+            new Dialog(data, null).render(true);
+        });
+    }
+
+    async _processCharacterRole(formData) {
+        const actorId = formData.characterId.value;
+        if (!actorId) return false;
+
+        // addCharacterToHouse bails out when the character already holds the
+        // role, so an edit has to clear the old entry before writing the new one
+        await this.actor.removeCharacterFromHouse(actorId);
+        await this.actor.addCharacterToHouse(
+            actorId,
+            formData.characterRole.value,
+            formData.description.value
+        );
+        return true;
+    }
+}

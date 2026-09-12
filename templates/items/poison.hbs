@@ -1,0 +1,92 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{!-- Item Sheet Header --}} {{>
+    "systems/chroniclesystem/templates/items/partials/header.hbs"}}
+    <main class="sheet-body flexrow">
+        <section class="item-stats">
+            <header class="header-field">
+                <span>{{localize "CS.sheets.generalLabels.details"}}</span>
+            </header>
+            <div class="form-group">
+                <label for="system.delivery">Delivery:</label>
+                <span class="form-fields">
+                  <input
+                          class="small-field"
+                          name="system.delivery"
+                          type="text"
+                          value="{{item.data.delivery}}"
+                          placeholder="Delivery"
+                          data-dtype="String"
+                  />
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="system.virulence">Virulence:</label>
+                <span class="form-fields">
+                  <input
+                          class="small-field"
+                          name="system.virulence"
+                          type="text"
+                          value="{{item.data.virulence}}"
+                          placeholder="Virulence"
+                          data-dtype="String"
+                  />
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="system.frequency">Frequency:</label>
+                <span class="form-fields">
+                  <input
+                          class="small-field"
+                          name="system.frequency"
+                          type="text"
+                          value="{{item.data.frequency}}"
+                          placeholder="Frequency"
+                          data-dtype="String"
+                  />
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="system.toxicity">Toxicity:</label>
+                <span class="form-fields">
+                  <input
+                          class="small-field"
+                          name="system.toxicity"
+                          type="text"
+                          value="{{item.data.toxicity}}"
+                          placeholder="Toxicity"
+                          data-dtype="Number"
+                  />
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="system.diagnosis">Diagnosis:</label>
+                <span class="form-fields">
+                  <input
+                          class="small-field"
+                          name="system.diagnosis"
+                          type="text"
+                          value="{{item.data.diagnosis}}"
+                          placeholder="Diagnosis"
+                          data-dtype="Number"
+                  />
+                </span>
+            </div>
+            {{> "systems/chroniclesystem/templates/items/partials/physical-item.hbs"}}
+        </section>
+        <section class="poison">
+            {{> "systems/chroniclesystem/templates/items/partials/description.hbs"}}
+            <header class="header-field">
+                <span>Effects</span>
+            </header>
+            <div class="form-group">
+                {{editor item.system.effects target="system.effects" button=true owner=owner editable=editable}}
+            </div>
+            <header class="header-field">
+                <span>Recovery</span>
+            </header>
+            <div class="form-group">
+                {{editor item.system.recovery target="system.recovery" button=true owner=owner editable=editable}}
+            </div>
+        </section>
+    </main>
+</form>
