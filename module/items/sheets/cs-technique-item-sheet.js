@@ -3,7 +3,7 @@ import {CSConstants} from "../../system/csConstants.js";
 
 export class CSTechniqueItemSheet extends CSItemSheet {
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["chroniclesystem", "technique", "sheet", "item"],
             width: 650,
             height: 560,

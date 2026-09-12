@@ -9,7 +9,7 @@ export class CSHouseActorSheet extends CSActorSheet {
     itemTypesPermitted = ['event', 'holding'];
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['chroniclesystem', 'sheet', 'house', 'actor'],
             template:
                 'systems/chroniclesystem/templates/actors/houses/house-sheet.hbs',

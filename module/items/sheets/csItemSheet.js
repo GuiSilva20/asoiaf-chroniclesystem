@@ -15,7 +15,7 @@ import {
 export class CSItemSheet extends ItemSheet {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["worldbuilding","chroniclesystem", "sheet", "item"],
             width: 650,
             height: 560,

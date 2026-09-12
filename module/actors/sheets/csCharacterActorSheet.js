@@ -24,7 +24,7 @@ export class CSCharacterActorSheet extends CSActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["chroniclesystem", "character", "sheet", "actor"],
       template: "systems/chroniclesystem/templates/actors/characters/character-sheet.hbs",
       width: 700,
