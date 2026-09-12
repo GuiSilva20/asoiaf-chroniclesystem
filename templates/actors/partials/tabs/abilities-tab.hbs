@@ -1,0 +1,71 @@
+<div class="tab flexrow" data-group="primary" data-tab="abilities">
+    <section class="abilities flex3">
+        <header class="header-field flexrow">
+            <div class="header-title">
+                <span>{{localize "CS.ui.abilities.abilities"}}</span>
+            </div>
+            {{#if @root.owner}}
+                <div class="header-field-add">
+                    <a class="abilities-restore" title="{{localize 'CS.sheets.generalLabels.restoreAbilities'}}"><i class="fas fa-rotate-left"></i></a>
+                </div>
+            {{/if}}
+        </header>
+        <ol class="abilities-list">
+            <li class="list-header ability flexrow">
+                <div class="ability-value">{{localize "CS.ui.abilities.pool"}}</div>
+                <div class="ability-label">{{localize "CS.sheets.generalLabels.name"}}</div>
+                <div class="ability-ranks flexrow">
+                    <div class="ability-rank-label">{{localize "CS.sheets.generalLabels.rating"}}</div>
+                    <div class="ability-rank-label">{{localize "CS.sheets.generalLabels.modifier"}}</div>
+                </div>
+                <div class="ability-specialities">{{localize "CS.sheets.generalLabels.specialties"}}</div>
+                <div class="item-controls"></div>
+            </li>
+            {{#each character.owned.abilities as |ability key|}}
+                <li  class="item ability flexrow" data-item-id="{{ability._id}}">
+                    <div class="ability-value rollable" id="ability:{{ability.name}}">
+                        <a>{{ability.system.rating}}d{{modifier ability.system.modifier}}</a>
+                    </div>
+                    <label class="ability-label item-edit"><a >{{ability.name}}</a></label>
+                    <div class="ability-ranks flexrow">
+                        {{!-- no name attribute on purpose: these write to the embedded
+                              ability item through .ability-field, not to the actor form --}}
+                        <input class="ability-field small-field"
+                               type="number"
+                               min="0"
+                               step="1"
+                               data-item-id="{{ability._id}}"
+                               data-field="system.rating"
+                               value="{{ability.system.rating}}"
+                               title="{{localize 'CS.sheets.generalLabels.rating'}}"
+                               {{#unless @root.owner}}disabled{{/unless}}
+                        />
+                        <input class="ability-field small-field"
+                               type="number"
+                               step="1"
+                               data-item-id="{{ability._id}}"
+                               data-field="system.modifier"
+                               value="{{ability.system.modifier}}"
+                               title="{{localize 'CS.sheets.generalLabels.modifier'}}"
+                               {{#unless @root.owner}}disabled{{/unless}}
+                        />
+                    </div>
+                    <div class="ability-specialities">
+                        {{#each ability.system.specialties as |specialty key|}}
+                            {{#if specialty.rating}}
+                            <div class="rollable" id="specialty:{{specialty.name}}:{{../this.name}}">
+                                <a>{{specialty.name}} {{specialty.rating}}B{{modifier specialty.modifier}}</a>&nbsp;
+                            </div>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                    {{#if @root.owner}}
+                        <div class="item-controls">
+                            <a class="item-edit" title="{{localize 'CS.sheets.generalLabels.edit'}}"><i class="fas fa-edit"></i></a>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ol>
+    </section>
+</div>

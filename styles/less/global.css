@@ -1,0 +1,364 @@
+.chroniclesystem.sheet.house .profile-picture {
+  margin-right: 8px;
+}
+.chroniclesystem.sheet.house .holdings {
+  align-content: flex-start;
+}
+.chroniclesystem.sheet.house header {
+  margin-bottom: 5px;
+}
+.chroniclesystem.sheet.house .members > * {
+  margin-left: 8px;
+}
+.chroniclesystem.sheet.house .members > *:first-child {
+  margin-left: 0;
+}
+.chroniclesystem.sheet.house .members .family-list .age,
+.chroniclesystem.sheet.house .members .servants-list .age {
+  flex: 0 0 30px;
+}
+.chroniclesystem.sheet.house .resource-holdings {
+  flex: 0 0 32%;
+  margin: 5px;
+  height: fit-content;
+}
+.chroniclesystem.sheet.house .resource-holdings .holdings-header {
+  margin: 5px 6px;
+}
+.chroniclesystem.sheet.house .resource-holdings .holdings-header .subheader-field {
+  margin: 0px;
+}
+.chroniclesystem.sheet.house .list .list-header .event-name {
+  padding-top: 12px;
+  padding-left: 3px;
+}
+.chroniclesystem.sheet.house .list .modifiers p {
+  flex: 0 0 67px;
+  padding: 0 3px;
+}
+.chroniclesystem.sheet.house .list .item {
+  margin: 3px;
+  padding: 5px;
+}
+.chroniclesystem.sheet.house .list .item:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.chroniclesystem.sheet.house .list .event .event-name {
+  padding-left: 3px;
+}
+.chroniclesystem.sheet.house .list .event .modifiers {
+  margin: 0 4px;
+}
+.chroniclesystem.sheet.character .qualities-list .item .description {
+  display: none;
+}
+.chroniclesystem.sheet.character section.disposition {
+  flex: 0 0 170px;
+}
+.chroniclesystem.sheet.character section.sorcery {
+  margin-right: 9px;
+}
+.chroniclesystem.sheet.character section.sorcery .sorcery-points .form-group {
+  margin: 5px 5px;
+}
+.chroniclesystem.sheet.character section.sorcery .techniques-list .technique-header {
+  background-color: #4178B7;
+  color: white;
+  padding: 5px;
+  margin: 5px 0 5px 0;
+}
+.chroniclesystem.sheet.character section.sorcery .techniques-list .item.work {
+  margin: 3px;
+  background-color: white;
+  padding: 3px;
+}
+.chroniclesystem.sheet.character section.sorcery .techniques-list .item.work .resonance {
+  font-style: italic;
+}
+.chroniclesystem.sheet.character section.sorcery .techniques-list .list-header .item-controls {
+  flex: 0 0 7px;
+}
+.chroniclesystem.sheet.technique .editor {
+  height: 200px;
+  background-color: white;
+  padding: 3px;
+}
+.chroniclesystem.sheet.technique select {
+  background-color: white;
+  padding: 3px;
+  height: 34px;
+}
+.chroniclesystem.sheet.technique .form-group label {
+  flex: 1;
+}
+.chroniclesystem.sheet.technique .work.item {
+  margin-bottom: 8px;
+}
+.chroniclesystem.sheet.item {
+  min-width: 460px;
+  min-height: 400px;
+}
+.chroniclesystem.sheet.item .sheet-header .item-control {
+  flex: 0 0 36px;
+  margin-left: 10px;
+  align-self: center;
+  align-items: center;
+  color: black;
+  line-height: normal;
+}
+.chroniclesystem.sheet.item .sheet-body {
+  align-items: stretch;
+  height: auto;
+}
+.chroniclesystem.sheet.item .sheet-body .form-group input {
+  margin: 0 0 0 5px;
+  height: 34px;
+}
+.chroniclesystem.sheet.item .sheet-body .poison {
+  flex-grow: 2;
+}
+.chroniclesystem.sheet.item .sheet-body .poison .editor {
+  min-height: 150px;
+  padding: 0 3px;
+  background: white;
+  border: white 0;
+}
+.chroniclesystem.sheet.item .sheet-body .header-fields {
+  display: flex;
+}
+.chroniclesystem.sheet.item .sheet-body .form-group {
+  margin: 5px 0 0 5px;
+}
+.chroniclesystem.sheet.item .sheet-body .item-stats {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.chroniclesystem.sheet.item .sheet-body .description-text {
+  height: 65%;
+}
+.chroniclesystem.sheet.item .sheet-body .description {
+  flex-grow: 2.5;
+}
+.chroniclesystem.sheet.item .sheet-body .description .editor {
+  min-height: 100px;
+  max-height: 100%;
+  flex-grow: 1;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  word-break: break-word;
+  padding: 0 3px;
+  background: white;
+  border: white 0;
+}
+.chroniclesystem .capitalize {
+  text-transform: capitalize;
+}
+.chroniclesystem .center {
+  text-align: center;
+  justify-content: center;
+}
+.chroniclesystem .hidden {
+  display: none;
+}
+.chroniclesystem .alert {
+  color: #AA0000;
+}
+.chroniclesystem .bottom {
+  vertical-align: bottom;
+  align-self: flex-end;
+}
+.chroniclesystem .no-margin {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.chroniclesystem.sheet .window-content {
+  height: 100%;
+  padding: 5px 10px 5px 5px;
+  overflow-y: hidden;
+  background: #DCE2EF;
+}
+.chroniclesystem.sheet .window-content .header-field {
+  background: #005390;
+  color: white;
+  padding: 5px;
+  margin: 5px 0 0 0;
+  text-align: center;
+}
+.chroniclesystem.sheet .window-content .sheet-header .header-fields .complements {
+  margin: 5px -5px 5px 0;
+}
+.chroniclesystem.sheet .window-content .sheet-header .header-fields .complements input {
+  height: 27px;
+  margin: 0 5px;
+}
+.chroniclesystem.sheet .window-content .sheet-header .header-fields .complements .attribute-label {
+  background: #005390;
+  color: white;
+  padding: 5px 10px 5px 10px;
+  flex: 0 0 auto;
+}
+.chroniclesystem.sheet .window-content .sheet-header .link-field {
+  margin: 5px;
+}
+.chroniclesystem.sheet .window-content .sheet-header h1.charname {
+  height: 50px;
+  padding: 0;
+  margin: 5px 0 0 0;
+  border-bottom: 0;
+}
+.chroniclesystem.sheet .window-content .sheet-header h1.charname input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.chroniclesystem.sheet .window-content .sheet-tabs {
+  padding: 4px;
+}
+.chroniclesystem.sheet .window-content .sheet-tabs .item {
+  padding: 3px;
+  background: #BBBBBB;
+  font-weight: normal;
+}
+.chroniclesystem.sheet .window-content .sheet-tabs .item.active {
+  background: #005390;
+  color: white;
+  text-decoration: none;
+  font-weight: normal;
+}
+.chroniclesystem.sheet .window-content .sheet-tabs .item:hover {
+  text-shadow: none;
+}
+.chroniclesystem.sheet .window-content .sheet-body {
+  overflow-y: auto;
+}
+.chroniclesystem.sheet .window-content .sheet-body .tab {
+  height: 100%;
+}
+.chroniclesystem.sheet a.checkButton {
+  color: #AAAAAA;
+  padding: 2px;
+  text-align: right;
+}
+.chroniclesystem.sheet a.checkButton.activated {
+  color: #4178B7;
+}
+.chroniclesystem.sheet .subheader-field {
+  background: black;
+  color: white;
+  padding: 5px;
+  margin: 5px 0 0 0;
+  text-align: center;
+}
+.chroniclesystem.sheet .subheader-value {
+  padding: 5px;
+  text-align: center;
+}
+.chroniclesystem.sheet .ps {
+  margin: 5px;
+  font-style: italic;
+}
+.chroniclesystem.sheet .profile-img {
+  max-width: 100%;
+  max-height: 100%;
+  border: none;
+}
+.chroniclesystem.sheet .profile-img-container {
+  height: 300px;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+}
+.chroniclesystem.sheet .unordered {
+  list-style: circle;
+  margin: 3px 0;
+}
+.chroniclesystem.sheet .list {
+  list-style: none;
+  align-items: center;
+  padding: 0;
+  margin: 5px 5px 5px 3px;
+}
+.chroniclesystem.sheet .list .list-header .item-controls {
+  flex: 0 0 12.25px;
+}
+.chroniclesystem.sheet .list .item {
+  margin: 3px;
+}
+.chroniclesystem.sheet .list .item > * {
+  margin-left: 5px;
+}
+.chroniclesystem.sheet .list .item > *:first-child {
+  margin-left: 0px;
+}
+.chroniclesystem.sheet .list .item .item-controls {
+  flex: 0 0 auto;
+  align-self: center;
+}
+.chroniclesystem.sheet input {
+  background: white;
+  border: none;
+}
+.chroniclesystem.sheet input:read-only {
+  background: #DCE2EF;
+  color: gray;
+  box-shadow: none;
+}
+.chroniclesystem.sheet textarea {
+  background: white;
+  border: none;
+}
+.chroniclesystem.sheet .size25 {
+  width: 25px;
+  flex: 0.25;
+}
+.chroniclesystem.sheet .small-field,
+.chroniclesystem.sheet .size50 {
+  width: 50px;
+  flex: 0.5;
+}
+.chroniclesystem.sheet .size75 {
+  width: 75px;
+  flex: 0.75;
+}
+.chroniclesystem.sheet .medium-field,
+.chroniclesystem.sheet .size100 {
+  width: 100px;
+  flex: 1;
+}
+.chroniclesystem.sheet .size125 {
+  width: 125px;
+  flex: 1.25;
+}
+.chroniclesystem.sheet .big-field,
+.chroniclesystem.sheet .size150 {
+  width: 150px;
+  flex: 1.5;
+}
+.chroniclesystem.sheet .biggest-field,
+.chroniclesystem.sheet .size200 {
+  width: 200px;
+  flex: 2;
+}
+.chroniclesystem.sheet .size300 {
+  width: 300px;
+  flex: 3;
+}
+.chroniclesystem.sheet .size400 {
+  width: 400px;
+  flex: 4;
+}
+.chroniclesystem.sheet .list-header {
+  font-weight: bold;
+  margin: 3px;
+  padding: 3px;
+  background-color: black;
+  color: white;
+}
+.chroniclesystem.sheet .list-header div {
+  margin: 2px;
+}
+/*# sourceMappingURL=global.css.map */

@@ -1,0 +1,76 @@
+@import "constants.less";
+
+
+.chroniclesystem {
+  &.sheet {
+    &.house {
+
+      .profile-picture {
+        margin-right: @big-margin;
+      }
+
+      .holdings {
+        align-content: flex-start;
+      }
+
+      header {
+        margin-bottom: @medium-margin;
+      }
+
+      .members {
+        & > * {
+          margin-left: @big-margin;
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+        .family-list, & .servants-list {
+          .age {
+            flex: 0 0 30px;
+          }
+        }
+      }
+
+      .resource-holdings {
+        flex: 0 0 32%;
+        margin: @medium-margin;
+        height: fit-content;
+
+        .holdings-header {
+          margin: @medium-margin @small-margin+@small-margin;
+          .subheader-field {
+            margin: 0px;
+          }
+        }
+      }
+
+      .list {
+        .list-header {
+          .event-name {
+            padding-top: 12px;
+            padding-left: @small-margin;
+          }
+        }
+        .modifiers p {
+          flex: 0 0 67px;
+          padding: 0 @small-margin;
+        }
+        .item {
+          margin: @small-margin;
+          padding: @medium-margin;
+          &:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        }
+        .event {
+          .event-name {
+            padding-left: @small-margin;
+          }
+          .modifiers {
+            margin: 0 4px;
+          }
+        }
+      }
+    }
+  }
+}

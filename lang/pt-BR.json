@@ -1,0 +1,529 @@
+{
+  "CS": {
+    "notifications": {
+      "dicePoolInvalid": "você não pode fazer este teste porque sua reserva de dados resulta em menos de 1 dado mantido.",
+      "specialtyCapped": "Uma especialidade não pode exceder as graduações de sua habilidade, então foi limitada a {rating}.",
+      "noCharactersToAdd": "Não há personagens neste mundo para adicionar à casa.",
+      "memberNotFound": "Esse personagem não existe mais neste mundo."
+    },
+    "dialogs": {
+      "characterRole": {
+        "title": "Selecione o papel de {actorName} na casa.",
+        "label": "Papel: ",
+        "addTitle": "Adicionar um membro à casa",
+        "character": "Personagem: "
+      },
+      "houseResourceEditor": {
+        "title": "Editor de {resourceName}"
+      },
+      "initiativeSelector": {
+        "title": "Selecione o tipo de confronto",
+        "combat": "Combate",
+        "intrigue": "Intriga",
+        "warfare": "Guerra",
+        "label": "Tipo de Conflito"
+      },
+      "rollModifier": {
+        "title": "Parâmetros da Rolagem",
+        "pool": "Reserva de Dados",
+        "bonusDice": "Dados Bônus",
+        "modifier": "Modificadores",
+        "dicePenalty": "Penalidades",
+        "reRoll": "Rerrolar 1s"
+      },
+      "addingHouseEvent": {
+        "title": "O evento deve gerar os modificadores automaticamente?",
+        "labels": {
+          "generateModifiers": "Gerar os modificadores automaticamente?",
+          "resourcesChoices": "Escolha os recursos que receberão os modificadores",
+          "resourceNumber": "Recurso #{number}:"
+        }
+      },
+      "restoreAbilities": {
+        "title": "Restaurar as habilidades padrão",
+        "content": "Adicionar as {count} habilidades padrão que faltam a este personagem, cada uma com graduação 2? As que ele já possui mantêm suas graduações e especialidades atuais.",
+        "nothingMissing": "Este personagem já possui todas as 19 habilidades padrão.",
+        "done": "Adicionadas {count} habilidades faltantes com graduação 2."
+      },
+      "deleteItem": {
+        "title": "Excluir Item",
+        "content": "Tem certeza de que deseja excluir <strong>{name}</strong>? Isso não pode ser desfeito."
+      },
+      "actions": {
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar"
+      }
+    },
+    "messages": {
+      "nobodyHasBeenChosen": "Ninguém foi escolhido",
+      "actorDoesntExists": "O ator não existe",
+      "notStewardLinked": "Nenhum ator foi vinculado à casa como mordomo"
+    },
+    "chatMessages": {
+      "initiativeRolls": "{name} rola iniciativa de {type}!",
+      "simpleRoll": "{name} faz um teste de {test}!",
+      "customRoll": "{name} faz um teste personalizado de {test}!"
+    },
+    "settings": {
+      "debugLogs": {
+        "name": "Logs de Depuração",
+        "hint": ""
+      },
+      "traceLogs": {
+        "name": "Logs de Rastreamento",
+        "hint": ""
+      },
+      "asoiafDefenseStyle": {
+        "name": "Estilo de Defesa ASoIaF",
+        "hint": "A penalidade da armadura influencia a defesa de combate do personagem. Requer atualizar o Foundry (F5)."
+      },
+      "isModifierDialogDefault": {
+        "name": "Janela de Modificadores como padrão?",
+        "hint": "se marcado, ao clicar nas rolagens de dados da ficha de um ator, a janela de modificadores será exibida, e a rolagem será feita sem a janela ao segurar SHIFT. Cada jogador define sua configuração."
+      }
+    },
+    "sheets": {
+      "characterSheet": "Ficha de Personagem",
+      "houseSheet": "Ficha de Casa",
+      "itemSheet": "Ficha de Item",
+      "abilityItemSheet": "Ficha de Habilidade",
+      "abilityItem": {
+        "ratingHint": "Habilidades começam com 2 graduações. 7 é o auge do talento mortal.",
+        "specialtyCapHint": "Uma especialidade não pode exceder as graduações de sua habilidade."
+      },
+      "generalLabels": {
+        "none": "Nenhum",
+        "description": "Descrição",
+        "details": "Detalhes",
+        "name": "Nome",
+        "total": "Total",
+        "others": "Todas as outras",
+        "add": "Adicionar",
+        "edit": "Editar",
+        "delete": "Excluir",
+        "newItem": "Novo(a) {type}",
+        "rating": "Grad.",
+        "modifier": "Mod",
+        "specialties": "Especialidades",
+        "restoreAbilities": "Restaurar as habilidades padrão",
+        "noSpecialties": "—"
+      },
+      "itemTypes": {
+        "ability": "Habilidade",
+        "weapon": "Arma",
+        "armor": "Armadura",
+        "equipment": "Equipamento",
+        "benefit": "Benefício",
+        "drawback": "Defeito",
+        "technique": "Técnica",
+        "event": "Evento",
+        "holding": "Propriedade"
+      },
+      "house": {
+        "character": {
+          "roles": {
+            "head": "Chefe",
+            "steward": "Mordomo",
+            "heir": "Herdeiro",
+            "family": "Família",
+            "retainer": "Vassalo",
+            "servant": "Servo"
+          }
+        },
+        "events": {
+          "title": "Eventos Históricos",
+          "name": "Evento",
+          "modifiers": "Efeitos"
+        },
+        "fortune": {
+          "title": "Fortuna da Casa",
+          "lawModifier": "Mod. de Lei",
+          "populationModifier": "Mod. de População",
+          "holdingModifier": "Mods. das Propriedades"
+        },
+        "holdings": {
+          "title": "Propriedades"
+        },
+        "resources": {
+          "defense": "Defesa",
+          "influence": "Influência",
+          "lands": "Terras",
+          "law": "Lei",
+          "population": "População",
+          "power": "Poder",
+          "wealth": "Riqueza",
+          "title": "Recursos",
+          "invested": "Investido",
+          "cost": "Custo"
+        },
+        "labels": {
+          "members": "Membros",
+          "head": "Chefe da Casa",
+          "realm": "Reino",
+          "liege": "Suserano",
+          "steward": "Mordomo",
+          "heirsAndFamily": "Herdeiros e Família",
+          "retainersAndServants": "Vassalos e Servos",
+          "startingValue": "Valor Inicial",
+          "coatOfArms": "Brasão",
+          "motto": "Lema"
+        }
+      },
+      "character": {
+        "injury": "Ferimento",
+        "wound": "Lesão",
+        "others": "Todas as outras",
+        "techniques": "Técnicas",
+        "dispositions": {
+          "affectionate": "afetuoso",
+          "friendly": "amigável",
+          "amiable": "amistoso",
+          "indifferent": "indiferente",
+          "dislike": "antipatia",
+          "unfriendly": "hostil",
+          "malicious": "malicioso"
+        },
+        "tabs": {
+          "abilities": "Habilidades",
+          "combat-intrigue": "Combate e Intriga",
+          "qualities": "Qualidades",
+          "sorcery": "Feitiçaria",
+          "equipments": "Equipamentos",
+          "description": "Descrição"
+        }
+      },
+      "eventItem": {
+        "playerChoice": "É uma escolha do jogador?",
+        "numberOfChoices": "Número de Escolhas",
+        "bonusToChoices": "Bônus às Escolhas"
+      },
+      "holdingItem": {
+        "features": "Características",
+        "investment": "Investimento",
+        "buildTime": "Tempo de Construção",
+        "featureName": "Nome da Característica",
+        "featureCost": "Custo da Característica",
+        "fortuneDice": "Dados de Fortuna",
+        "fortuneModifier": "Modificador de Fortuna",
+        "resource": "Recurso",
+        "canAddFeatureAfter": "Você pode definir características específicas da propriedade depois de adicioná-la a uma casa."
+      },
+      "techniqueItem": {
+        "cost": "Custo",
+        "type": "Tipo",
+        "arts": "Artes",
+        "scales": "Escalas",
+        "learning": "Aprendizado",
+        "learningTime": "Tempo",
+        "learningDifficult": "Dificuldade",
+        "resonance": "Ressonância",
+        "tabs": {
+          "details": "Detalhes",
+          "works": "Obras"
+        },
+        "types": {
+          "spell": "Feitiço",
+          "ritual": "Ritual"
+        },
+        "costs": {
+          "destinySpent": "Destino Gasto",
+          "destinyBurnt": "Destino Queimado",
+          "destinyInvested": "Destino Investido"
+        },
+        "test": {
+          "spellcasting": "Conjuração",
+          "invocation": "Invocação",
+          "alignment": "Alinhamento",
+          "unleashing": "Desencadeamento"
+        }
+      }
+    },
+    "constants": {
+      "abilities": {
+        "agility": "Agilidade",
+        "animalHandling": "Lidar com Animais",
+        "athletics": "Atletismo",
+        "awareness": "Percepção",
+        "cunning": "Astúcia",
+        "deception": "Enganação",
+        "endurance": "Vigor",
+        "fighting": "Luta",
+        "healing": "Cura",
+        "knowledge": "Conhecimento",
+        "language": "Idioma",
+        "marksmanship": "Pontaria",
+        "persuasion": "Persuasão",
+        "status": "Status",
+        "stealth": "Furtividade",
+        "survival": "Sobrevivência",
+        "thievery": "Ladinagem",
+        "warfare": "Guerra",
+        "will": "Vontade"
+      },
+      "specialties": {
+        "act": "Atuar",
+        "bargain": "Barganha",
+        "bluff": "Blefar",
+        "charm": "Charme",
+        "convince": "Convencer",
+        "incite": "Incitar",
+        "intimidate": "Intimidar",
+        "run": "Correr",
+        "seduce": "Seduzir",
+        "stewardship": "Administração",
+        "taunt": "Provocar"
+      },
+      "qualities": {
+        "bulk": "volume"
+      },
+      "others": {
+        "wounds": "Lesões",
+        "injuries": "Ferimentos",
+        "frustrations": "Frustrações",
+        "stress": "Estresse",
+        "fatigue": "Fadiga"
+      },
+      "specialtyNames": {
+        "agility": {
+          "acrobatics": "Acrobacia",
+          "balance": "Equilíbrio",
+          "contortions": "Contorcionismo",
+          "dodge": "Esquiva",
+          "quickness": "Rapidez"
+        },
+        "animalHandling": {
+          "charm": "Encantar",
+          "drive": "Conduzir",
+          "ride": "Cavalgar",
+          "train": "Treinar"
+        },
+        "athletics": {
+          "climb": "Escalar",
+          "jump": "Saltar",
+          "run": "Correr",
+          "strength": "Força",
+          "swim": "Nadar",
+          "throw": "Arremessar"
+        },
+        "awareness": {
+          "empathy": "Empatia",
+          "notice": "Notar"
+        },
+        "cunning": {
+          "decipher": "Decifrar",
+          "logic": "Lógica",
+          "memory": "Memória"
+        },
+        "deception": {
+          "act": "Atuar",
+          "bluff": "Blefar",
+          "cheat": "Trapacear",
+          "disguise": "Disfarce"
+        },
+        "endurance": {
+          "resilience": "Resistência",
+          "stamina": "Vitalidade"
+        },
+        "fighting": {
+          "axes": "Machados",
+          "bludgeons": "Armas de Contusão",
+          "brawling": "Briga",
+          "fencing": "Esgrima",
+          "longBlades": "Lâminas Longas",
+          "poleArms": "Armas de Haste",
+          "shields": "Escudos",
+          "shortBlades": "Lâminas Curtas",
+          "spears": "Lanças"
+        },
+        "healing": {
+          "diagnosis": "Diagnóstico",
+          "treatAilment": "Tratar Doença",
+          "treatInjury": "Tratar Ferimento"
+        },
+        "knowledge": {
+          "education": "Educação",
+          "research": "Pesquisa",
+          "streetwise": "Manha"
+        },
+        "language": {},
+        "marksmanship": {
+          "bows": "Arcos",
+          "crossbows": "Bestas",
+          "siegeEngines": "Armas de Cerco",
+          "thrown": "Armas Arremessadas"
+        },
+        "persuasion": {
+          "bargain": "Barganha",
+          "charm": "Charme",
+          "convince": "Convencer",
+          "incite": "Incitar",
+          "intimidate": "Intimidar",
+          "seduce": "Seduzir",
+          "taunt": "Provocar"
+        },
+        "status": {
+          "breeding": "Criação",
+          "reputation": "Reputação",
+          "stewardship": "Administração",
+          "tourneys": "Torneios"
+        },
+        "stealth": {
+          "blendIn": "Mesclar-se",
+          "sneak": "Esgueirar-se"
+        },
+        "survival": {
+          "forage": "Coletar",
+          "hunt": "Caçar",
+          "orientation": "Orientar-se",
+          "track": "Rastrear"
+        },
+        "thievery": {
+          "pickLock": "Arrombar",
+          "sleightOfHand": "Prestidigitação",
+          "steal": "Furtar"
+        },
+        "warfare": {
+          "command": "Comandar",
+          "strategy": "Estratégia",
+          "tactics": "Tática"
+        },
+        "will": {
+          "coordinate": "Coordenar",
+          "courage": "Coragem",
+          "dedication": "Dedicação"
+        }
+      }
+    },
+    "ui": {
+      "character": {
+        "ancestry": "Linhagem:",
+        "gender": "Gênero:",
+        "ageLabel": "Idade:"
+      },
+      "common": {
+        "name": "Nome",
+        "modifier": "Modificador",
+        "current": "Atual",
+        "penalty": "Penalidade",
+        "rating": "Graduação",
+        "damage": "Dano",
+        "total": "Total",
+        "value": "Valor",
+        "bulk": "Volume",
+        "test": "Teste",
+        "weight": "Peso",
+        "qualities": "Qualidades",
+        "cost": "Custo",
+        "age": "Idade"
+      },
+      "abilities": {
+        "abilities": "Habilidades",
+        "pool": "Reserva"
+      },
+      "combatIntrigue": {
+        "runBonusHint": "Bônus de corrida: metade dos dados bônus do seu teste de Atletismo (Correr), arredondado para baixo",
+        "bulkHint": "Volume: metade do volume da armadura que você veste, arredondado para baixo",
+        "sprintMultHint": "Multiplicador de corrida — 4 por padrão",
+        "otherMoveModifier": "Qualquer outro modificador de movimento",
+        "yardsPerMove": "Jardas percorridas com uma ação de movimento",
+        "yardsSprint": "Jardas percorridas em disparada",
+        "equippedWeapons": "Armas Equipadas",
+        "equippedArmor": "Armadura Equipada",
+        "currentDisposition": "Disposição Atual",
+        "removeInjury": "Remover este ferimento",
+        "removeWound": "Remover esta lesão",
+        "intrigueDefense": "Defesa de Intriga",
+        "destinyPoints": "Pontos de Destino",
+        "combatDefense": "Defesa de Combate",
+        "takeInjury": "Sofrer um ferimento",
+        "baseMovement": "Movimento base",
+        "takeWound": "Sofrer uma lesão",
+        "frustration": "Frustração",
+        "description": "Descrição",
+        "techniques": "Técnicas",
+        "persuasion": "Persuasão",
+        "composure": "Compostura",
+        "technique": "Técnica",
+        "influence": "Influência",
+        "deception": "Enganação",
+        "intrigue": "Intriga",
+        "movement": "Movimento",
+        "injuries": "Ferimentos",
+        "fatigue": "Fadiga",
+        "stress": "Estresse",
+        "combat": "Combate",
+        "health": "Saúde",
+        "sprint": "Disparada",
+        "wounds": "Lesões",
+        "weapon": "Arma",
+        "mult": "Mult.",
+        "armor": "Armadura",
+        "move": "Mover",
+        "base": "Base",
+        "run": "Corrida"
+      },
+      "description": {
+        "features": "Traços Marcantes",
+        "history": "História Pessoal",
+        "hairColorLabel": "Cor do Cabelo:",
+        "motivationLabel": "Motivação:",
+        "appearance": "Aparência",
+        "eyeColorLabel": "Cor dos Olhos:",
+        "hairColor": "Cor do Cabelo",
+        "mannerisms": "Maneirismos",
+        "motivation": "Motivação",
+        "eyeColor": "Cor dos Olhos",
+        "xpSpentLabel": "XP Gasto:",
+        "xpTotalLabel": "XP Total:",
+        "heightLabel": "Altura:",
+        "weightLabel": "Peso:",
+        "concept": "Conceito",
+        "virtueLabel": "Virtude:",
+        "enemies": "Inimigos",
+        "height": "Altura",
+        "gloryLabel": "Glória:",
+        "virtue": "Virtude",
+        "allies": "Aliados",
+        "spent": "Gasto",
+        "viceLabel": "Vício:",
+        "goalLabel": "Objetivo:",
+        "oaths": "Juramentos",
+        "motto": "Lema",
+        "vice": "Vício",
+        "goal": "Objetivo"
+      },
+      "equipments": {
+        "equipments": "Equipamentos",
+        "currency": "Moedas",
+        "quantity": "Quantidade",
+        "copperLabel": "Cobre:",
+        "coppers": "Cobres",
+        "silverLabel": "Prata:",
+        "silvers": "Pratas",
+        "weapons": "Armas",
+        "armors": "Armaduras",
+        "goldLabel": "Ouro:",
+        "golds": "Ouros",
+        "dmg": "Dano"
+      },
+      "qualities": {
+        "drawbacks": "Defeitos",
+        "benefits": "Benefícios"
+      },
+      "sorcery": {
+        "sorceryPoints": "Pontos de Feitiçaria"
+      },
+      "abilityItem": {
+        "specialtyName": "Nome da Especialidade",
+        "specialties": "Especialidades",
+        "modifierLabel": "Modificador:",
+        "ratingLabel": "Graduação:"
+      },
+      "weaponItem": {
+        "testLabel": "Teste:",
+        "damageLabel": "Dano:"
+      }
+    }
+  }
+}

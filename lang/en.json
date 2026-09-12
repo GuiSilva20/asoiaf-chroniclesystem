@@ -1,0 +1,529 @@
+{
+  "CS": {
+    "notifications": {
+      "dicePoolInvalid": "you cannot roll this test because your dice pool results in less than 1 die being kept.",
+      "specialtyCapped": "A specialty cannot exceed the ranks of its ability, so it was capped at {rating}.",
+      "noCharactersToAdd": "There are no characters in this world to add to the house.",
+      "memberNotFound": "That character no longer exists in this world."
+    },
+    "dialogs": {
+      "characterRole": {
+        "title": "Select the role of {actorName} in the house.",
+        "label": "Role: ",
+        "addTitle": "Add a member to the house",
+        "character": "Character: "
+      },
+      "houseResourceEditor": {
+        "title": "{resourceName} Editor"
+      },
+      "initiativeSelector": {
+        "title": "Select the encounter type",
+        "combat": "Combat",
+        "intrigue": "Intrigue",
+        "warfare": "Warfare",
+        "label": "Conflict Type"
+      },
+      "rollModifier": {
+        "title": "Roll Parameters",
+        "pool": "Dice Pool",
+        "bonusDice": "Bonus Dice",
+        "modifier": "Modifiers",
+        "dicePenalty": "Penalties",
+        "reRoll": "Re-Roll 1s"
+      },
+      "addingHouseEvent": {
+        "title": "Should the event generate the modifiers automatically?",
+        "labels": {
+          "generateModifiers": "Generate the modifiers automatically?",
+          "resourcesChoices": "Choose the resources that will receive the modifiers",
+          "resourceNumber": "Resource #{number}:"
+        }
+      },
+      "restoreAbilities": {
+        "title": "Restore the standard abilities",
+        "content": "Add the {count} standard abilities this character is missing, each at rank 2? Abilities it already has keep their current ranks and specialties.",
+        "nothingMissing": "This character already has all 19 standard abilities.",
+        "done": "Added {count} missing abilities at rank 2."
+      },
+      "deleteItem": {
+        "title": "Delete Item",
+        "content": "Are you sure you want to delete <strong>{name}</strong>? This cannot be undone."
+      },
+      "actions": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
+    },
+    "messages": {
+      "nobodyHasBeenChosen": "Nobody has been chosen",
+      "actorDoesntExists": "Actor doesn't exists",
+      "notStewardLinked": "No actor has been linked to the house like steward"
+    },
+    "chatMessages": {
+      "initiativeRolls": "{name} rolls for {type} initiative!",
+      "simpleRoll": "{name} make a {test} roll!",
+      "customRoll": "{name} make a custom {test} roll!"
+    },
+    "settings": {
+      "debugLogs": {
+        "name": "Debug Logs",
+        "hint": ""
+      },
+      "traceLogs": {
+        "name": "Trace Logs",
+        "hint": ""
+      },
+      "asoiafDefenseStyle": {
+        "name": "ASoIaF Defense Style",
+        "hint": "The armor penalty influences the character's combat defense. This Needs Foundry refresh (F5)."
+      },
+      "isModifierDialogDefault": {
+        "name": "Modifier Dialog as Default?",
+        "hint": "if checked, when clicking on dice rolls on an actor's sheet, it will show the modifiers window, and will make the roll without showing the window when holding the SHIFT key. Each player defines his configuration."
+      }
+    },
+    "sheets": {
+      "characterSheet": "Character Sheet",
+      "houseSheet": "House Sheet",
+      "itemSheet": "Item Sheet",
+      "abilityItemSheet": "Ability Sheet",
+      "abilityItem": {
+        "ratingHint": "Abilities start at 2 ranks. 7 is the peak of mortal talent.",
+        "specialtyCapHint": "A specialty cannot exceed the ranks of its ability."
+      },
+      "generalLabels": {
+        "none": "None",
+        "description": "Description",
+        "details": "Details",
+        "name": "Name",
+        "total": "Total",
+        "others": "Others",
+        "add": "Add",
+        "edit": "Edit",
+        "delete": "Delete",
+        "newItem": "New {type}",
+        "rating": "Rank",
+        "modifier": "Mod",
+        "specialties": "Specialties",
+        "restoreAbilities": "Restore the standard abilities",
+        "noSpecialties": "—"
+      },
+      "itemTypes": {
+        "ability": "Ability",
+        "weapon": "Weapon",
+        "armor": "Armor",
+        "equipment": "Equipment",
+        "benefit": "Benefit",
+        "drawback": "Drawback",
+        "technique": "Technique",
+        "event": "Event",
+        "holding": "Holding"
+      },
+      "house": {
+        "character": {
+          "roles": {
+            "head": "Head",
+            "steward": "Steward",
+            "heir": "Heir",
+            "family": "Family",
+            "retainer": "Retainer",
+            "servant": "Servant"
+          }
+        },
+        "events": {
+          "title": "Historical Events",
+          "name": "Event",
+          "modifiers": "Effects"
+        },
+        "fortune": {
+          "title": "House Fortune",
+          "lawModifier": "Law Mod",
+          "populationModifier": "Population Mod",
+          "holdingModifier": "Mods from Holdings"
+        },
+        "holdings": {
+          "title": "Holdings"
+        },
+        "resources": {
+          "defense": "Defense",
+          "influence": "Influence",
+          "lands": "Lands",
+          "law": "Law",
+          "population": "Population",
+          "power": "Power",
+          "wealth": "Wealth",
+          "title": "Resources",
+          "invested": "Invested",
+          "cost": "Cost"
+        },
+        "labels": {
+          "members": "Members",
+          "head": "Head of House",
+          "realm": "Realm",
+          "liege": "Liege",
+          "steward": "Steward",
+          "heirsAndFamily": "Heirs and Family",
+          "retainersAndServants": "Retainers and Servants",
+          "startingValue": "Starting Value",
+          "coatOfArms": "Coat of Arms",
+          "motto": "Motto"
+        }
+      },
+      "character": {
+        "injury": "Injury",
+        "wound": "Wound",
+        "others": "Others",
+        "techniques": "Techniques",
+        "dispositions": {
+          "affectionate": "affectionate",
+          "friendly": "friendly",
+          "amiable": "amiable",
+          "indifferent": "indifferent",
+          "dislike": "dislike",
+          "unfriendly": "unfriendly",
+          "malicious": "malicious"
+        },
+        "tabs": {
+          "abilities": "Abilities",
+          "combat-intrigue": "Combat and Intrigue",
+          "qualities": "Qualities",
+          "sorcery": "Sorcery",
+          "equipments": "Equipments",
+          "description": "Description"
+        }
+      },
+      "eventItem": {
+        "playerChoice": "Is a player choice?",
+        "numberOfChoices": "Number of Choices",
+        "bonusToChoices": "Bonus to Choices"
+      },
+      "holdingItem": {
+        "features": "Features",
+        "investment": "Investment",
+        "buildTime": "Build Time",
+        "featureName": "Feature Name",
+        "featureCost": "Feature Cost",
+        "fortuneDice": "Fortune Dice",
+        "fortuneModifier": "Fortune Modifier",
+        "resource": "Resource",
+        "canAddFeatureAfter": "You can define specific features of the holding after adding it to a house."
+      },
+      "techniqueItem": {
+        "cost": "Cost",
+        "type": "Type",
+        "arts": "Arts",
+        "scales": "Scales",
+        "learning": "Learning",
+        "learningTime": "Time",
+        "learningDifficult": "Difficult",
+        "resonance": "Resonance",
+        "tabs": {
+          "details": "Details",
+          "works": "Works"
+        },
+        "types": {
+          "spell": "Spell",
+          "ritual": "Ritual"
+        },
+        "costs": {
+          "destinySpent": "Destiny Spent",
+          "destinyBurnt": "Destiny Burnt",
+          "destinyInvested": "Destiny Invested"
+        },
+        "test": {
+          "spellcasting": "Spellcasting",
+          "invocation": "Invocation",
+          "alignment": "Alignment",
+          "unleashing": "Unleashing"
+        }
+      }
+    },
+    "constants": {
+      "abilities": {
+        "agility": "Agility",
+        "animalHandling": "Animal Handling",
+        "athletics": "Athletics",
+        "awareness": "Awareness",
+        "cunning": "Cunning",
+        "deception": "Deception",
+        "endurance": "Endurance",
+        "fighting": "Fighting",
+        "healing": "Healing",
+        "knowledge": "Knowledge",
+        "language": "Language",
+        "marksmanship": "Marksmanship",
+        "persuasion": "Persuasion",
+        "status": "Status",
+        "stealth": "Stealth",
+        "survival": "Survival",
+        "thievery": "Thievery",
+        "warfare": "Warfare",
+        "will": "Will"
+      },
+      "specialties": {
+        "act": "Act",
+        "bargain": "Bargain",
+        "bluff": "Bluff",
+        "charm": "Charm",
+        "convince": "Convince",
+        "incite": "Incite",
+        "intimidate": "Intimidate",
+        "run": "Run",
+        "seduce": "Seduce",
+        "stewardship": "Stewardship",
+        "taunt": "Taunt"
+      },
+      "qualities": {
+        "bulk": "bulk"
+      },
+      "others": {
+        "wounds": "Wounds",
+        "injuries": "Injuries",
+        "frustrations": "Frustrations",
+        "stress": "Stress",
+        "fatigue": "Fatigue"
+      },
+      "specialtyNames": {
+        "agility": {
+          "acrobatics": "Acrobatics",
+          "balance": "Balance",
+          "contortions": "Contortions",
+          "dodge": "Dodge",
+          "quickness": "Quickness"
+        },
+        "animalHandling": {
+          "charm": "Charm",
+          "drive": "Drive",
+          "ride": "Ride",
+          "train": "Train"
+        },
+        "athletics": {
+          "climb": "Climb",
+          "jump": "Jump",
+          "run": "Run",
+          "strength": "Strength",
+          "swim": "Swim",
+          "throw": "Throw"
+        },
+        "awareness": {
+          "empathy": "Empathy",
+          "notice": "Notice"
+        },
+        "cunning": {
+          "decipher": "Decipher",
+          "logic": "Logic",
+          "memory": "Memory"
+        },
+        "deception": {
+          "act": "Act",
+          "bluff": "Bluff",
+          "cheat": "Cheat",
+          "disguise": "Disguise"
+        },
+        "endurance": {
+          "resilience": "Resilience",
+          "stamina": "Stamina"
+        },
+        "fighting": {
+          "axes": "Axes",
+          "bludgeons": "Bludgeons",
+          "brawling": "Brawling",
+          "fencing": "Fencing",
+          "longBlades": "Long Blades",
+          "poleArms": "Pole-Arms",
+          "shields": "Shields",
+          "shortBlades": "Short Blades",
+          "spears": "Spears"
+        },
+        "healing": {
+          "diagnosis": "Diagnosis",
+          "treatAilment": "Treat Ailment",
+          "treatInjury": "Treat Injury"
+        },
+        "knowledge": {
+          "education": "Education",
+          "research": "Research",
+          "streetwise": "Streetwise"
+        },
+        "language": {},
+        "marksmanship": {
+          "bows": "Bows",
+          "crossbows": "Crossbows",
+          "siegeEngines": "Siege Engines",
+          "thrown": "Thrown"
+        },
+        "persuasion": {
+          "bargain": "Bargain",
+          "charm": "Charm",
+          "convince": "Convince",
+          "incite": "Incite",
+          "intimidate": "Intimidate",
+          "seduce": "Seduce",
+          "taunt": "Taunt"
+        },
+        "status": {
+          "breeding": "Breeding",
+          "reputation": "Reputation",
+          "stewardship": "Stewardship",
+          "tourneys": "Tourneys"
+        },
+        "stealth": {
+          "blendIn": "Blend In",
+          "sneak": "Sneak"
+        },
+        "survival": {
+          "forage": "Forage",
+          "hunt": "Hunt",
+          "orientation": "Orientation",
+          "track": "Track"
+        },
+        "thievery": {
+          "pickLock": "Pick Lock",
+          "sleightOfHand": "Sleight of Hand",
+          "steal": "Steal"
+        },
+        "warfare": {
+          "command": "Command",
+          "strategy": "Strategy",
+          "tactics": "Tactics"
+        },
+        "will": {
+          "coordinate": "Coordinate",
+          "courage": "Courage",
+          "dedication": "Dedication"
+        }
+      }
+    },
+    "ui": {
+      "character": {
+        "ancestry": "Ancestry:",
+        "gender": "Gender:",
+        "ageLabel": "Age:"
+      },
+      "common": {
+        "name": "Name",
+        "modifier": "Modifier",
+        "current": "Current",
+        "penalty": "Penalty",
+        "rating": "Rating",
+        "damage": "Damage",
+        "total": "Total",
+        "value": "Value",
+        "bulk": "Bulk",
+        "test": "Test",
+        "weight": "Weight",
+        "qualities": "Qualities",
+        "cost": "Cost",
+        "age": "Age"
+      },
+      "abilities": {
+        "abilities": "Abilities",
+        "pool": "Pool"
+      },
+      "combatIntrigue": {
+        "runBonusHint": "Run bonus: half the bonus dice of your Athletics (Run) test, rounded down",
+        "bulkHint": "Bulk: half the bulk of the armor you are wearing, rounded down",
+        "sprintMultHint": "Sprint multiplier - 4 by default",
+        "otherMoveModifier": "Any other modifier to movement",
+        "yardsPerMove": "Yards moved with a move action",
+        "yardsSprint": "Yards covered when sprinting",
+        "equippedWeapons": "Current Equipped Weapons",
+        "equippedArmor": "Current Equipped Armor",
+        "currentDisposition": "Current Disposition",
+        "removeInjury": "Remove this injury",
+        "removeWound": "Remove this wound",
+        "intrigueDefense": "Intrigue Defense",
+        "destinyPoints": "Destiny Points",
+        "combatDefense": "Combat Defense",
+        "takeInjury": "Take an injury",
+        "baseMovement": "Base movement",
+        "takeWound": "Take a wound",
+        "frustration": "Frustration",
+        "description": "Description",
+        "techniques": "Techniques",
+        "persuasion": "Persuasion",
+        "composure": "Composure",
+        "technique": "Technique",
+        "influence": "Influence",
+        "deception": "Deception",
+        "intrigue": "Intrigue",
+        "movement": "Movement",
+        "injuries": "Injuries",
+        "fatigue": "Fatigue",
+        "stress": "Stress",
+        "combat": "Combat",
+        "health": "Health",
+        "sprint": "Sprint",
+        "wounds": "Wounds",
+        "weapon": "Weapon",
+        "mult": "Mult.",
+        "armor": "Armor",
+        "move": "Move",
+        "base": "Base",
+        "run": "Run"
+      },
+      "description": {
+        "features": "Distinguishing Features",
+        "history": "Personal History",
+        "hairColorLabel": "Hair Color:",
+        "motivationLabel": "Motivation:",
+        "appearance": "Appearance",
+        "eyeColorLabel": "Eye Color:",
+        "hairColor": "Hair Color",
+        "mannerisms": "Mannerisms",
+        "motivation": "Motivation",
+        "eyeColor": "Eye Color",
+        "xpSpentLabel": "XP Spent:",
+        "xpTotalLabel": "XP Total:",
+        "heightLabel": "Height:",
+        "weightLabel": "Weight:",
+        "concept": "Concept",
+        "virtueLabel": "Virtue:",
+        "enemies": "Enemies",
+        "height": "Height",
+        "gloryLabel": "Glory:",
+        "virtue": "Virtue",
+        "allies": "Allies",
+        "spent": "Spent",
+        "viceLabel": "Vice:",
+        "goalLabel": "Goal:",
+        "oaths": "Oaths",
+        "motto": "Motto",
+        "vice": "Vice",
+        "goal": "Goal"
+      },
+      "equipments": {
+        "equipments": "Equipments",
+        "currency": "Currency",
+        "quantity": "Quantity",
+        "copperLabel": "Copper:",
+        "coppers": "Coopers",
+        "silverLabel": "Silver:",
+        "silvers": "Silvers",
+        "weapons": "Weapons",
+        "armors": "Armors",
+        "goldLabel": "Gold:",
+        "golds": "Golds",
+        "dmg": "Dmg"
+      },
+      "qualities": {
+        "drawbacks": "Drawbacks",
+        "benefits": "Benefits"
+      },
+      "sorcery": {
+        "sorceryPoints": "Sorcery Points"
+      },
+      "abilityItem": {
+        "specialtyName": "Specialty Name",
+        "specialties": "Specialties",
+        "modifierLabel": "Modifier:",
+        "ratingLabel": "Rating:"
+      },
+      "weaponItem": {
+        "testLabel": "Test:",
+        "damageLabel": "Damage:"
+      }
+    }
+  }
+}

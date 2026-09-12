@@ -1,0 +1,497 @@
+/* =============================================================================
+   Chronicle System — Westeros theme
+   -----------------------------------------------------------------------------
+   Loaded last, so it overrides styles/global.css, styles/actor-sheet.css and
+   styles/less/global.css without touching them. Delete this file from the
+   "styles" array in system.json to go back to the stock look.
+
+   Type rule requested by the user:
+     - "Game of Thrones" (display face) drives tabs, section headers, subtitles
+       and small UI labels.
+     - Free text the player types or reads in bulk — inputs, textareas, rich
+       text editors, descriptions — deliberately does NOT use it.
+
+   IMPORTANT — glyph coverage of Game of Thrones.ttf (verified by reading the
+   font's cmap table): it contains ONLY A-Z and a-z. It has no digits, no
+   punctuation and no accented characters. Anything it cannot draw silently
+   falls back to the next family in the stack, mid-word.
+
+   So the display face is applied ONLY to fixed UI chrome whose text this
+   system controls and which is letters-only: the window title, the tabs, the
+   section header bars and the list column headers. It is deliberately NOT
+   applied to anything data-driven (item names, ability names, character name)
+   or to any label containing ":" or a number — a Portuguese item name like
+   "Poção" or a counter like "Injuries (2 / 5)" would otherwise render half in
+   one font and half in another. The fallback is a serif chosen to sit next to
+   the display face without jarring.
+
+   Palette:
+     #ff0000  bright red   — hover / focus accent, danger
+     #bd0000  blood red    — active accent, rules, delete
+     #03354c  night navy   — header bars, primary chrome
+     #031e2a  deep navy    — subheaders, darkest chrome
+     #000000  black        — ink
+   ============================================================================= */
+
+/* A fonte "GameOfThrones" segue declarada porque é decorativa e serve para
+   títulos escritos à mão em inglês, mas ela NÃO entra em --cs-display: o
+   arquivo tem apenas 55 glifos e não possui nenhum caractere acentuado
+   (á à â ã é ê í ó ô õ ú ü ç, maiúsculas correspondentes) nem o travessão —.
+   Em pt-BR, palavras como "Astúcia", "Percepção" e "Enganação" quebravam.
+
+   O fallback do CSS é por GLIFO, não por fonte: mantê-la em primeiro lugar
+   faria cada palavra acentuada misturar duas tipografias no meio de si mesma.
+   Por isso a pilha começa direto numa serifa com cobertura latina completa. */
+@font-face {
+    font-family: "GameOfThrones";
+    src: url("../assets/fonts/game-of-thrones.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.chroniclesystem {
+    /* type */
+    --cs-display: "Cinzel", "Trajan Pro", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    --cs-body: "Signika", "Palatino Linotype", "Book Antiqua", serif;
+
+    /* palette */
+    --cs-red: #ff0000;
+    --cs-red-dark: #bd0000;
+    --cs-navy: #03354c;
+    --cs-navy-deep: #031e2a;
+    --cs-black: #000000;
+
+    /* neutrals derived from the palette */
+    --cs-surface: #ffffff;
+    --cs-page: #e7ebee;
+    --cs-page-edge: #d3dade;
+    --cs-ink: #10171c;
+    /* navy-tinted grey, dark enough to clear 4.5:1 on white, on --cs-page and
+       on --cs-page-edge — the ability rows sit straight on the page gradient,
+       so the lighter grey this started as failed there */
+    --cs-muted: #51616c;
+}
+
+/* -----------------------------------------------------------------------------
+   1. Page / window chrome
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet .window-content {
+    background: linear-gradient(180deg, var(--cs-page) 0%, var(--cs-page-edge) 100%);
+    color: var(--cs-ink);
+}
+
+.chroniclesystem .window-header .window-title {
+    font-family: var(--cs-display);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+}
+
+/* -----------------------------------------------------------------------------
+   2. Tabs
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet .window-content .sheet-tabs {
+    padding: 4px 4px 0 4px;
+    border-bottom: 2px solid var(--cs-navy-deep);
+    gap: 2px;
+}
+
+.chroniclesystem.sheet .window-content .sheet-tabs .item {
+    font-family: var(--cs-display);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    padding: 6px 4px 5px 4px;
+    background: transparent;
+    color: var(--cs-navy-deep);
+    border-bottom: 3px solid transparent;
+    transition: color 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+.chroniclesystem.sheet .window-content .sheet-tabs .item:hover {
+    color: var(--cs-red-dark);
+    border-bottom-color: var(--cs-red);
+    text-shadow: none;
+}
+
+.chroniclesystem.sheet .window-content .sheet-tabs .item.active {
+    background: var(--cs-navy);
+    color: #ffffff;
+    border-bottom-color: var(--cs-red-dark);
+    text-decoration: none;
+}
+
+/* -----------------------------------------------------------------------------
+   3. Section headers and subtitles
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet .window-content .header-field,
+.chroniclesystem.sheet .subheader-field {
+    font-family: var(--cs-display);
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    padding: 6px 8px;
+}
+
+.chroniclesystem.sheet .window-content .header-field {
+    background: var(--cs-navy);
+    border-bottom: 2px solid var(--cs-red-dark);
+}
+
+.chroniclesystem.sheet .subheader-field {
+    background: var(--cs-navy-deep);
+    border-bottom: 1px solid var(--cs-red-dark);
+}
+
+/* keep the title optically centred even when an add button sits on the right */
+.chroniclesystem.sheet .header-field.flexrow,
+.chroniclesystem.sheet .subheader-field.flexrow {
+    position: relative;
+}
+
+.chroniclesystem.sheet .header-field.flexrow .header-title,
+.chroniclesystem.sheet .subheader-field.flexrow .header-title {
+    flex: 1;
+    text-align: center;
+}
+
+.chroniclesystem.sheet .header-field-add {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+.chroniclesystem.sheet .header-field-add a {
+    color: rgba(255, 255, 255, 0.75);
+    padding: 2px 4px;
+    line-height: 1;
+    transition: color 120ms ease, text-shadow 120ms ease;
+}
+
+.chroniclesystem.sheet .header-field-add a:hover {
+    color: var(--cs-red);
+    text-shadow: 0 0 6px rgba(255, 0, 0, 0.45);
+}
+
+/* Column headers inside the lists. These sit on a dark bar (the stock rule in
+   styles/less/global.css paints them black), so the text has to stay light —
+   recolouring it to a dark token here would land near-black on black. */
+.chroniclesystem.sheet .list-header {
+    font-family: var(--cs-display);
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    background-color: var(--cs-navy-deep);
+    color: #ffffff;
+    border-bottom: 1px solid var(--cs-red-dark);
+}
+
+/* table headers are the same kind of bar — keep them on the palette */
+.chroniclesystem.sheet.actor table thead {
+    background: var(--cs-navy-deep);
+    color: #ffffff;
+    border-bottom: 1px solid var(--cs-red-dark);
+}
+
+.chroniclesystem.sheet.actor table thead th,
+.chroniclesystem.sheet.actor table thead td {
+    font-family: var(--cs-display);
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    color: #ffffff;
+}
+
+/* counters such as "Injuries (2 / 5)" — the display face has no digits, so the
+   number is split out and kept in the body face on purpose */
+.chroniclesystem.sheet .cs-count {
+    font-family: var(--cs-body);
+    letter-spacing: normal;
+    font-size: 11px;
+    opacity: 0.85;
+    margin-left: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   4. Small labels (the "minor things")
+
+   These carry the palette but stay in the body face: they either contain a
+   colon, a number, or text the player typed, none of which the display font
+   can draw. See the glyph-coverage note at the top of this file.
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet .window-content .sheet-header .header-fields .complements .attribute-label {
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    background: var(--cs-navy);
+}
+
+.chroniclesystem.sheet.actor .ability-label {
+    background: var(--cs-navy);
+    border-left: 3px solid var(--cs-red-dark);
+}
+
+.chroniclesystem.sheet .item .quality-label {
+    background-color: var(--cs-navy);
+    border-left: 3px solid var(--cs-red-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chroniclesystem.sheet.character section.sorcery .techniques-list .technique-header {
+    background-color: var(--cs-navy);
+    border-left: 3px solid var(--cs-red-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chroniclesystem.sheet .equipments .currency label {
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--cs-navy-deep);
+}
+
+/* -----------------------------------------------------------------------------
+   5. Free text keeps a readable face — this is the exception to the rule above
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet input,
+.chroniclesystem.sheet textarea,
+.chroniclesystem.sheet select,
+.chroniclesystem.sheet .description,
+.chroniclesystem.sheet .editor,
+.chroniclesystem.sheet .editor-content,
+.chroniclesystem.sheet .ProseMirror,
+.chroniclesystem.sheet .tox .tox-edit-area,
+.chroniclesystem.sheet .resonance,
+.chroniclesystem.sheet .item-quality {
+    font-family: var(--cs-body);
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.chroniclesystem.sheet input {
+    background: var(--cs-surface);
+    border: 1px solid transparent;
+    border-bottom-color: var(--cs-page-edge);
+    color: var(--cs-ink);
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.chroniclesystem.sheet input:focus {
+    border-color: var(--cs-red-dark);
+    box-shadow: 0 0 0 2px rgba(189, 0, 0, 0.15);
+    outline: none;
+}
+
+.chroniclesystem.sheet input:read-only {
+    background: var(--cs-page);
+    color: var(--cs-muted);
+    box-shadow: none;
+}
+
+/* -----------------------------------------------------------------------------
+   6. Interactive controls
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet a.checkButton {
+    color: var(--cs-muted);
+    transition: color 120ms ease;
+}
+
+.chroniclesystem.sheet a.checkButton:hover {
+    color: var(--cs-red);
+}
+
+.chroniclesystem.sheet a.checkButton.activated {
+    color: var(--cs-red-dark);
+}
+
+.chroniclesystem.sheet .item-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    float: none;
+}
+
+.chroniclesystem.sheet .item-controls a,
+.chroniclesystem.sheet .item-controls button {
+    color: var(--cs-muted);
+    padding: 1px 2px;
+    line-height: 1;
+    transition: color 120ms ease;
+}
+
+.chroniclesystem.sheet .item-controls a:hover,
+.chroniclesystem.sheet .item-controls button:hover {
+    color: var(--cs-navy);
+}
+
+.chroniclesystem.sheet .item-controls .item-delete:hover,
+.chroniclesystem.sheet .item-controls a.item-delete:hover,
+.chroniclesystem.sheet .item-controls button.item-delete:hover {
+    color: var(--cs-red);
+}
+
+/* the controls sitting on a dark bar need light icons instead */
+.chroniclesystem.sheet .quality-label .item-controls button,
+.chroniclesystem.sheet .technique-header .item-controls a {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.chroniclesystem.sheet .quality-label .item-controls button:hover,
+.chroniclesystem.sheet .technique-header .item-controls a:hover {
+    color: var(--cs-red);
+}
+
+/* room for the edit + delete icons without squeezing the data columns */
+.chroniclesystem.sheet.actor .tab.equipments .weapons .item-controls,
+.chroniclesystem.sheet.actor .tab.equipments .armors .item-controls {
+    flex: 0 0 92px;
+}
+
+.chroniclesystem.sheet.actor .tab.equipments section.equipments .item-controls {
+    flex: 0 0 56px;
+}
+
+.chroniclesystem.sheet.actor .abilities-list .item .item-controls {
+    flex: 0 0 46px;
+    align-self: center;
+}
+
+/* -----------------------------------------------------------------------------
+   7b. Abilities tab — rank and modifier are edited in place, since setting the
+   19 standard ranks IS character creation in this system
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet.actor .abilities-list .ability-ranks {
+    flex: 0 0 96px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 3px;
+}
+
+.chroniclesystem.sheet.actor .abilities-list .ability-field {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: 26px;
+    padding: 0 2px;
+    text-align: center;
+}
+
+/* the spinner arrows steal most of the width in a field this narrow */
+.chroniclesystem.sheet.actor .ability-field::-webkit-outer-spin-button,
+.chroniclesystem.sheet.actor .ability-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* inherits the dark bar and light text from .list-header above */
+.chroniclesystem.sheet.actor .abilities-list .list-header.ability {
+    align-items: center;
+    padding: 3px;
+}
+
+/* The header cells reuse the data columns for alignment, so they must not
+   inherit their navy/white boxes — and must not repaint the text either, or it
+   goes dark-on-dark against the bar. */
+.chroniclesystem.sheet.actor .abilities-list .list-header .ability-value,
+.chroniclesystem.sheet.actor .abilities-list .list-header .ability-label,
+.chroniclesystem.sheet.actor .abilities-list .list-header .ability-specialities {
+    display: block;
+    background: transparent;
+    border: none;
+    min-height: 0;
+    margin: 3px;
+    text-align: center;
+    color: inherit;
+}
+
+.chroniclesystem.sheet.actor .abilities-list .list-header .ability-label a {
+    color: inherit;
+}
+
+.chroniclesystem.sheet.actor .abilities-list .ability-rank-label {
+    flex: 1 1 0;
+    text-align: center;
+}
+
+.chroniclesystem.sheet .abilities-restore {
+    color: rgba(255, 255, 255, 0.75);
+    padding: 2px 4px;
+    line-height: 1;
+    transition: color 120ms ease, text-shadow 120ms ease;
+}
+
+.chroniclesystem.sheet .abilities-restore:hover {
+    color: var(--cs-red);
+    text-shadow: 0 0 6px rgba(255, 0, 0, 0.45);
+}
+
+/* -----------------------------------------------------------------------------
+   7. Lists, rows and remaining accents
+   -------------------------------------------------------------------------- */
+
+.chroniclesystem.sheet.actor .equipment-list .item {
+    background-color: var(--cs-surface);
+    border-left: 2px solid transparent;
+    transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.chroniclesystem.sheet.actor .equipment-list .item:hover {
+    border-left-color: var(--cs-red-dark);
+    background-color: #fbfbfc;
+}
+
+.chroniclesystem.sheet.actor .disposition-list .disposition.option:hover,
+.chroniclesystem.sheet.actor .disposition-list .disposition.option.selected {
+    background: var(--cs-navy);
+    color: #ffffff;
+}
+
+.chroniclesystem.sheet.actor .disposition-list .disposition.option.selected {
+    box-shadow: inset 3px 0 0 var(--cs-red-dark);
+}
+
+.chroniclesystem .alert {
+    color: var(--cs-red-dark);
+}
+
+.chroniclesystem.sheet .rollable a {
+    transition: color 120ms ease, text-shadow 120ms ease;
+}
+
+.chroniclesystem.sheet .rollable:hover a {
+    color: var(--cs-red-dark);
+    text-shadow: 0 0 5px rgba(189, 0, 0, 0.3);
+}
+
+/* Movement and Sprint rows. Both are read as an equation, so the operators need
+   room to breathe and the result needs to be the thing the eye lands on. */
+.chroniclesystem.sheet.actor .cs-movement > label {
+    font-family: var(--cs-display);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--cs-navy-deep);
+    flex: 0 0 52px;
+}
+
+.chroniclesystem.sheet.actor .cs-movement .form-fields b {
+    color: var(--cs-muted);
+    padding: 0 1px;
+}
+
+.chroniclesystem.sheet.actor .cs-movement input.cs-total {
+    font-weight: 700;
+    color: var(--cs-navy-deep);
+    border-color: var(--cs-navy);
+}
