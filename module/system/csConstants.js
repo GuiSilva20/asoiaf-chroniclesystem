@@ -15,7 +15,13 @@ CSConstants.Templates = {
         HOUSE_RESOURCE_EDITOR: "systems/chroniclesystem/templates/dialogs/houseResourceEditor.html",
         ADDING_HOUSE_EVENT: "systems/chroniclesystem/templates/dialogs/addingHouseEvent.html",
         INITIATIVE_SELECTOR: "systems/chroniclesystem/templates/dialogs/initiative-selector.hbs",
-        ROLL_MODIFIER: "systems/chroniclesystem/templates/dialogs/roll-modifier.hbs"
+        ROLL_MODIFIER: "systems/chroniclesystem/templates/dialogs/roll-modifier.hbs",
+        APPLY_DAMAGE: "systems/chroniclesystem/templates/dialogs/apply-damage.hbs",
+        CHOOSE_ALLY: "systems/chroniclesystem/templates/dialogs/choose-ally.hbs"
+    },
+    Chat: {
+        APPLY_DAMAGE_BUTTON: "systems/chroniclesystem/templates/chat/apply-damage-button.hbs",
+        DAMAGE_RESULT: "systems/chroniclesystem/templates/chat/damage-result.hbs"
     }
 }
 
@@ -25,7 +31,13 @@ CSConstants.Settings = {
     TRACE_LOGS: "traceLogs",
     DEBUG_LOGS: "debugLogs",
     CURRENT_VERSION: "version",
-    MODIFIER_DIALOG_AS_DEFAULT: "isModifierDialogDefault"
+    MODIFIER_DIALOG_AS_DEFAULT: "isModifierDialogDefault",
+    FUMBLE_RULES_ENABLED: "fumbleRulesEnabled"
+}
+
+CSConstants.WeaponQualities = {
+    CASTLE_FORGED: "castle-forged",
+    VALYRIAN_STEEL: "valyrian-steel"
 }
 
 CSConstants.HouseResources = {

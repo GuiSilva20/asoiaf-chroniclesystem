@@ -48,6 +48,7 @@
         },
         "wounds": [],
         "injuries": [],
+        "temporaryEffects": [],
         "currentDisposition": 4,
         "modifiers": {},
         "penalties": {},
@@ -206,6 +207,8 @@
       "specialty": "",
       "training": 0,
       "damage": "",
+      "damageModifierDelta": 0,
+      "broken": false,
       "qualities": [],
       "reach": "",
       "equipped": 0

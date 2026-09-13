@@ -141,6 +141,22 @@ function _readModifierForm(root, fallback) {
     return formula;
 }
 
+/**
+ * The weapon-test roll id only carries the weapon's *name*
+ * ("weapon-test:<name>:<formula>", built by the "weapon-test" Handlebars
+ * helper), not its id, so the actual Item has to be re-resolved here.
+ * Narrowed to currently-equipped weapons to reduce (not eliminate) the
+ * ambiguity of two identically-named weapons.
+ */
+function resolveWeaponByName(actor, name) {
+    return actor.items.find((item) =>
+        item.type === "weapon" &&
+        item.name === name &&
+        item.getCSData().equipped !== ChronicleSystem.equippedConstants.IS_NOT_EQUIPPED
+    );
+}
+ChronicleSystem.resolveWeaponByName = resolveWeaponByName;
+
 async function handleRollAsync(rollType, actor, showModifierDialog = false) {
     const roll_definition = rollType.split(':');
     if (roll_definition.length < 2)
@@ -164,6 +180,15 @@ async function handleRollAsync(rollType, actor, showModifierDialog = false) {
     }
 
     let csRoll = new CSRoll(roll_definition[1], formula);
+
+    if (roll_definition[0] === 'weapon-test') {
+        const weapon = resolveWeaponByName(actor, roll_definition[1]);
+        if (weapon) {
+            weapon.updateDamageValue(actor);
+            csRoll.weaponContext = {weaponId: weapon.id, weaponName: weapon.name};
+        }
+    }
+
     return await csRoll.doRoll(actor, true);
 }
 
@@ -206,6 +231,11 @@ function getActorTestFormula(actor, abilityName, specialtyName = null) {
         specModifier = specialty.modifier ? specialty.modifier : 0;
     }
     formula.reRoll = 0;
+    // Read once: a temporary "+1B to all rolls" effect (Tabela 9-5 crits 7/8)
+    // lives in this global bucket, so every ability test - weapon tests
+    // included, since the weapon-test Handlebars helper calls this same
+    // function - picks it up automatically.
+    const bonusDiceMods = actor.getModifier(ChronicleSystem.modifiersConstants.BONUS_DICE, false, true);
     if (ability !== undefined) {
         // Modifiers and penalties are stored under the stable English slug
         // (ChronicleSystem.modifiersConstants.AGILITY === "agility"), so the
@@ -217,7 +247,7 @@ function getActorTestFormula(actor, abilityName, specialtyName = null) {
 
         let modifiers = actor.getModifier(penaltyType, false, true);
         formula.modifier = ability.getCSData().modifier + specModifier + modifiers.total;
-        formula.bonusDice = specValue;
+        formula.bonusDice = specValue + bonusDiceMods.total;
     } else {
         const penaltyType = abilityKeyFromName(abilityName) ?? abilityName.toLowerCase();
         let penalties = actor.getPenalty(penaltyType, false, true);
@@ -226,7 +256,7 @@ function getActorTestFormula(actor, abilityName, specialtyName = null) {
 
         let modifiers = actor.getModifier(penaltyType, false, true);
         formula.modifier = specModifier + modifiers.total;
-        formula.bonusDice = specValue;
+        formula.bonusDice = specValue + bonusDiceMods.total;
     }
 
     return formula;
@@ -275,7 +305,8 @@ ChronicleSystem.modifiersConstants = {
 
     BULK: "bulk",
     DAMAGE_TAKEN: "damage_taken",
-    COMBAT_DEFENSE: "combat_defense"
+    COMBAT_DEFENSE: "combat_defense",
+    BONUS_DICE: "bonus_dice"
 }
 
 ChronicleSystem.keyConstants = {

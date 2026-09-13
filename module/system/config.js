@@ -22,6 +22,8 @@ import {CSTechniqueItemSheet} from "../items/sheets/cs-technique-item-sheet.js";
 import {migrateData} from "../migrations/migration.js";
 import {CsCombat} from "../combat/cs-combat.js";
 import {CsCombatant} from "../combat/cs-combatant.js";
+import {registerTemporaryEffectHooks} from "../combat/cs-temporary-effects.js";
+import {registerWeaponChatListeners} from "../chat/cs-weapon-chat-listeners.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -67,6 +69,8 @@ Hooks.once("init", async function() {
         { label: SystemUtils.localize("CS.sheets.techniqueItemSheet"), types: ["technique"], makeDefault: true });
 
     registerSystemSettings();
+    registerTemporaryEffectHooks();
+    registerWeaponChatListeners();
     await preloadHandlebarsTemplates();
 });
 
