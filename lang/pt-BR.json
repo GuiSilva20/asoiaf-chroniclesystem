@@ -419,7 +419,8 @@
       },
       "abilities": {
         "abilities": "Habilidades",
-        "pool": "Reserva"
+        "pool": "Reserva",
+        "passive": "Passivo"
       },
       "combatIntrigue": {
         "runBonusHint": "Bônus de corrida: metade dos dados bônus do seu teste de Atletismo (Correr), arredondado para baixo",

@@ -216,7 +216,9 @@
       ],
       "rating": 2,
       "modifier": 0,
-      "specialties": []
+      "specialties": [],
+      "passiveModifierOperator": "+",
+      "passiveModifierValue": 0
     },
     "benefit": {
       "templates": [

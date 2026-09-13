@@ -395,6 +395,30 @@
     margin: 0;
 }
 
+/* passive value (rating x 4): readonly base, +/-/* operator, manual modifier,
+   readonly total — same box-per-field layout as .ability-ranks above */
+.chroniclesystem.sheet.actor .abilities-list .ability-passive {
+    flex: 0 0 168px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin: 3px;
+}
+
+.chroniclesystem.sheet.actor .abilities-list .ability-passive input,
+.chroniclesystem.sheet.actor .abilities-list .ability-passive select {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: 26px;
+    padding: 0 2px;
+    text-align: center;
+}
+
+.chroniclesystem.sheet.actor .abilities-list .ability-passive b {
+    flex: 0 0 auto;
+}
+
 /* inherits the dark bar and light text from .list-header above */
 .chroniclesystem.sheet.actor .abilities-list .list-header.ability {
     align-items: center;
@@ -406,6 +430,7 @@
    goes dark-on-dark against the bar. */
 .chroniclesystem.sheet.actor .abilities-list .list-header .ability-value,
 .chroniclesystem.sheet.actor .abilities-list .list-header .ability-label,
+.chroniclesystem.sheet.actor .abilities-list .list-header .ability-passive,
 .chroniclesystem.sheet.actor .abilities-list .list-header .ability-specialities {
     display: block;
     background: transparent;

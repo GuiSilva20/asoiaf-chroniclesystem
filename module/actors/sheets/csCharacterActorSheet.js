@@ -185,6 +185,11 @@ export class CSCharacterActorSheet extends CSActorSheet {
       return;
     }
 
+    // the passive-value operator is a +/-/* choice, not a number
+    if (input.dataset.field === "system.passiveModifierOperator") {
+      return item.update({[input.dataset.field]: input.value});
+    }
+
     let value = parseInt(input.value, 10);
     if (isNaN(value)) value = 0;
 
