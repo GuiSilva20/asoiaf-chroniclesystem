@@ -34,7 +34,7 @@ export class CSRoll {
         }
 
         const dices = Math.max(pool, 1) + bonusDice;
-        const dieRoll = new Die({faces: 6, number: dices});
+        const dieRoll = new foundry.dice.terms.Die({faces: 6, number: dices});
         await dieRoll.evaluate();
 
         // Die#reroll became async in v12. Without awaiting it, keep() below runs
@@ -54,8 +54,8 @@ export class CSRoll {
         // on it throws "The OperatorTerm has already been evaluated". Only the
         // numeric term still needs evaluating, and Roll.fromTerms below requires
         // every term to be evaluated before it will accept them.
-        const plus = new OperatorTerm({operator: "+"});
-        const bonus = new NumericTerm({number: modifier});
+        const plus = new foundry.dice.terms.OperatorTerm({operator: "+"});
+        const bonus = new foundry.dice.terms.NumericTerm({number: modifier});
         bonus.evaluate();
 
         const resultRoll = Roll.fromTerms([dieRoll, plus, bonus]);
