@@ -42,6 +42,18 @@ const registerSystemSettings = () => {
         },
     });
 
+    game.settings.register(CSConstants.Settings.SYSTEM_NAME, CSConstants.Settings.FUMBLE_RULES_ENABLED, {
+        name: "CS.settings.fumbleRulesEnabled.name",
+        hint: "CS.settings.fumbleRulesEnabled.hint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: (value) => {
+            LOGGER.log(`Changed ${CSConstants.Settings.FUMBLE_RULES_ENABLED} to ${value}`);
+        },
+    });
+
     game.settings.register(CSConstants.Settings.SYSTEM_NAME, CSConstants.Settings.CURRENT_VERSION, {
         name: "Current Version",
         scope: "world",

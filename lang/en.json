@@ -4,7 +4,11 @@
       "dicePoolInvalid": "you cannot roll this test because your dice pool results in less than 1 die being kept.",
       "specialtyCapped": "A specialty cannot exceed the ranks of its ability, so it was capped at {rating}.",
       "noCharactersToAdd": "There are no characters in this world to add to the house.",
-      "memberNotFound": "That character no longer exists in this world."
+      "memberNotFound": "That character no longer exists in this world.",
+      "notOwner": "You do not have permission to apply this damage.",
+      "noDestinyPoints": "This character has no Destiny Points to spend.",
+      "noControlledActor": "You need an assigned character to make this test.",
+      "witnessTestFailed": "{name} fails the Willpower test and suffers -1D on all tests for a round."
     },
     "dialogs": {
       "characterRole": {
@@ -53,6 +57,17 @@
         "save": "Save",
         "cancel": "Cancel",
         "confirm": "Confirm"
+      },
+      "applyDamage": {
+        "title": "Apply Damage",
+        "summary": "{attacker} attacks with {weapon} (result {total}).",
+        "defense": "Combat Defense",
+        "target": "Target: {name}",
+        "noTarget": "No target detected - only the damage will be calculated, with no automation."
+      },
+      "chooseAlly": {
+        "title": "Choose Hit Ally",
+        "label": "Which ally is hit?"
       }
     },
     "messages": {
@@ -64,6 +79,100 @@
       "initiativeRolls": "{name} rolls for {type} initiative!",
       "simpleRoll": "{name} make a {test} roll!",
       "customRoll": "{name} make a custom {test} roll!"
+    },
+    "chat": {
+      "applyDamage": {
+        "button": "Apply Damage",
+        "resolved": "Damage already applied"
+      },
+      "results": {
+        "missTitle": "Attack missed",
+        "hitTitle": "Attack hit",
+        "criticalTitle": "Critical!",
+        "fumbleTitle": "Fumble!",
+        "miss": "{name} misses the attack against {target} (total {total} vs. Defense {defense}).",
+        "hit": "{name} hits {target}: {vezes}x{damage} - {soak} armor reduction = {final} damage.",
+        "criticalRowTitle": "Tabela 9-5, row {row}",
+        "fumbleRowTitle": "Tabela 9-6, row {row}",
+        "spendDestiny": "Spend 1 Destiny Point (reduces to the previous row)",
+        "witnessTest": "Request Willpower Test (Challenging 9)",
+        "witnessTestFlavor": "{name} makes a Willpower test (Challenging 9)!",
+        "unnamedTarget": "the target"
+      }
+    },
+    "combat": {
+      "critical": {
+        "rows": {
+          "1": {
+            "label": "Solid Hit",
+            "desc": "You land a firm blow. Increase the weapon's base damage by +2 for this attack."
+          },
+          "2": {
+            "label": "Powerful Hit",
+            "desc": "Your attack leaves the opponent shaken. Increase the weapon's base damage by +4 for this attack."
+          },
+          "3": {
+            "label": "Bloody Wound",
+            "desc": "Your attack causes bleeding. In addition to the damage dealt, your target gains 1 wound. This wound does not reduce the damage. If the opponent cannot take another wound, they suffer an injury instead. If they cannot take an injury, they die."
+          },
+          "4": {
+            "label": "Incapacitating Wound",
+            "desc": "You leave your opponent incapacitated with a horrible wound. In addition to the damage dealt, your target gains 1 injury. This injury does not reduce the damage. If the opponent cannot take another injury, they die."
+          },
+          "5": {
+            "label": "Killing Blow",
+            "desc": "Your attack kills the opponent instantly."
+          },
+          "6": {
+            "label": "Terrible Blow",
+            "desc": "In addition to instantly killing your enemy, you deal your base damage (unchanged by the degree of success) to all opponents adjacent to the victim."
+          },
+          "7": {
+            "label": "Impressive Death",
+            "desc": "Your attack kills the opponent. It is also so impressive that your allies gain +1B on all tests until the end of combat."
+          },
+          "8": {
+            "label": "Horrendous Death",
+            "desc": "You kill your opponent with such force that it shakes every witness. Every character (allies and enemies) who witnessed the attack must succeed at a Challenging (9) Willpower test or suffer -1D on all tests for a round. You gain +1B on all tests until the end of combat."
+          }
+        }
+      },
+      "fumble": {
+        "rows": {
+          "1": {
+            "label": "Self-Inflicted Wound",
+            "desc": "Mishandling your weapon, you wound yourself. Suffer the weapon's damage."
+          },
+          "2": {
+            "label": "Hit an Ally",
+            "desc": "You hit an ally instead of the target. If an ally is adjacent, make a Fighting test. If an ally is in range, make a Marksmanship test. You use the result of this test to hit the ally, as if it were any other target."
+          },
+          "3": {
+            "label": "Drop Weapon",
+            "desc": "The weapon slips from your hand, landing 1d6 meters away in a random direction."
+          },
+          "4": {
+            "label": "Minor Damage",
+            "desc": "The weapon is damaged from excessive use. Reduce its damage by -1. If the weapon's quality is castle-forged or better, treat this result as a '3' (above) instead."
+          },
+          "5": {
+            "label": "Broken",
+            "desc": "The weapon breaks or becomes too damaged. It is now useless and cannot be repaired. If the weapon is castle-forged, treat this result as a '4' (above). If the weapon is Valyrian steel, treat this result as a '3'."
+          },
+          "6": {
+            "label": "Slippery Grip",
+            "desc": "Blood or sweat makes the weapon's grip slippery. Suffer -1D on all attacks until the end of your next turn."
+          },
+          "7": {
+            "label": "Blood in the Eyes",
+            "desc": "Blood or sweat gets in your eyes, affecting your vision. Suffer -1D on all tests until the end of your next turn."
+          },
+          "8": {
+            "label": "Overextended Attack",
+            "desc": "In your eagerness to hit your opponent, you lose your balance and leave an opening in your guard. Suffer a -5 penalty to Combat Defense until the start of your next turn."
+          }
+        }
+      }
     },
     "settings": {
       "debugLogs": {
@@ -81,6 +190,10 @@
       "isModifierDialogDefault": {
         "name": "Modifier Dialog as Default?",
         "hint": "if checked, when clicking on dice rolls on an actor's sheet, it will show the modifiers window, and will make the roll without showing the window when holding the SHIFT key. Each player defines his configuration."
+      },
+      "fumbleRulesEnabled": {
+        "name": "Fumble Rules (Table 9-6)",
+        "hint": "If checked, an attack roll where every die shows '1' is a Fumble, with effects from Table 9-6 instead of a plain miss."
       }
     },
     "sheets": {

@@ -17,6 +17,13 @@ export class CSWeaponItem extends CSItem {
      * otherwise fall through to its silent default of 2.
      */
     updateDamageValue(actor) {
+        // Tabela 9-6 line 5 ("Quebra"): a broken weapon deals no damage
+        // regardless of its formula, and can't be repaired back to a value.
+        if (this.getCSData().broken) {
+            this.damageValue = 0;
+            return;
+        }
+
         const {abilityKey, operator, modifier} = parseDamageFormula(this.getCSData().damage);
         if (!abilityKey) return;
 
@@ -34,12 +41,43 @@ export class CSWeaponItem extends CSItem {
                 case "/": value = amount === 0 ? rating : Math.floor(rating / amount); break;
             }
         }
+
+        // Tabela 9-6 line 4 ("Dano Menor"): a permanent, cumulative penalty
+        // from past fumbles, floored so a badly damaged weapon still works
+        // (0 damage) rather than going negative.
+        value = Math.max(0, value + parseInt(this.getCSData().damageModifierDelta || 0));
         this.damageValue = value;
 
         let adaptableQuality = Object.values(this.getCSData().qualities).filter((quality) => quality.name.toLowerCase() === "adaptable");
         if(adaptableQuality.length > 0 && this.getCSData().equipped === ChronicleSystem.equippedConstants.BOTH_HANDS) {
             this.damageValue += 1;
         }
+    }
+
+    /** Case-insensitive check against this weapon's qualities array. */
+    hasQuality(name) {
+        const qualities = Object.values(this.getCSData().qualities);
+        return qualities.some((quality) => quality.name.toLowerCase() === name.toLowerCase());
+    }
+
+    /**
+     * Tabela 9-6 line 4 ("Dano Menor"): permanently reduces the weapon's
+     * damage. `delta` is expected to be negative (e.g. -1 per fumble).
+     */
+    async applyPermanentDamageReduction(delta) {
+        const current = parseInt(this.getCSData().damageModifierDelta || 0);
+        await this.update({"system.damageModifierDelta": current + delta});
+    }
+
+    /**
+     * Tabela 9-6 line 5 ("Quebra"): the weapon shatters and can no longer be
+     * wielded or repaired.
+     */
+    async markBroken() {
+        await this.update({
+            "system.broken": true,
+            "system.equipped": ChronicleSystem.equippedConstants.IS_NOT_EQUIPPED
+        });
     }
 
     onObtained(actor) {

@@ -199,3 +199,26 @@
   height: 100% !important;
   width: 100%;
 }
+
+.cs-apply-damage-wrapper {
+  margin-top: 4px;
+  text-align: right;
+}
+
+.cs-damage-result {
+  margin-top: 4px;
+  padding: 4px 6px;
+  border-left: 2px solid #782e22;
+}
+
+.cs-damage-result--critical {
+  border-left-color: #a1121a;
+}
+
+.cs-damage-result--fumble {
+  border-left-color: #4b4b4b;
+}
+
+.cs-damage-result p {
+  margin: 2px 0;
+}

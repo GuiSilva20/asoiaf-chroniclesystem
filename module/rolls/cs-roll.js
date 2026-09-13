@@ -13,6 +13,10 @@ export class CSRoll {
         this.entityData = undefined;
         this.rollCard  = "systems/chroniclesystem/templates/chat/cs-base-rollcard.hbs";
         this.results = [];
+        // Set by ChronicleSystem.handleRollAsync for weapon-test rolls so the
+        // chat message can carry {weaponId, weaponName} - the "Aplicar Dano"
+        // button reads it back from the message's flags.
+        this.weaponContext = null;
     }
 
     /**
@@ -61,9 +65,20 @@ export class CSRoll {
         const resultRoll = Roll.fromTerms([dieRoll, plus, bonus]);
         const messageId = this.formula.isUserChanged ? "CS.chatMessages.customRoll" : "CS.chatMessages.simpleRoll";
         const flavor = SystemUtils.format(messageId, {name: actor.name, test: this.title});
+
+        const flags = this.weaponContext
+            ? {chroniclesystem: {weaponTest: {
+                actorId: actor.id,
+                weaponId: this.weaponContext.weaponId,
+                weaponName: this.weaponContext.weaponName,
+                resolved: false
+            }}}
+            : {};
+
         await resultRoll.toMessage({
             speaker: ChatMessage.getSpeaker({actor: actor}),
-            flavor: flavor
+            flavor: flavor,
+            flags: flags
         });
         return resultRoll;
     }

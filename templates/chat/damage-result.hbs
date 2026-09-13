@@ -1,0 +1,28 @@
+<div class="cs-damage-result cs-damage-result--{{outcome}}">
+    {{#ifEquals outcome "miss"}}
+        <p>{{localize "CS.chat.results.miss" name=attackerName target=targetName total=rollTotal defense=defense}}</p>
+    {{/ifEquals}}
+
+    {{#ifEquals outcome "hit"}}
+        <p>{{localize "CS.chat.results.hit" name=attackerName target=targetName vezes=numeroDeVezes damage=baseDamage soak=armorSoak final=finalDamage}}</p>
+    {{/ifEquals}}
+
+    {{#ifEquals outcome "critical"}}
+        <p>{{localize "CS.chat.results.hit" name=attackerName target=targetName vezes=numeroDeVezes damage=baseDamage soak=armorSoak final=finalDamage}}</p>
+        <p class="cs-damage-result-critical-title">{{localize "CS.chat.results.criticalRowTitle" row=critical.row}}</p>
+        <p class="cs-damage-result-critical-label"><strong>{{critical.label}}</strong></p>
+        <p class="cs-damage-result-critical-desc">{{critical.description}}</p>
+        {{#if needsWitnessPrompt}}
+            <button type="button" class="cs-witness-test-button">{{localize "CS.chat.results.witnessTest"}}</button>
+        {{/if}}
+    {{/ifEquals}}
+
+    {{#ifEquals outcome "fumble"}}
+        <p class="cs-damage-result-fumble-title">{{localize "CS.chat.results.fumbleRowTitle" row=row}}</p>
+        <p class="cs-damage-result-fumble-label"><strong>{{label}}</strong></p>
+        <p class="cs-damage-result-fumble-desc">{{description}}</p>
+        {{#if canSpendDestiny}}
+            <button type="button" class="cs-spend-destiny-button">{{localize "CS.chat.results.spendDestiny"}}</button>
+        {{/if}}
+    {{/ifEquals}}
+</div>

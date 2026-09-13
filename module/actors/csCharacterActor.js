@@ -273,8 +273,11 @@ export class CSCharacterActor extends CSActor {
         console.assert(this.modifiers, "call actor.updateTempModifiers before removing a modifier!");
 
         if (this.modifiers[type]) {
-            let index = this.modifiers[type].indexOf((mod) => mod._id === documentId);
-            this.modifiers[type].splice(index, 1);
+            // indexOf() does not take a predicate - passing one here always
+            // returned -1, so splice(-1, 1) silently dropped the *last*
+            // entry in the bucket instead of the one asked for.
+            let index = this.modifiers[type].findIndex((mod) => mod._id === documentId);
+            if (index >= 0) this.modifiers[type].splice(index, 1);
         }
         if (save)
             this.update({"system.modifiers" : this.modifiers});
@@ -286,11 +289,50 @@ export class CSCharacterActor extends CSActor {
         console.assert(this.penalties, "call actor.updateTempPenalties before removing a penalty!");
 
         if (this.penalties[type]) {
-            let index = this.penalties[type].indexOf((mod) => mod._id === documentId);
-            this.penalties[type].splice(index, 1);
+            // See removeModifier() above - same indexOf(predicate) bug.
+            let index = this.penalties[type].findIndex((mod) => mod._id === documentId);
+            if (index >= 0) this.penalties[type].splice(index, 1);
         }
         if (save)
             this.update({"system.penalties" : this.penalties});
+    }
+
+    /**
+     * Adds a wound, mirroring the sheet's own "+ Wound" button
+     * (csCharacterActorSheet.js#_onClickWoundCreate) so automated damage
+     * (Tabela 9-5 crits) shares the exact same bookkeeping rule instead of
+     * a second copy of it. Falls through to an injury when wounds are full,
+     * per Tabela 9-5 line 3 ("Ferida Sangrenta").
+     */
+    async addWound() {
+        const data = this.getCSData();
+        const wounds = Object.values(data.wounds);
+        if (wounds.length >= this.getMaxWounds()) {
+            return this.addInjury();
+        }
+        wounds.push("");
+        this.updateTempPenalties();
+        this.addPenalty(ChronicleSystem.modifiersConstants.ALL, ChronicleSystem.keyConstants.WOUNDS, wounds.length, false);
+        await this.update({"system.wounds": wounds, "system.penalties": this.penalties});
+        return {added: "wound"};
+    }
+
+    /**
+     * Adds an injury, mirroring csCharacterActorSheet.js#_onClickInjuryCreate.
+     * Reports back when injuries are already full so the caller can trigger
+     * the death fallback (Tabela 9-5 line 4 - "Ferimento Incapacitante").
+     */
+    async addInjury() {
+        const data = this.getCSData();
+        const injuries = Object.values(data.injuries);
+        if (injuries.length >= this.getMaxInjuries()) {
+            return {added: "death"};
+        }
+        injuries.push("");
+        this.updateTempModifiers();
+        this.addModifier(ChronicleSystem.modifiersConstants.ALL, ChronicleSystem.keyConstants.INJURY, -injuries.length, false);
+        await this.update({"system.injuries": injuries, "system.modifiers": this.modifiers});
+        return {added: "injury"};
     }
 
     getMaxInjuries() {

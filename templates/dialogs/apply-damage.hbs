@@ -1,0 +1,13 @@
+<form>
+    <p class="cs-apply-damage-summary">
+        {{localize "CS.dialogs.applyDamage.summary" attacker=attackerName weapon=weaponName total=rollTotal}}
+    </p>
+
+    {{> (csFormGroup) id="defense" inputCssClass="size50" value=defense placeHolder="CS.dialogs.applyDamage.defense" labelText="CS.dialogs.applyDamage.defense" dataType=Number }}
+
+    {{#if targetName}}
+        <p class="cs-apply-damage-target">{{localize "CS.dialogs.applyDamage.target" name=targetName}}</p>
+    {{else}}
+        <p class="cs-apply-damage-no-target">{{localize "CS.dialogs.applyDamage.noTarget"}}</p>
+    {{/if}}
+</form>

@@ -4,7 +4,11 @@
       "dicePoolInvalid": "você não pode fazer este teste porque sua reserva de dados resulta em menos de 1 dado mantido.",
       "specialtyCapped": "Uma especialidade não pode exceder as graduações de sua habilidade, então foi limitada a {rating}.",
       "noCharactersToAdd": "Não há personagens neste mundo para adicionar à casa.",
-      "memberNotFound": "Esse personagem não existe mais neste mundo."
+      "memberNotFound": "Esse personagem não existe mais neste mundo.",
+      "notOwner": "Você não tem permissão para aplicar este dano.",
+      "noDestinyPoints": "Este personagem não tem Pontos de Destino para gastar.",
+      "noControlledActor": "Você precisa de um personagem atribuído para fazer este teste.",
+      "witnessTestFailed": "{name} falha no teste de Vontade e sofre -1D em todos os testes por uma rodada."
     },
     "dialogs": {
       "characterRole": {
@@ -53,6 +57,17 @@
         "save": "Salvar",
         "cancel": "Cancelar",
         "confirm": "Confirmar"
+      },
+      "applyDamage": {
+        "title": "Aplicar Dano",
+        "summary": "{attacker} ataca com {weapon} (resultado {total}).",
+        "defense": "Defesa em Combate",
+        "target": "Alvo: {name}",
+        "noTarget": "Nenhum alvo detectado — apenas o dano será calculado, sem automação."
+      },
+      "chooseAlly": {
+        "title": "Escolher Aliado Atingido",
+        "label": "Qual aliado é atingido?"
       }
     },
     "messages": {
@@ -64,6 +79,100 @@
       "initiativeRolls": "{name} rola iniciativa de {type}!",
       "simpleRoll": "{name} faz um teste de {test}!",
       "customRoll": "{name} faz um teste personalizado de {test}!"
+    },
+    "chat": {
+      "applyDamage": {
+        "button": "Aplicar Dano",
+        "resolved": "Dano já aplicado"
+      },
+      "results": {
+        "missTitle": "Ataque errou",
+        "hitTitle": "Ataque acertou",
+        "criticalTitle": "Crítico!",
+        "fumbleTitle": "Fracasso!",
+        "miss": "{name} erra o ataque contra {target} (total {total} contra Defesa {defense}).",
+        "hit": "{name} acerta {target}: {vezes}x{damage} − {soak} de redução de armadura = {final} de dano.",
+        "criticalRowTitle": "Tabela 9-5, linha {row}",
+        "fumbleRowTitle": "Tabela 9-6, linha {row}",
+        "spendDestiny": "Gastar 1 Ponto de Destino (reduz para a linha anterior)",
+        "witnessTest": "Pedir Teste de Vontade (Desafiador 9)",
+        "witnessTestFlavor": "{name} faz um teste de Vontade (Desafiador 9)!",
+        "unnamedTarget": "o alvo"
+      }
+    },
+    "combat": {
+      "critical": {
+        "rows": {
+          "1": {
+            "label": "Acerto Sólido",
+            "desc": "Você acerta um golpe firme. Aumente o dano básico da arma em +2 para este ataque."
+          },
+          "2": {
+            "label": "Acerto Poderoso",
+            "desc": "Seu ataque deixa o oponente abalado. Aumente o dano básico da arma em +4 para este ataque."
+          },
+          "3": {
+            "label": "Ferida Sangrenta",
+            "desc": "Seu ataque causa sangramento. Além do dano causado, seu alvo recebe 1 ferimento. Este ferimento não reduz o dano. Caso o oponente não possa aceitar mais um ferimento, sofre uma lesão. Caso não possa aceitar uma lesão, morre."
+          },
+          "4": {
+            "label": "Ferimento Incapacitante",
+            "desc": "Você deixa seu oponente incapacitado com um ferimento horrível. Além do dano causado, seu alvo recebe 1 lesão. Esta lesão não reduz o dano. Caso o oponente não possa aceitar mais uma lesão, morre."
+          },
+          "5": {
+            "label": "Golpe Matador",
+            "desc": "Seu ataque mata o oponente instantaneamente."
+          },
+          "6": {
+            "label": "Golpe Terrível",
+            "desc": "Além de matar seu inimigo instantaneamente, você causa seu dano básico (inalterado pelo grau de sucesso) a todos os oponentes adjacentes à vítima."
+          },
+          "7": {
+            "label": "Morte Impressionante",
+            "desc": "Seu ataque mata o oponente. Além disso, é tão impressionante que os seus aliados recebem +1B em todos os testes até o fim do combate."
+          },
+          "8": {
+            "label": "Morte Horrenda",
+            "desc": "Você mata seu oponente com tamanha força que abala todas as testemunhas. Todos os personagens (aliados e inimigos) que presenciaram o ataque devem ser bem-sucedidos em testes de Vontade Desafiadores (9) para não sofrer −1D em todos os testes por uma rodada. Você recebe +1B em todos os testes até o fim do combate."
+          }
+        }
+      },
+      "fumble": {
+        "rows": {
+          "1": {
+            "label": "Ferimento Autoinfligido",
+            "desc": "Manuseando sua arma de maneira errada, você fere a si mesmo. Sofra o dano da arma."
+          },
+          "2": {
+            "label": "Atacar Aliado",
+            "desc": "Você atinge um aliado em vez do alvo. Se houver um aliado adjacente, faça um teste de Luta. Se houver um aliado no alcance, faça um teste de Pontaria. Você usa o resultado deste teste para atingir o aliado, como se fosse qualquer outro alvo."
+          },
+          "3": {
+            "label": "Largar Arma",
+            "desc": "A arma escapa de sua mão, caindo a 1d6 metros de distância em uma direção aleatória."
+          },
+          "4": {
+            "label": "Dano Menor",
+            "desc": "A arma danifica-se por uso excessivo. Reduza o dano em −1. Se a qualidade da arma for forjada em castelo ou melhor, trate este resultado como um '3' (acima)."
+          },
+          "5": {
+            "label": "Quebra",
+            "desc": "A arma se parte ou fica muito danificada. Ela agora é inútil e não pode ser consertada. Se a arma for forjada em castelo, trate este resultado como um '4' (acima). Se a arma for feita de aço valyriano, trate este resultado como um '3'."
+          },
+          "6": {
+            "label": "Cabo Escorregadio",
+            "desc": "Sangue ou suor torna o cabo da arma escorregadio. Sofra −1D em todos os ataques até o fim do seu próximo turno."
+          },
+          "7": {
+            "label": "Sangue nos Olhos",
+            "desc": "Sangue ou suor cai em seus olhos, afetando sua visão. Sofra −1D em todos os testes até o final do seu próximo turno."
+          },
+          "8": {
+            "label": "Ataque Exagerado",
+            "desc": "Em sua ânsia para atingir seu oponente, você perde o equilíbrio e oferece a ele uma abertura em sua guarda. Sofra uma penalidade de −5 em Defesa em Combate até o início do seu próximo turno."
+          }
+        }
+      }
     },
     "settings": {
       "debugLogs": {
@@ -81,6 +190,10 @@
       "isModifierDialogDefault": {
         "name": "Janela de Modificadores como padrão?",
         "hint": "se marcado, ao clicar nas rolagens de dados da ficha de um ator, a janela de modificadores será exibida, e a rolagem será feita sem a janela ao segurar SHIFT. Cada jogador define sua configuração."
+      },
+      "fumbleRulesEnabled": {
+        "name": "Regras de Fracasso (Tabela 9-6)",
+        "hint": "Se marcado, uma rolagem de ataque em que todos os dados mostrem '1' é um Fracasso, com efeitos da Tabela 9-6 em vez de um simples erro."
       }
     },
     "sheets": {
