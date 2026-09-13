@@ -18,6 +18,7 @@
                     <div class="ability-rank-label">{{localize "CS.sheets.generalLabels.rating"}}</div>
                     <div class="ability-rank-label">{{localize "CS.sheets.generalLabels.modifier"}}</div>
                 </div>
+                <div class="ability-passive">{{localize "CS.ui.abilities.passive"}}</div>
                 <div class="ability-specialities">{{localize "CS.sheets.generalLabels.specialties"}}</div>
                 <div class="item-controls"></div>
             </li>
@@ -48,6 +49,46 @@
                                value="{{ability.system.modifier}}"
                                title="{{localize 'CS.sheets.generalLabels.modifier'}}"
                                {{#unless @root.owner}}disabled{{/unless}}
+                        />
+                    </div>
+                    <div class="ability-passive flexrow">
+                        {{!-- passive value house rule: rating x 4, adjusted by a
+                              manually chosen +/-/* modifier. Base and total are
+                              readonly; only the operator and modifier write back
+                              to the embedded ability item through .ability-field --}}
+                        <input class="small-field"
+                               type="text"
+                               value="{{ability.system.passiveBase}}"
+                               readonly="readonly"
+                               title="{{localize 'CS.ui.common.value'}}"
+                               data-dtype="Number"
+                        />
+                        <select class="ability-field small-field"
+                                data-item-id="{{ability._id}}"
+                                data-field="system.passiveModifierOperator"
+                                title="{{localize 'CS.sheets.generalLabels.modifier'}}"
+                                {{#unless @root.owner}}disabled{{/unless}}
+                        >
+                            <option value="+" {{#ifEquals ability.system.passiveModifierOperator "+"}}selected{{/ifEquals}}>+</option>
+                            <option value="-" {{#ifEquals ability.system.passiveModifierOperator "-"}}selected{{/ifEquals}}>-</option>
+                            <option value="*" {{#ifEquals ability.system.passiveModifierOperator "*"}}selected{{/ifEquals}}>&times;</option>
+                        </select>
+                        <input class="ability-field small-field"
+                               type="number"
+                               step="1"
+                               data-item-id="{{ability._id}}"
+                               data-field="system.passiveModifierValue"
+                               value="{{ability.system.passiveModifierValue}}"
+                               title="{{localize 'CS.sheets.generalLabels.modifier'}}"
+                               {{#unless @root.owner}}disabled{{/unless}}
+                        />
+                        <b>=</b>
+                        <input class="small-field"
+                               type="text"
+                               value="{{ability.system.passiveTotal}}"
+                               readonly="readonly"
+                               title="{{localize 'CS.sheets.generalLabels.total'}}"
+                               data-dtype="Number"
                         />
                     </div>
                     <div class="ability-specialities">

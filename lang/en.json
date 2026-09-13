@@ -419,7 +419,8 @@
       },
       "abilities": {
         "abilities": "Abilities",
-        "pool": "Pool"
+        "pool": "Pool",
+        "passive": "Passive"
       },
       "combatIntrigue": {
         "runBonusHint": "Run bonus: half the bonus dice of your Athletics (Run) test, rounded down",
