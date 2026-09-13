@@ -1,7 +1,7 @@
 {
   "title": "Chronicle System (Unofficial) - ASOIAF Patched Fork",
   "description": "An implementation for Green Ronin's Chronicle System, used by SIFRP and Sword Chronicles. This is a patched standalone fork of 3darkman's original system with a House Lands resource fix.",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "esmodules": [
     "module/system/config.js"
   ],
@@ -33,7 +33,7 @@
   "secondaryTokenAttribute": "power",
   "url": "https://github.com/GuiSilva20/asoiaf-chroniclesystem/",
   "manifest": "https://raw.githubusercontent.com/GuiSilva20/asoiaf-chroniclesystem/main/system.json",
-  "download": "https://github.com/GuiSilva20/asoiaf-chroniclesystem/releases/download/v0.6.3/chroniclesystem.zip",
+  "download": "https://github.com/GuiSilva20/asoiaf-chroniclesystem/releases/download/v0.6.4/chroniclesystem.zip",
   "license": "ISC",
   "id": "chroniclesystem",
   "authors": [

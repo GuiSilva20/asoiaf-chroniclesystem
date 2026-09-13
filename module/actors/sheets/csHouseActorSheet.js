@@ -28,7 +28,7 @@ export class CSHouseActorSheet extends CSActorSheet {
         });
     }
 
-    getData(options) {
+    async getData(options) {
         let data = super.getData(options);
 
         this.splitItemsByType(data);
@@ -42,6 +42,15 @@ export class CSHouseActorSheet extends CSActorSheet {
         this.prepareRolesData(house, data);
 
         this.prepareFortuneData(house, data);
+
+        // TextEditor.enrichHTML is async-only since v13; the old {{enrich}}
+        // Handlebars helper called it synchronously and rendered "[object
+        // Promise]" instead of the description. Enrich here, ahead of
+        // render, and have the templates output the resolved HTML directly.
+        const holdings = Object.values(house.holdings).flat();
+        for (const item of [...house.historicalEvents, ...holdings]) {
+            item.enrichedDescription = await TextEditor.enrichHTML(item.system.description);
+        }
 
         return data;
     }

@@ -44,10 +44,6 @@ export const registerCustomHelpers = function () {
         LOGGER.trace(content);
     });
 
-    Handlebars.registerHelper('enrich', (content) => {
-        return new Handlebars.SafeString(TextEditor.enrichHTML(content, {async: false}));
-    });
-
     Handlebars.registerHelper('str', (content) => {
         return JSON.stringify(content);
     });

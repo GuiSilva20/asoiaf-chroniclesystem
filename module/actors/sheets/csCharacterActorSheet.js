@@ -43,7 +43,7 @@ export class CSCharacterActorSheet extends CSActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData() {
     const data = super.getData();
     data.dtypes = ["String", "Number", "Boolean"];
     this.splitItemsByType(data);
@@ -56,6 +56,14 @@ export class CSCharacterActorSheet extends CSActorSheet {
     character.owned.armors = this._checkNull(data.itemsByType['armor']);
     character.owned.benefits = this._checkNull(data.itemsByType['benefit']);
     character.owned.drawbacks = this._checkNull(data.itemsByType['drawback']);
+
+    // TextEditor.enrichHTML is async-only since v13; the old {{enrich}}
+    // Handlebars helper called it synchronously and rendered "[object
+    // Promise]" instead of the description. Enrich here, ahead of render,
+    // and have the template output the resolved HTML directly.
+    for (const item of [...character.owned.benefits, ...character.owned.drawbacks]) {
+      item.enrichedDescription = await TextEditor.enrichHTML(item.system.description);
+    }
     character.owned.abilities = this._checkNull(data.itemsByType['ability']).sort((a, b) => a.name.localeCompare(b.name));
     character.owned.techniques = this._checkNull(data.itemsByType['technique']).sort((a, b) => a.name.localeCompare(b.name));
 
@@ -77,10 +85,10 @@ export class CSCharacterActorSheet extends CSActorSheet {
       weapon.formula = formula;
     });
 
-    character.owned.techniques.forEach((technique) => {
+    for (const technique of character.owned.techniques) {
       let techniqueData = technique.system;
       let works = Object.values(techniqueData.works);
-      works.forEach((work) => {
+      for (const work of works) {
         if (work.type === "SPELL") {
           work.test.spellcastingFormula = ChronicleSystem.getActorAbilityFormula(data.actor, work.test.spellcasting, null);
         } else {
@@ -88,8 +96,9 @@ export class CSCharacterActorSheet extends CSActorSheet {
           work.test.invocationFormula = ChronicleSystem.getActorAbilityFormula(data.actor, work.test.invocation, null);
           work.test.unleashingFormula = ChronicleSystem.getActorAbilityFormula(data.actor, work.test.unleashing, null);
         }
-      });
-    });
+        work.enrichedDescription = await TextEditor.enrichHTML(work.description);
+      }
+    }
 
     this._calculateIntrigueTechniques(data);
 
