@@ -1,0 +1,10 @@
+{
+  "name": "chroniclesystem",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"specs/**/*.spec.js\"",
+    "balance": "node specs/cyvasse/balance.sim.js",
+    "balance:characters": "node specs/cyvasse/characters.sim.js"
+  }
+}

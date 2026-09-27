@@ -1,0 +1,38 @@
+<form class="cs-cyvasse-dialog">
+    <div class="form-group">
+        <label for="cs-cyvasse-a">{{labels.a}}</label>
+        <select id="cs-cyvasse-a" name="actorA">
+            {{#each characters}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="cs-cyvasse-b">{{labels.b}}</label>
+        <select id="cs-cyvasse-b" name="actorB">
+            {{#each characters}}
+            <option value="{{id}}" {{#if selectedB}}selected{{/if}}>{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="cs-cyvasse-seconds">{{labels.orderSeconds}}</label>
+        <input id="cs-cyvasse-seconds" type="number" name="orderSeconds" min="0" max="{{maxOrderSeconds}}" step="1" value="{{orderSeconds}}" />
+    </div>
+    <div class="form-group">
+        <label for="cs-cyvasse-pace">{{labels.pace}}</label>
+        <select id="cs-cyvasse-pace" name="pace">
+            {{#each paces}}
+            <option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="cs-cyvasse-open">{{labels.openForAll}}</label>
+        <input id="cs-cyvasse-open" type="checkbox" name="openForAll" checked />
+    </div>
+    <div class="form-group">
+        <label for="cs-cyvasse-auto">{{labels.autoPlay}}</label>
+        <input id="cs-cyvasse-auto" type="checkbox" name="autoPlay" />
+    </div>
+</form>

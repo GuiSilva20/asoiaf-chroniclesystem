@@ -22,6 +22,14 @@ CSConstants.Templates = {
     Chat: {
         APPLY_DAMAGE_BUTTON: "systems/chroniclesystem/templates/chat/apply-damage-button.hbs",
         DAMAGE_RESULT: "systems/chroniclesystem/templates/chat/damage-result.hbs"
+    },
+    Cyvasse: {
+        LAUNCHER: "systems/chroniclesystem/templates/cyvasse/launcher-dialog.hbs",
+        LIVE_CARD: "systems/chroniclesystem/templates/cyvasse/live-card.hbs",
+        MINOR_CARD: "systems/chroniclesystem/templates/cyvasse/minor-card.hbs",
+        ROUND_CARD: "systems/chroniclesystem/templates/cyvasse/round-card.hbs",
+        SUMMARY_CARD: "systems/chroniclesystem/templates/cyvasse/summary-card.hbs",
+        BOARD_VIEWER: "systems/chroniclesystem/templates/cyvasse/board-viewer.hbs"
     }
 }
 

@@ -1,0 +1,709 @@
+/* =============================================================================
+   Cyvasse — chat cards, dialogs and the board viewer.
+   Uses the palette tokens declared on .chroniclesystem in theme.css. Sides are
+   told apart by fill AND by outline (filled navy vs outlined red) plus a
+   letter, so nothing depends on colour alone.
+   ============================================================================= */
+
+.chroniclesystem {
+    --cs-cyvasse-hex-w: 41.57px;
+    --cs-cyvasse-hex-h: 48px;
+    --cs-cyvasse-piece: 30px;
+    --cs-cyvasse-hex: #dfe6ea;
+    --cs-cyvasse-hex-mountain: #b9c4cb;
+    --cs-cyvasse-hex-fortress: #cfd9df;
+    --cs-cyvasse-move-to: #f3d9a4;
+    --cs-cyvasse-move-from: #c9dbe6;
+}
+
+/* -----------------------------------------------------------------------------
+   1. Side markers, shared by cards and viewer
+   -------------------------------------------------------------------------- */
+
+.cs-piece {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--cs-cyvasse-piece);
+    height: var(--cs-cyvasse-piece);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.cs-piece--A {
+    background: var(--cs-navy);
+    border: 2px solid var(--cs-navy-deep);
+    color: var(--cs-surface);
+}
+
+.cs-piece--B {
+    background: var(--cs-surface);
+    border: 2px solid var(--cs-red-dark);
+    color: var(--cs-red-dark);
+}
+
+/* -----------------------------------------------------------------------------
+   2. Chat cards
+   -------------------------------------------------------------------------- */
+
+.cs-cyvasse-card {
+    padding-bottom: 6px;
+    background: var(--cs-surface);
+    color: var(--cs-ink);
+    font-family: var(--cs-body);
+}
+
+.cs-cyvasse-card > :not(.cs-cyvasse-card__header) {
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.cs-cyvasse-card p {
+    color: var(--cs-ink);
+}
+
+.cs-cyvasse-card__header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 6px;
+    padding: 4px 8px;
+    background: var(--cs-navy);
+    color: var(--cs-surface);
+    font-family: var(--cs-display);
+    letter-spacing: 0.06em;
+}
+
+.cs-cyvasse-card__sides {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 6px;
+}
+
+.cs-cyvasse-card__side {
+    padding: 4px 6px;
+    background: var(--cs-page);
+    border-left: 4px solid var(--cs-navy);
+}
+
+.cs-cyvasse-card__side--B {
+    border-left: 4px double var(--cs-red-dark);
+}
+
+.cs-cyvasse-card__name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+}
+
+.cs-cyvasse-card__marker {
+    display: inline-block;
+    min-width: 1.4em;
+    padding: 0 3px;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    color: var(--cs-navy);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.cs-cyvasse-card__side--B .cs-cyvasse-card__marker,
+.cs-cyvasse-card__move--B .cs-cyvasse-card__marker {
+    color: var(--cs-red-dark);
+}
+
+.cs-cyvasse-card__first,
+.cs-cyvasse-card__detail {
+    color: var(--cs-muted);
+    font-size: 12px;
+}
+
+.cs-cyvasse-card__total {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.cs-cyvasse-card__test {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 4px 0;
+}
+
+.cs-cyvasse-card__testname {
+    font-weight: 700;
+}
+
+.cs-cyvasse-dice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+/* A die that was rolled but not kept is struck through as well as dimmed. */
+.cs-die {
+    min-width: 1.6em;
+    padding: 0 3px;
+    border: 1px solid var(--cs-navy-deep);
+    border-radius: 4px;
+    background: var(--cs-surface);
+    color: var(--cs-ink);
+    font-weight: 700;
+    text-align: center;
+}
+
+.cs-die.is-discarded {
+    border-style: dashed;
+    color: var(--cs-muted);
+    font-weight: 400;
+    text-decoration: line-through;
+}
+
+.cs-cyvasse-card__verdict {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cs-cyvasse-tier {
+    align-self: flex-start;
+    padding: 0 6px;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    background: var(--cs-surface);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.cs-cyvasse-tier--dumb { color: var(--cs-red-dark); }
+.cs-cyvasse-tier--contained { color: var(--cs-muted); }
+.cs-cyvasse-tier--smart { color: var(--cs-navy); }
+.cs-cyvasse-tier--bold { color: #8a4b00; }
+.cs-cyvasse-tier--genius { color: var(--cs-navy-deep); border-width: 2px; }
+
+.cs-cyvasse-card__moves {
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cs-cyvasse-card__move {
+    display: flex;
+    gap: 6px;
+    padding: 3px 0;
+    border-top: 1px solid var(--cs-page-edge);
+}
+
+.cs-cyvasse-card__brilliant {
+    margin-left: 4px;
+    color: #8a4b00;
+    font-weight: 700;
+}
+
+.cs-cyvasse-card__winner {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+.cs-cyvasse-card__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 4px;
+    margin: 6px 0;
+}
+
+.cs-cyvasse-card__stats dt {
+    color: var(--cs-muted);
+    font-size: 11px;
+}
+
+.cs-cyvasse-card__stats dd {
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Buttons on the chat cards: Foundry's dark theme gives buttons light text, which vanishes on the
+   light card, so colour and background are set explicitly. */
+.cs-cyvasse-card button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    height: auto;
+    min-height: 28px;
+    margin-top: 4px;
+    padding: 2px 12px;
+    border: 1px solid var(--cs-navy-deep);
+    border-radius: 4px;
+    background: var(--cs-navy);
+    color: var(--cs-surface);
+    font-weight: 700;
+    line-height: 1.3;
+    cursor: pointer;
+}
+
+.cs-cyvasse-card button:hover {
+    background: var(--cs-navy-deep);
+}
+
+.cs-cyvasse-open,
+.cs-cyvasse-launch {
+    cursor: pointer;
+}
+
+.cs-cyvasse-card button:focus-visible,
+.cs-cyvasse-open:focus-visible,
+.cs-cyvasse-launch:focus-visible,
+.cs-cyvasse-viewer__controls button:focus-visible,
+.cs-cyvasse-viewer__log-item:focus-visible {
+    outline: 2px solid var(--cs-red);
+    outline-offset: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   3. Dialogs
+   -------------------------------------------------------------------------- */
+
+.cs-cyvasse-dialog__note {
+    margin: 0 0 8px;
+    color: var(--cs-muted);
+}
+
+/* -----------------------------------------------------------------------------
+   4. Board viewer
+   -------------------------------------------------------------------------- */
+
+/* The window never scrolls as a whole: the board stays put and only the move
+   log scrolls, inside its own column, however long the match gets. */
+.cs-cyvasse .window-content {
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--cs-page) 0%, var(--cs-page-edge) 100%);
+    color: var(--cs-ink);
+}
+
+.cs-cyvasse-viewer {
+    display: grid;
+    flex: 1;
+    grid-template-columns: minmax(0, 1fr) minmax(170px, 30%);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+}
+
+/* With the minor-action menu the window has three columns: menu | board | move log. */
+.cs-cyvasse-viewer.has-minor {
+    grid-template-columns: minmax(190px, 24%) minmax(0, 1fr) minmax(160px, 24%);
+}
+
+.cs-cyvasse-viewer__stage {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+    min-width: 0;
+}
+
+.cs-cyvasse-viewer__players {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cs-cyvasse-viewer__player {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cs-cyvasse-viewer__scroll {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    overflow: auto;
+}
+
+/* The frame takes the scaled size (set in JS); the board inside is scaled from its corner. */
+.cs-cyvasse-board__frame {
+    position: relative;
+    flex: none;
+}
+
+.cs-cyvasse-board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+}
+
+.cs-cyvasse-viewer,
+.cs-cyvasse-viewer p,
+.cs-cyvasse-viewer strong,
+.cs-cyvasse-live {
+    color: var(--cs-ink);
+}
+
+.cs-hex {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--cs-cyvasse-hex-w);
+    height: var(--cs-cyvasse-hex-h);
+    background: var(--cs-cyvasse-hex);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+.cs-hex--mountain { background: var(--cs-cyvasse-hex-mountain); }
+.cs-hex--fortress { background: var(--cs-cyvasse-hex-fortress); }
+.cs-hex.is-from { background: var(--cs-cyvasse-move-from); }
+.cs-hex.is-to { background: var(--cs-cyvasse-move-to); }
+
+.cs-hex__terrain {
+    position: absolute;
+    color: var(--cs-muted);
+    font-size: 20px;
+}
+
+/* Pieces sit in their own layer above the (clipped) hexes so they can slide
+   between hexes when a move is animated. */
+.cs-token,
+.cs-piece--ghost {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+}
+
+.cs-token { z-index: 2; }
+
+.cs-piece--ghost {
+    z-index: 3;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cs-token,
+    .cs-piece--ghost { animation: none; }
+}
+
+/* -----------------------------------------------------------------------------
+   Live match panel: status, orders, GM controls
+   -------------------------------------------------------------------------- */
+
+.cs-cyvasse-live {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 8px;
+    background: var(--cs-surface);
+    border-left: 4px solid var(--cs-navy);
+}
+
+.cs-cyvasse-live__status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.cs-cyvasse-live__count {
+    color: var(--cs-red-dark);
+    font-variant-numeric: tabular-nums;
+}
+
+.cs-cyvasse-live__sides {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cs-cyvasse-live__side {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px 8px;
+}
+
+.cs-cyvasse-live__who {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cs-cyvasse-live__order {
+    color: var(--cs-muted);
+    font-size: 12px;
+}
+
+.cs-cyvasse-live__ready { color: var(--cs-navy); }
+
+.cs-cyvasse-live__choices,
+.cs-cyvasse-live__gm,
+.cs-cyvasse-live__pace {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+}
+
+.cs-cyvasse-live button,
+.cs-cyvasse-viewer__controls button {
+    width: auto;
+    height: auto;
+    min-height: 24px;
+    padding: 1px 8px;
+    border: 1px solid var(--cs-navy);
+    background: var(--cs-surface);
+    color: var(--cs-navy-deep);
+    line-height: 1.3;
+}
+
+.cs-cyvasse-live button:hover:not(:disabled),
+.cs-cyvasse-viewer__controls button:hover:not(:disabled) {
+    background: var(--cs-page-edge);
+}
+
+.cs-cyvasse-live button.is-active {
+    background: var(--cs-navy);
+    color: var(--cs-surface);
+    font-weight: 700;
+}
+
+.cs-cyvasse-live button:focus-visible {
+    outline: 2px solid var(--cs-red);
+    outline-offset: 2px;
+}
+
+.cs-cyvasse-viewer__caption {
+    min-height: 2.6em;
+    margin: 0;
+    font-weight: 700;
+}
+
+.cs-cyvasse-viewer__controls {
+    display: flex;
+    gap: 6px;
+}
+
+.cs-cyvasse-viewer__controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.cs-cyvasse-viewer__side {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.cs-cyvasse-viewer__heading {
+    margin: 0 0 4px;
+    border: 0;
+    color: var(--cs-navy-deep);
+    font-family: var(--cs-display);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+}
+
+/* -----------------------------------------------------------------------------
+   Minor-action menu (right column, above the move log)
+   -------------------------------------------------------------------------- */
+
+/* The menu is its own blue column on the left, like the side panel it was sketched as. */
+.cs-cyvasse-minor {
+    min-height: 0;
+    min-width: 0;
+    padding: 8px;
+    overflow-y: auto;
+    border-radius: 8px;
+    background: var(--cs-navy);
+}
+
+/* Light text on the navy panel (the viewer's own rules colour text dark, so these are more specific). */
+.cs-cyvasse-viewer .cs-cyvasse-minor .cs-cyvasse-viewer__heading,
+.cs-cyvasse-viewer .cs-cyvasse-minor p,
+.cs-cyvasse-viewer .cs-cyvasse-minor strong {
+    color: var(--cs-surface);
+}
+
+.cs-cyvasse-viewer .cs-cyvasse-minor .cs-cyvasse-live__order {
+    color: #d3dade;
+}
+
+/* The hint is its own light card, so it keeps dark text. */
+.cs-cyvasse-viewer .cs-cyvasse-minor .cs-cyvasse-minor__hint {
+    color: var(--cs-ink);
+}
+
+.cs-cyvasse-minor__side {
+    margin-bottom: 6px;
+}
+
+.cs-cyvasse-minor__who {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 3px;
+}
+
+.cs-cyvasse-minor__list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cs-cyvasse-minor__list button {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 6px;
+    width: 100%;
+    height: auto;
+    min-height: 26px;
+    padding: 2px 8px;
+    border: 1px solid var(--cs-navy);
+    background: var(--cs-surface);
+    color: var(--cs-navy-deep);
+    line-height: 1.25;
+    text-align: left;
+}
+
+.cs-cyvasse-minor__list button:hover:not(:disabled) {
+    background: var(--cs-page-edge);
+}
+
+.cs-cyvasse-minor__list button:disabled {
+    border-style: dashed;
+    color: var(--cs-muted);
+    cursor: not-allowed;
+}
+
+.cs-cyvasse-minor__list button:focus-visible {
+    outline: 2px solid var(--cs-red);
+    outline-offset: 2px;
+}
+
+.cs-cyvasse-minor__name {
+    font-weight: 700;
+}
+
+/* What is rolled and what it must beat: always visible, not only in the tooltip. */
+.cs-cyvasse-minor__test {
+    flex-basis: 100%;
+    color: var(--cs-muted);
+    font-size: 11px;
+}
+
+/* The blocking reason is a status badge: its own box, dark text, a glyph. */
+.cs-cyvasse-minor__reason {
+    flex-basis: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 1px 6px;
+    border: 1px solid var(--cs-navy-deep);
+    border-radius: 4px;
+    background: var(--cs-page);
+    color: var(--cs-ink);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.cs-cyvasse-minor__hint {
+    margin: 0 0 6px;
+    padding: 4px 6px;
+    border-left: 4px solid var(--cs-navy);
+    background: var(--cs-surface);
+    color: var(--cs-ink);
+    font-weight: 700;
+}
+
+/* A wrong answer that binds the player is marked by shape (double border), not only by colour. */
+.cs-cyvasse-minor__hint.is-forced {
+    border-left: 4px double var(--cs-red-dark);
+}
+
+.cs-cyvasse-card__minor-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+
+.cs-cyvasse-card__outcome {
+    margin-top: 4px;
+    margin-bottom: 0;
+    padding: 2px 6px;
+    border-left: 4px solid var(--cs-muted);
+    font-weight: 700;
+}
+
+.cs-cyvasse-card__outcome--success { border-left-color: var(--cs-navy); }
+.cs-cyvasse-card__outcome--failure { border-left: 4px dashed var(--cs-muted); }
+.cs-cyvasse-card__outcome--caught { border-left: 4px double var(--cs-red-dark); color: var(--cs-red-dark); }
+
+.cs-cyvasse-viewer__log {
+    flex: 1 1 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.cs-cyvasse-viewer__log-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    height: auto;
+    padding: 2px 4px;
+    border: 0;
+    border-bottom: 1px solid var(--cs-page-edge);
+    background: transparent;
+    color: var(--cs-ink);
+    text-align: left;
+    line-height: 1.3;
+}
+
+.cs-cyvasse-viewer__log-item:hover {
+    background: var(--cs-page-edge);
+}
+
+.cs-cyvasse-viewer__log-item .cs-piece {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+}
+
+.cs-cyvasse-viewer__log-item.is-active {
+    background: var(--cs-cyvasse-move-to);
+    color: var(--cs-ink);
+    font-weight: 700;
+}

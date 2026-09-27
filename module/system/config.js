@@ -24,6 +24,11 @@ import {CsCombat} from "../combat/cs-combat.js";
 import {CsCombatant} from "../combat/cs-combatant.js";
 import {registerTemporaryEffectHooks} from "../combat/cs-temporary-effects.js";
 import {registerWeaponChatListeners} from "../chat/cs-weapon-chat-listeners.js";
+import {ChronicleSystem} from "./ChronicleSystem.js";
+import {registerCyvasseChatListeners, openViewer} from "../cyvasse/foundry/cyvasse-chat.js";
+import {registerCyvasseLauncher, openLauncher, playCyvasse} from "../cyvasse/foundry/cyvasse-launcher.js";
+import {registerLiveSocket} from "../cyvasse/foundry/cyvasse-live-client.js";
+import {openLiveViewer} from "../cyvasse/foundry/cyvasse-board-viewer.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -71,6 +76,10 @@ Hooks.once("init", async function() {
     registerSystemSettings();
     registerTemporaryEffectHooks();
     registerWeaponChatListeners();
+    registerCyvasseChatListeners();
+    registerCyvasseLauncher();
+    registerLiveSocket();
+    ChronicleSystem.cyvasse = {play: playCyvasse, openLauncher, openViewer, watch: openLiveViewer};
     await preloadHandlebarsTemplates();
 });
 

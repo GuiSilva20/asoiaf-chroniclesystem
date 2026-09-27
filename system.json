@@ -9,7 +9,8 @@
     "styles/global.css",
     "styles/actor-sheet.css",
     "styles/less/global.css",
-    "styles/theme.css"
+    "styles/theme.css",
+    "styles/cyvasse.css"
   ],
   "languages": [
     {
@@ -29,6 +30,7 @@
     "distance": 5,
     "units": "ft"
   },
+  "socket": true,
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
   "url": "https://github.com/GuiSilva20/asoiaf-chroniclesystem/",

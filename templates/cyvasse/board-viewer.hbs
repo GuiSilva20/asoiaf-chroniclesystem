@@ -1,0 +1,139 @@
+<div class="cs-cyvasse-viewer{{#if minorMenu}} has-minor{{/if}}">
+    {{#if minorMenu}}
+    <aside class="cs-cyvasse-minor" aria-label="{{minorMenu.labels.title}}">
+        <h3 class="cs-cyvasse-viewer__heading">{{minorMenu.labels.title}}</h3>
+        {{#if minorMenu.hint}}
+        <p class="cs-cyvasse-minor__hint{{#if minorMenu.hint.forced}} is-forced{{/if}}" role="status">
+            <i class="fa-solid fa-lightbulb" aria-hidden="true"></i> {{minorMenu.hint.text}}
+        </p>
+        {{/if}}
+        {{#each minorMenu.sides}}
+        <div class="cs-cyvasse-minor__side">
+            <p class="cs-cyvasse-minor__who">
+                <span class="cs-piece cs-piece--{{side}}" aria-hidden="true">{{side}}</span>
+                <strong>{{name}}</strong>
+                <span class="cs-cyvasse-live__order">{{status}}</span>
+            </p>
+            {{#if canControl}}
+            <ul class="cs-cyvasse-minor__list">
+                {{#each actions}}
+                <li>
+                    <button type="button" data-action="minor" data-side="{{../side}}" data-minor="{{key}}" {{#unless available}}disabled{{/unless}} title="{{description}}{{#if reason}} ({{reason}}){{/if}}">
+                        <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+                        <span class="cs-cyvasse-minor__name">{{label}}</span>
+                        <span class="cs-cyvasse-minor__test">{{testLine}}</span>
+                        {{#if reason}}<span class="cs-cyvasse-minor__reason"><i class="fa-solid {{reasonIcon}}" aria-hidden="true"></i> {{reason}}</span>{{/if}}
+                    </button>
+                </li>
+                {{/each}}
+            </ul>
+            {{/if}}
+        </div>
+        {{/each}}
+    </aside>
+    {{/if}}
+
+    <div class="cs-cyvasse-viewer__stage">
+        <ul class="cs-cyvasse-viewer__players">
+            {{#each players}}
+            <li class="cs-cyvasse-viewer__player">
+                <span class="cs-piece cs-piece--{{side}}" aria-hidden="true">{{side}}</span>
+                <span>{{name}}</span>
+            </li>
+            {{/each}}
+        </ul>
+
+        {{#if live}}
+        <section class="cs-cyvasse-live">
+            <p class="cs-cyvasse-live__status" aria-live="polite">
+                <i class="fa-solid {{#if live.ended}}fa-flag-checkered{{else if live.paused}}fa-pause{{else}}fa-chess{{/if}}" aria-hidden="true"></i>
+                <span>{{live.statusText}}</span>
+                {{#if live.hasCountdown}}<span class="cs-cyvasse-live__count"><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i> {{live.autoText}} <span data-countdown>{{live.seconds}}</span>s</span>{{/if}}
+                {{#if live.waiting}}<span class="cs-cyvasse-live__count">{{live.waitingText}}</span>{{/if}}
+            </p>
+
+            <ul class="cs-cyvasse-live__sides">
+                {{#each live.sides}}
+                <li class="cs-cyvasse-live__side">
+                    <span class="cs-cyvasse-live__who">
+                        <span class="cs-piece cs-piece--{{side}}" aria-hidden="true">{{side}}</span>
+                        <strong>{{name}}</strong>
+                        <span class="cs-cyvasse-live__order">{{orderLabel}}</span>
+                        {{#if activeLabel}}<span class="cs-cyvasse-live__order">&middot; {{activeLabel}}</span>{{/if}}
+                        {{#if ready}}<i class="fa-solid fa-check cs-cyvasse-live__ready" title="{{readyLabel}}" aria-label="{{readyLabel}}"></i>{{/if}}
+                    </span>
+                    {{#if canControl}}
+                    <span class="cs-cyvasse-live__choices" role="group" aria-label="{{../live.labels.yourOrders}}: {{name}}">
+                        {{#each choices}}
+                        <button type="button" data-action="order" data-side="{{../side}}" data-order="{{value}}" class="{{#if active}}is-active{{/if}}" aria-pressed="{{active}}">{{label}}</button>
+                        {{/each}}
+                    </span>
+                    {{/if}}
+                </li>
+                {{/each}}
+            </ul>
+
+            {{#if live.isGM}}
+            {{#unless live.ended}}
+            <div class="cs-cyvasse-live__gm" role="group" aria-label="{{live.labels.gmControls}}">
+                {{#if live.paused}}
+                <button type="button" data-action="resume"><i class="fa-solid fa-play" aria-hidden="true"></i> {{live.labels.resume}}</button>
+                {{else}}
+                <button type="button" data-action="pause"><i class="fa-solid fa-pause" aria-hidden="true"></i> {{live.labels.pause}}</button>
+                {{/if}}
+                <button type="button" data-action="resolveNow"><i class="fa-solid fa-forward-step" aria-hidden="true"></i> {{live.labels.resolveNow}}</button>
+                <button type="button" data-action="stop"><i class="fa-solid fa-stop" aria-hidden="true"></i> {{live.labels.stop}}</button>
+                <span class="cs-cyvasse-live__pace" role="group" aria-label="{{live.labels.pace}}">
+                    {{#each live.paces}}
+                    <button type="button" data-action="pace" data-ms="{{ms}}" class="{{#if active}}is-active{{/if}}" aria-pressed="{{active}}">{{label}}</button>
+                    {{/each}}
+                </span>
+            </div>
+            {{/unless}}
+            {{/if}}
+        </section>
+        {{/if}}
+
+        <div class="cs-cyvasse-viewer__scroll">
+            <div class="cs-cyvasse-board__frame">
+            <div class="cs-cyvasse-board" role="img" aria-label="{{boardLabel}}: {{caption}}" style="width: {{width}}px; height: {{height}}px;">
+                {{#each hexes}}
+                <div class="cs-hex{{#if terrain}} cs-hex--{{terrain.kind}}{{/if}}{{#if lastFrom}} is-from{{/if}}{{#if lastTo}} is-to{{/if}}" style="left: {{x}}px; top: {{y}}px;" title="{{label}}">
+                    {{#if terrain}}<i class="fa-solid {{terrain.icon}} cs-hex__terrain" aria-hidden="true"></i>{{/if}}
+                </div>
+                {{/each}}
+                {{#each tokens}}
+                <span class="cs-piece cs-piece--{{side}} cs-token" style="left: {{left}}px; top: {{top}}px;" title="{{title}}" data-piece-id="{{id}}" data-x="{{x}}" data-y="{{y}}" data-side="{{side}}" data-icon="{{icon}}"><i class="fa-solid {{icon}}" aria-hidden="true"></i></span>
+                {{/each}}
+            </div>
+            </div>
+        </div>
+
+        <p class="cs-cyvasse-viewer__caption" aria-live="polite">{{caption}}</p>
+
+        <div class="cs-cyvasse-viewer__controls">
+            <button type="button" data-action="first" title="{{labels.first}}" aria-label="{{labels.first}}" {{#if atStart}}disabled{{/if}}><i class="fa-solid fa-backward-fast" aria-hidden="true"></i></button>
+            <button type="button" data-action="back" title="{{labels.back}}" aria-label="{{labels.back}}" {{#if atStart}}disabled{{/if}}><i class="fa-solid fa-backward-step" aria-hidden="true"></i></button>
+            <button type="button" data-action="toggle" title="{{labels.toggle}}" aria-label="{{labels.toggle}}"><i class="fa-solid {{#if playing}}fa-pause{{else}}fa-play{{/if}}" aria-hidden="true"></i></button>
+            <button type="button" data-action="next" title="{{labels.next}}" aria-label="{{labels.next}}" {{#if atEnd}}disabled{{/if}}><i class="fa-solid fa-forward-step" aria-hidden="true"></i></button>
+            <button type="button" data-action="last" title="{{labels.last}}" aria-label="{{labels.last}}" {{#if atEnd}}disabled{{/if}}><i class="fa-solid fa-forward-fast" aria-hidden="true"></i></button>
+            {{#if live}}{{#if live.showFollow}}
+            <button type="button" data-action="follow"><i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i> {{live.labels.follow}}</button>
+            {{/if}}{{/if}}
+        </div>
+    </div>
+
+    <aside class="cs-cyvasse-viewer__side">
+        <h3 class="cs-cyvasse-viewer__heading">{{labels.moves}}</h3>
+        <ol class="cs-cyvasse-viewer__log">
+            {{#each log}}
+            <li>
+                <button type="button" class="cs-cyvasse-viewer__log-item{{#if active}} is-active{{/if}}" data-action="goto" data-index="{{index}}">
+                    <span class="cs-piece cs-piece--{{side}}" aria-hidden="true">{{side}}</span>
+                    <span>{{round}}. {{text}}</span>
+                </button>
+            </li>
+            {{/each}}
+        </ol>
+    </aside>
+</div>

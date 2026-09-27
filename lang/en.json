@@ -638,6 +638,209 @@
         "testLabel": "Test:",
         "damageLabel": "Damage:"
       }
+    },
+    "cyvasse": {
+      "title": "Cyvasse",
+      "actorsButton": "Play Cyvasse",
+      "pieces": {
+        "king": "King",
+        "dragon": "Dragon",
+        "elephant": "Elephant",
+        "heavyHorse": "Heavy Horse",
+        "lightHorse": "Light Horse",
+        "crossbowmen": "Crossbowmen",
+        "spearmen": "Spearmen",
+        "catapult": "Catapult",
+        "trebuchet": "Trebuchet",
+        "rabble": "Rabble",
+        "mountain": "Mountain",
+        "fortress": "Fortress"
+      },
+      "tiers": {
+        "dumb": "Blunder",
+        "contained": "Contained",
+        "smart": "Smart",
+        "bold": "Bold",
+        "genius": "Genius"
+      },
+      "bands": {
+        "blunder": "Blunder",
+        "weak": "Weak",
+        "solid": "Solid",
+        "sharp": "Sharp",
+        "masterful": "Masterful"
+      },
+      "orders": {
+        "attack": "Attack",
+        "retreat": "Retreat",
+        "auto": "Let the character decide"
+      },
+      "move": {
+        "move": "{piece} moves {from} to {to}",
+        "capture": "{piece} takes {target} ({from} to {to})",
+        "shoot": "{piece} shoots {target} at {to} from {from}",
+        "raze": "{piece} razes the fortress at {to}"
+      },
+      "flavor": {
+        "dumb": "a plain blunder",
+        "contained": "a careful, defensive move",
+        "smart": "a sound move",
+        "bold": "a bold gamble",
+        "genius": "a stroke of genius",
+        "brilliant": "A brilliant sacrifice!"
+      },
+      "result": {
+        "king": "{winner} captures the enemy King and wins.",
+        "noMoves": "{winner} wins: the opponent has no legal move.",
+        "roundLimit": "The board stalls after {rounds} rounds. {winner}",
+        "repetition": "The position repeats. {winner}",
+        "aborted": "The match was stopped.",
+        "byMaterial": "{winner} wins on material.",
+        "draw": "The game is a draw.",
+        "caught": "{winner} wins: the opponent was caught cheating."
+      },
+      "chat": {
+        "round": "Round",
+        "deployment": "Deployment",
+        "first": "moves first",
+        "roll": "Warfare roll",
+        "pressure": "board {value}",
+        "summary": "Match result",
+        "winner": "Winner",
+        "rounds": "Rounds played",
+        "captured": "Pieces lost",
+        "brilliant": "Brilliant moves",
+        "openBoard": "Open the board",
+        "invalidRecord": "This match record is damaged and cannot be replayed.",
+        "testName": "{ability} ({specialty})",
+        "pool": "{rolled}d6, keep the best {kept}",
+        "bonusDice": "{value} bonus dice",
+        "modifier": "modifier {value}",
+        "dieKept": "kept",
+        "dieDiscarded": "discarded"
+      },
+      "launcher": {
+        "title": "Play Cyvasse",
+        "sideA": "First player (north)",
+        "sideB": "Second player (south)",
+        "play": "Play",
+        "needTwo": "Choose two different characters.",
+        "noCharacters": "Create at least two characters first.",
+        "running": "A Cyvasse match is already running.",
+        "started": "{a} and {b} sit down to Cyvasse.",
+        "gmOnly": "Only the Game Master can start a Cyvasse match.",
+        "orderSeconds": "Seconds before an undecided character decides on its own (0 waits for the players)",
+        "pace": "Pace of the moves",
+        "openForAll": "Open the board for every connected player",
+        "paceSlow": "Slow",
+        "paceNormal": "Normal",
+        "paceFast": "Fast",
+        "autoPlay": "Play automatically: never wait for orders, the characters decide"
+      },
+      "viewer": {
+        "title": "Cyvasse: {a} vs {b}",
+        "first": "First",
+        "back": "Back",
+        "next": "Next",
+        "last": "Last",
+        "play": "Play",
+        "pause": "Pause",
+        "deploymentFrame": "Deployment",
+        "roundFrame": "Round {round}",
+        "moveLog": "Moves",
+        "board": "Cyvasse board"
+      },
+      "live": {
+        "starting": "Setting up the board...",
+        "orders": "Round {round}: give your orders",
+        "playing": "Round {round} is being played",
+        "paused": "The match is paused",
+        "ended": "The match has ended",
+        "waiting": "waiting for the players",
+        "ready": "Ready",
+        "auto": "Auto",
+        "yourOrders": "Orders",
+        "gmControls": "Game Master controls",
+        "pause": "Pause",
+        "resume": "Resume",
+        "resolveNow": "Skip the wait",
+        "stop": "Stop the match",
+        "pace": "Pace",
+        "pace_slow": "Slow",
+        "pace_normal": "Normal",
+        "pace_fast": "Fast",
+        "follow": "Follow live",
+        "none": "No Cyvasse match is being played right now.",
+        "chatTitle": "A Cyvasse match begins",
+        "chatBody": "{a} and {b} face each other across the board.",
+        "watch": "Watch live",
+        "noOrder": "No order yet",
+        "thisRound": "this round: {order}",
+        "autoIn": "the character decides on its own in",
+        "socketOff": "Cyvasse live play needs the system socket, and the server only reads that setting when the world starts. Return to Setup and launch the world again (reloading the browser is not enough); until then the players will not see the board."
+      },
+      "minor": {
+        "title": "Minor action",
+        "menuTitle": "Minor action",
+        "ready": "Available",
+        "used": "{name} uses {action}",
+        "versus": "{total} against {attr} passive {passive}",
+        "success": "Success.",
+        "failure": "Failure: nothing happens.",
+        "unseen": "Nobody noticed.",
+        "thinking": "{name} stops to think about the board.",
+        "caught": "{name} was caught cheating! {winner} wins the match.",
+        "hint": "Your analysis says: {order}.",
+        "hintForced": "You misread the board: you must {order} this round.",
+        "actions": {
+          "bluff": "Bluff",
+          "taunt": "Taunt",
+          "intimidate": "Intimidate",
+          "trick": "Trick",
+          "think": "Think",
+          "cheat": "Cheat"
+        },
+        "attrs": {
+          "cunning": "Cunning",
+          "will": "Will",
+          "awareness": "Awareness"
+        },
+        "specialties": {
+          "bluff": "Bluff",
+          "taunt": "Taunt",
+          "intimidate": "Intimidate",
+          "trick": "Sleight of Hand",
+          "think": "Logic",
+          "cheat": "Sleight of Hand"
+        },
+        "effects": {
+          "bluff": "{target} rolls -{value} on the next test.",
+          "taunt": "{name} rolls +{bonus}B if attacking this round.",
+          "intimidate": "{target} rolls -{value} on the next test.",
+          "trick": "{name} gets bonus dice on the next test.",
+          "think": "",
+          "cheat": "{name} rolls +{pool}T +{bonus}B this round."
+        },
+        "wasted": {
+          "needsAttack": "{name}'s Taunt is wasted: it only helps an Attack.",
+          "needsOrder": "{name}'s Trick is wasted: it needs an Attack or Retreat order."
+        },
+        "reasons": {
+          "used": "Already used this round",
+          "cooldown": "Recharging: {n} round(s) left",
+          "requires": "Blocked: needs at least {min} bonus die in {specialty}",
+          "window": "Only while orders are being given"
+        },
+        "descriptions": {
+          "bluff": "Deception + Bluff against the target's {passive} passive. On a success the target rolls -{value} on the next test.",
+          "taunt": "Persuasion + Taunt against the target's {passive} passive. On a success, +{bonus}B on your test if you Attack this round.",
+          "intimidate": "Persuasion + Intimidate against the target's {passive} passive. On a success the target rolls -{value} on the next test.",
+          "trick": "Thievery + Sleight of Hand against the target's {passive} passive. On a success, bonus dice equal to your Sleight of Hand bonus (up to {cap}) if you Attack or Retreat.",
+          "think": "Cunning + Logic against the opponent's {passive} passive. Shows which order looks better. On a failure you get the wrong answer and must follow it.",
+          "cheat": "Thievery + Sleight of Hand against the target's {passive} passive. +{pool}T and +{bonus}B on this round's test. If the test fails, or you are noticed anyway (at least {catchFloor}% of the time), you lose the match."
+        },
+        "testLine": "{ability} ({specialty}) vs {passive} passive"
+      }
     }
   }
 }
