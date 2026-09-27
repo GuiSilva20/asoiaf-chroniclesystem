@@ -1,0 +1,27 @@
+<div class="chroniclesystem cs-cyvasse-card cs-cyvasse-card--summary">
+    <header class="cs-cyvasse-card__header">
+        <i class="fa-solid fa-crown" aria-hidden="true"></i>
+        <span>{{title}}</span>
+    </header>
+
+    {{#if winner}}
+    <p class="cs-cyvasse-card__winner">
+        <span class="cs-cyvasse-card__detail">{{winnerLabel}}:</span>
+        <strong>{{winner}}</strong>
+    </p>
+    {{/if}}
+    <p>{{resultText}}</p>
+
+    <dl class="cs-cyvasse-card__stats">
+        {{#each stats}}
+        <div>
+            <dt>{{label}}</dt>
+            <dd>{{value}}</dd>
+        </div>
+        {{/each}}
+    </dl>
+
+    <button type="button" class="cs-cyvasse-open">
+        <i class="fa-solid fa-chess-board" aria-hidden="true"></i> {{openLabel}}
+    </button>
+</div>

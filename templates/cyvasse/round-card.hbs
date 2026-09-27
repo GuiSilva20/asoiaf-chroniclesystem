@@ -1,0 +1,52 @@
+<div class="chroniclesystem cs-cyvasse-card">
+    <header class="cs-cyvasse-card__header">
+        <i class="fa-solid fa-chess" aria-hidden="true"></i>
+        <span>{{title}}</span>
+    </header>
+
+    <div class="cs-cyvasse-card__sides">
+        {{#each sides}}
+        <section class="cs-cyvasse-card__side cs-cyvasse-card__side--{{side}}">
+            <div class="cs-cyvasse-card__name">
+                <span class="cs-cyvasse-card__marker" aria-hidden="true">{{side}}</span>
+                <strong>{{name}}</strong>
+                {{#if first}}<span class="cs-cyvasse-card__first">{{../firstLabel}}</span>{{/if}}
+            </div>
+            {{#if test}}
+            <div class="cs-cyvasse-card__test">
+                <span class="cs-cyvasse-card__testname"><i class="fa-solid fa-dice-d6" aria-hidden="true"></i> {{test.name}}</span>
+                <span class="cs-cyvasse-card__detail">{{test.pool}}{{#if test.bonus}} &middot; {{test.bonus}}{{/if}}</span>
+                <span class="cs-cyvasse-dice" role="list">
+                    {{#each test.dice}}<span role="listitem" class="cs-die{{#unless kept}} is-discarded{{/unless}}" title="{{title}}">{{value}}</span>{{/each}}
+                </span>
+            </div>
+            {{/if}}
+            <div class="cs-cyvasse-card__roll">
+                <span class="cs-cyvasse-card__total">{{total}}</span>
+                {{#unless test}}{{#if detail}}<span class="cs-cyvasse-card__detail">({{detail}})</span>{{/if}}{{/unless}}
+                {{#if test.modifier}}<span class="cs-cyvasse-card__detail">{{test.modifier}}</span>{{/if}}
+                {{#if pressure}}<span class="cs-cyvasse-card__detail">{{pressure}}</span>{{/if}}
+            </div>
+            <div class="cs-cyvasse-card__verdict">
+                <span class="cs-cyvasse-tier cs-cyvasse-tier--{{tier}}">{{tierLabel}}</span>
+                <span class="cs-cyvasse-card__detail">{{bandLabel}}{{#if orderLabel}} &middot; {{orderLabel}}{{/if}}</span>
+            </div>
+        </section>
+        {{/each}}
+    </div>
+
+    {{#if moves.length}}
+    <ol class="cs-cyvasse-card__moves">
+        {{#each moves}}
+        <li class="cs-cyvasse-card__move cs-cyvasse-card__move--{{side}}">
+            <span class="cs-cyvasse-card__marker" aria-hidden="true">{{side}}</span>
+            <span>
+                <strong>{{name}}:</strong> {{text}}
+                <em class="cs-cyvasse-card__detail">&mdash; {{flavor}}</em>
+                {{#if brilliant}}<span class="cs-cyvasse-card__brilliant"><i class="fa-solid fa-star" aria-hidden="true"></i> {{brilliant}}</span>{{/if}}
+            </span>
+        </li>
+        {{/each}}
+    </ol>
+    {{/if}}
+</div>

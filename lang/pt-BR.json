@@ -638,6 +638,209 @@
         "testLabel": "Teste:",
         "damageLabel": "Dano:"
       }
+    },
+    "cyvasse": {
+      "title": "Cyvasse",
+      "actorsButton": "Jogar Cyvasse",
+      "pieces": {
+        "king": "Rei",
+        "dragon": "Dragão",
+        "elephant": "Elefante",
+        "heavyHorse": "Cavalaria Pesada",
+        "lightHorse": "Cavalaria Leve",
+        "crossbowmen": "Besteiros",
+        "spearmen": "Lanceiros",
+        "catapult": "Catapulta",
+        "trebuchet": "Trabuco",
+        "rabble": "Plebe",
+        "mountain": "Montanha",
+        "fortress": "Fortaleza"
+      },
+      "tiers": {
+        "dumb": "Erro Crasso",
+        "contained": "Contido",
+        "smart": "Inteligente",
+        "bold": "Ousado",
+        "genius": "Genial"
+      },
+      "bands": {
+        "blunder": "Desastre",
+        "weak": "Fraco",
+        "solid": "Sólido",
+        "sharp": "Afiado",
+        "masterful": "Magistral"
+      },
+      "orders": {
+        "attack": "Atacar",
+        "retreat": "Recuar",
+        "auto": "Deixar o personagem decidir"
+      },
+      "move": {
+        "move": "{piece} vai de {from} para {to}",
+        "capture": "{piece} captura {target} ({from} para {to})",
+        "shoot": "{piece} atira em {target} em {to}, a partir de {from}",
+        "raze": "{piece} derruba a fortaleza em {to}"
+      },
+      "flavor": {
+        "dumb": "um erro crasso",
+        "contained": "um movimento cauteloso e defensivo",
+        "smart": "um bom movimento",
+        "bold": "uma jogada ousada",
+        "genius": "um golpe de gênio",
+        "brilliant": "Um sacrifício brilhante!"
+      },
+      "result": {
+        "king": "{winner} captura o Rei inimigo e vence.",
+        "noMoves": "{winner} vence: o oponente não tem jogada legal.",
+        "roundLimit": "O tabuleiro trava após {rounds} rodadas. {winner}",
+        "repetition": "A posição se repete. {winner}",
+        "aborted": "A partida foi interrompida.",
+        "byMaterial": "{winner} vence no material.",
+        "draw": "A partida termina empatada.",
+        "caught": "{winner} vence: o oponente foi pego trapaceando."
+      },
+      "chat": {
+        "round": "Rodada",
+        "deployment": "Posicionamento",
+        "first": "joga primeiro",
+        "roll": "Teste de Guerra",
+        "pressure": "tabuleiro {value}",
+        "summary": "Resultado da partida",
+        "winner": "Vencedor",
+        "rounds": "Rodadas jogadas",
+        "captured": "Peças perdidas",
+        "brilliant": "Jogadas brilhantes",
+        "openBoard": "Abrir o tabuleiro",
+        "invalidRecord": "O registro desta partida está danificado e não pode ser reproduzido.",
+        "testName": "{ability} ({specialty})",
+        "pool": "{rolled}d6, mantém os {kept} melhores",
+        "bonusDice": "{value} dados de bônus",
+        "modifier": "modificador {value}",
+        "dieKept": "mantido",
+        "dieDiscarded": "descartado"
+      },
+      "launcher": {
+        "title": "Jogar Cyvasse",
+        "sideA": "Primeiro jogador (norte)",
+        "sideB": "Segundo jogador (sul)",
+        "play": "Jogar",
+        "needTwo": "Escolha dois personagens diferentes.",
+        "noCharacters": "Crie pelo menos dois personagens primeiro.",
+        "running": "Uma partida de Cyvasse já está em andamento.",
+        "started": "{a} e {b} sentam-se para jogar Cyvasse.",
+        "gmOnly": "Somente o Mestre pode iniciar uma partida de Cyvasse.",
+        "orderSeconds": "Segundos até um personagem sem ordem decidir sozinho (0 espera os jogadores)",
+        "pace": "Ritmo das jogadas",
+        "openForAll": "Abrir o tabuleiro para todos os jogadores conectados",
+        "paceSlow": "Lento",
+        "paceNormal": "Normal",
+        "paceFast": "Rápido",
+        "autoPlay": "Jogar automaticamente: nunca esperar ordens, os personagens decidem"
+      },
+      "viewer": {
+        "title": "Cyvasse: {a} contra {b}",
+        "first": "Início",
+        "back": "Voltar",
+        "next": "Avançar",
+        "last": "Fim",
+        "play": "Reproduzir",
+        "pause": "Pausar",
+        "deploymentFrame": "Posicionamento",
+        "roundFrame": "Rodada {round}",
+        "moveLog": "Jogadas",
+        "board": "Tabuleiro de Cyvasse"
+      },
+      "live": {
+        "starting": "Preparando o tabuleiro...",
+        "orders": "Rodada {round}: dê suas ordens",
+        "playing": "A rodada {round} está sendo jogada",
+        "paused": "A partida está pausada",
+        "ended": "A partida terminou",
+        "waiting": "aguardando os jogadores",
+        "ready": "Pronto",
+        "auto": "Automático",
+        "yourOrders": "Ordens",
+        "gmControls": "Controles do Mestre",
+        "pause": "Pausar",
+        "resume": "Retomar",
+        "resolveNow": "Encerrar a espera",
+        "stop": "Parar a partida",
+        "pace": "Ritmo",
+        "pace_slow": "Lento",
+        "pace_normal": "Normal",
+        "pace_fast": "Rápido",
+        "follow": "Acompanhar ao vivo",
+        "none": "Nenhuma partida de Cyvasse está em andamento agora.",
+        "chatTitle": "Uma partida de Cyvasse começa",
+        "chatBody": "{a} e {b} se enfrentam no tabuleiro.",
+        "watch": "Assistir ao vivo",
+        "noOrder": "Nenhuma ordem",
+        "thisRound": "nesta rodada: {order}",
+        "autoIn": "o personagem decide sozinho em",
+        "socketOff": "O Cyvasse ao vivo precisa do socket do sistema, e o servidor só lê essa configuração quando o mundo inicia. Volte à tela de configuração e inicie o mundo de novo (recarregar o navegador não basta); até lá os jogadores não verão o tabuleiro."
+      },
+      "minor": {
+        "title": "Ação menor",
+        "menuTitle": "Ação menor",
+        "ready": "Disponível",
+        "used": "{name} usa {action}",
+        "versus": "{total} contra {attr} passivo {passive}",
+        "success": "Sucesso.",
+        "failure": "Fracasso: nada acontece.",
+        "unseen": "Ninguém percebeu.",
+        "thinking": "{name} para para pensar no tabuleiro.",
+        "caught": "{name} foi pego trapaceando! {winner} vence a partida.",
+        "hint": "Sua análise diz: {order}.",
+        "hintForced": "Você leu mal o tabuleiro: precisa {order} nesta rodada.",
+        "actions": {
+          "bluff": "Blefar",
+          "taunt": "Provocar",
+          "intimidate": "Intimidar",
+          "trick": "Truque",
+          "think": "Pensar",
+          "cheat": "Trapacear"
+        },
+        "attrs": {
+          "cunning": "Astúcia",
+          "will": "Vontade",
+          "awareness": "Percepção"
+        },
+        "specialties": {
+          "bluff": "Blefar",
+          "taunt": "Provocar",
+          "intimidate": "Intimidar",
+          "trick": "Prestidigitação",
+          "think": "Lógica",
+          "cheat": "Prestidigitação"
+        },
+        "effects": {
+          "bluff": "{target} rola -{value} no próximo teste.",
+          "taunt": "{name} rola +{bonus}B se atacar nesta rodada.",
+          "intimidate": "{target} rola -{value} no próximo teste.",
+          "trick": "{name} ganha dados de bônus no próximo teste.",
+          "think": "",
+          "cheat": "{name} rola +{pool}T +{bonus}B nesta rodada."
+        },
+        "wasted": {
+          "needsAttack": "A Provocação de {name} foi em vão: só ajuda um Ataque.",
+          "needsOrder": "O Truque de {name} foi em vão: precisa de uma ordem de Atacar ou Recuar."
+        },
+        "reasons": {
+          "used": "Já usada nesta rodada",
+          "cooldown": "Em recarga: faltam {n} rodada(s)",
+          "requires": "Bloqueada: exige ao menos {min} dado de bônus em {specialty}",
+          "window": "Só enquanto as ordens são dadas"
+        },
+        "descriptions": {
+          "bluff": "Enganação + Blefar contra a {passive} passiva do alvo. Se acertar, o alvo rola -{value} no próximo teste.",
+          "taunt": "Persuasão + Provocar contra a {passive} passiva do alvo. Se acertar, +{bonus}B no seu teste se você Atacar nesta rodada.",
+          "intimidate": "Persuasão + Intimidar contra a {passive} passiva do alvo. Se acertar, o alvo rola -{value} no próximo teste.",
+          "trick": "Ladinagem + Prestidigitação contra a {passive} passiva do alvo. Se acertar, dados de bônus iguais ao seu bônus em Prestidigitação (até {cap}) se você Atacar ou Recuar.",
+          "think": "Astúcia + Lógica contra a {passive} passiva do oponente. Mostra qual ordem parece melhor. Se falhar, você recebe a resposta errada e é obrigado a segui-la.",
+          "cheat": "Ladinagem + Prestidigitação contra a {passive} passiva do alvo. +{pool}T e +{bonus}B no teste desta rodada. Se o teste falhar, ou você for notado mesmo assim (pelo menos {catchFloor}% das vezes), perde a partida."
+        },
+        "testLine": "{ability} ({specialty}) vs {passive} passiva"
+      }
     }
   }
 }

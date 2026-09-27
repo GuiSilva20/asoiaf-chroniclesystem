@@ -1,0 +1,24 @@
+<div class="chroniclesystem cs-cyvasse-card cs-cyvasse-card--minor">
+    <header class="cs-cyvasse-card__header">
+        <i class="fa-solid {{icon}}" aria-hidden="true"></i>
+        <span>{{title}}</span>
+    </header>
+
+    <p class="cs-cyvasse-card__minor-line">
+        <span class="cs-cyvasse-card__marker" aria-hidden="true">{{side}}</span>
+        <strong>{{summary}}</strong>
+    </p>
+
+    {{#if test}}
+    <div class="cs-cyvasse-card__test">
+        <span class="cs-cyvasse-card__testname"><i class="fa-solid fa-dice-d6" aria-hidden="true"></i> {{test.name}}</span>
+        <span class="cs-cyvasse-card__detail">{{test.pool}}{{#if test.bonus}} &middot; {{test.bonus}}{{/if}}</span>
+        <span class="cs-cyvasse-dice" role="list">
+            {{#each test.dice}}<span role="listitem" class="cs-die{{#unless kept}} is-discarded{{/unless}}" title="{{title}}">{{value}}</span>{{/each}}
+        </span>
+    </div>
+    {{/if}}
+
+    {{#if versus}}<p class="cs-cyvasse-card__detail">{{versus}}</p>{{/if}}
+    {{#if outcome}}<p class="cs-cyvasse-card__outcome cs-cyvasse-card__outcome--{{outcomeKind}}">{{outcome}}</p>{{/if}}
+</div>

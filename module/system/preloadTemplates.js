@@ -25,7 +25,14 @@ export const preloadHandlebarsTemplates = async function () {
         'systems/chroniclesystem/templates/components/rating-checkbox.hbs',
         'systems/chroniclesystem/templates/components/house-resource-item.hbs',
         'systems/chroniclesystem/templates/components/member-list-item.hbs',
-        'systems/chroniclesystem/templates/components/resource-holdings.hbs'
+        'systems/chroniclesystem/templates/components/resource-holdings.hbs',
+
+        'systems/chroniclesystem/templates/cyvasse/launcher-dialog.hbs',
+        'systems/chroniclesystem/templates/cyvasse/live-card.hbs',
+        'systems/chroniclesystem/templates/cyvasse/minor-card.hbs',
+        'systems/chroniclesystem/templates/cyvasse/round-card.hbs',
+        'systems/chroniclesystem/templates/cyvasse/summary-card.hbs',
+        'systems/chroniclesystem/templates/cyvasse/board-viewer.hbs'
     ];
     return loadTemplates(templatePaths);
 };

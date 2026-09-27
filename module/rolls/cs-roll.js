@@ -25,6 +25,38 @@ export class CSRoll {
      *                async-only since Foundry v12, so this is always awaited.
      */
     async doRoll(actor, async = true) {
+        const resultRoll = await this.evaluate();
+        if (!resultRoll) {
+            ui.notifications.info(SystemUtils.localize("CS.notifications.dicePoolInvalid"));
+            return null;
+        }
+
+        const messageId = this.formula.isUserChanged ? "CS.chatMessages.customRoll" : "CS.chatMessages.simpleRoll";
+        const flavor = SystemUtils.format(messageId, {name: actor.name, test: this.title});
+
+        const flags = this.weaponContext
+            ? {chroniclesystem: {weaponTest: {
+                actorId: actor.id,
+                weaponId: this.weaponContext.weaponId,
+                weaponName: this.weaponContext.weaponName,
+                resolved: false
+            }}}
+            : {};
+
+        await resultRoll.toMessage({
+            speaker: ChatMessage.getSpeaker({actor: actor}),
+            flavor: flavor,
+            flags: flags
+        });
+        return resultRoll;
+    }
+
+    /**
+     * Rolls the formula without posting anything to chat, for callers that roll
+     * many times and report on their own terms (the Cyvasse simulation).
+     * @returns the evaluated Roll, or null when penalties leave no dice to keep
+     */
+    async evaluate() {
         const pool = num(this.formula.pool);
         const bonusDice = num(this.formula.bonusDice);
         const dicePenalty = num(this.formula.dicePenalty);
@@ -32,10 +64,7 @@ export class CSRoll {
         const modifier = num(this.formula.modifier);
 
         const kept = pool - dicePenalty;
-        if (kept <= 0) {
-            ui.notifications.info(SystemUtils.localize("CS.notifications.dicePoolInvalid"));
-            return null;
-        }
+        if (kept <= 0) return null;
 
         const dices = Math.max(pool, 1) + bonusDice;
         const dieRoll = new foundry.dice.terms.Die({faces: 6, number: dices});
@@ -62,24 +91,6 @@ export class CSRoll {
         const bonus = new foundry.dice.terms.NumericTerm({number: modifier});
         bonus.evaluate();
 
-        const resultRoll = Roll.fromTerms([dieRoll, plus, bonus]);
-        const messageId = this.formula.isUserChanged ? "CS.chatMessages.customRoll" : "CS.chatMessages.simpleRoll";
-        const flavor = SystemUtils.format(messageId, {name: actor.name, test: this.title});
-
-        const flags = this.weaponContext
-            ? {chroniclesystem: {weaponTest: {
-                actorId: actor.id,
-                weaponId: this.weaponContext.weaponId,
-                weaponName: this.weaponContext.weaponName,
-                resolved: false
-            }}}
-            : {};
-
-        await resultRoll.toMessage({
-            speaker: ChatMessage.getSpeaker({actor: actor}),
-            flavor: flavor,
-            flags: flags
-        });
-        return resultRoll;
+        return Roll.fromTerms([dieRoll, plus, bonus]);
     }
 }

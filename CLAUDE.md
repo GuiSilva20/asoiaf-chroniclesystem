@@ -299,3 +299,61 @@ Antes de considerar uma alteração visual concluída, verifique:
 * compatibilidade com o sistema de estilos já adotado pelo projeto.
 
 Se uma mudança visual alterar componentes compartilhados, avalie o impacto em todas as telas consumidoras antes de finalizar.
+
+
+## 11. Cyvasse (simulação entre personagens)
+
+Estrutura e convenções do módulo `module/cyvasse/`:
+
+- **Motor puro** (`module/cyvasse/*.js`): sem globais do Foundry, testável com Node. Todo número
+  de regra ou de equilíbrio fica em `cyvasse-data.js` (SSoT); os demais módulos só leem dele.
+  - `cyvasse-hex.js` geometria; `cyvasse-board.js` estado, posicionamento, jogadas e captura;
+    `cyvasse-eval.js` avaliação e escada de jogadas; `cyvasse-tiers.js` rolagem → faixa → tier →
+    jogada; `cyvasse-match.js` a partida (rolador injetado, RNG com semente);
+    `cyvasse-record.js` validação em runtime e reprodução do registro.
+- **Cola com o Foundry** (`module/cyvasse/foundry/`): perfil/rolador do personagem, cartas de
+  chat, launcher (botão só para o Mestre no diretório de Atores) e visualizador ApplicationV2.
+  A API pública é `ChronicleSystem.cyvasse.play(atorA, atorB, opções)`.
+- **O Rei sempre começa na fileira de trás** (`KING_DEPLOY_ROW`), em qualquer posicionamento, até no aleatório: só ela
+  fica fora do alcance de 6 casas de um Dragão na linha de frente inimiga. Há spec garantindo que nenhum Rei pode ser
+  capturado no primeiro movimento, para quaisquer dois posicionamentos.
+- **As regras das peças são fixas**, como as de um jogo de tabuleiro (ex.: Dragões capturam
+  Dragões). Diferença de habilidade vem da IA/tiers, nunca de alterar regra de peça para "equilibrar".
+- **Partida ao vivo e compartilhada** (`cyvasse-live.js` + `foundry/cyvasse-live-client.js`): o cliente do
+  Mestre roda a partida e é a única fonte de verdade; os demais recebem `sync` de snapshots pelo socket
+  do sistema (`system.chroniclesystem`, `"socket": true` no manifesto). O dono de um personagem envia
+  ordens (Atacar / Recuar / Automático) na janela de ordens de cada rodada; o Mestre controla qualquer
+  lado, pausa, encerra a espera, para a partida e muda o ritmo.
+- **A partida nunca anda sozinha**: toda rodada ESPERA até os dois lados estarem decididos (pelo dono do
+  personagem ou pelo Mestre, que sempre pode decidir). Só `autoPlay: true` (opção explícita, desligada por
+  padrão) pula a espera. Não condicione a espera a haver jogador conectado: com só o Mestre na mesa a
+  partida seguiria sozinha.
+- **Ordens valem uma rodada só** e começam vazias (nenhuma selecionada, partida não pausada); podem ser
+  dadas a qualquer momento, inclusive durante a rodada anterior. O timer (padrão 0 = sem timer) só define
+  quando um lado sem ordem passa para decisão automática do personagem. O resultado dos testes de
+  **toda** rodada vai para o chat, ao vivo (`reporter` do `LiveMatch`); não há filtro de destaques.
+- **Mudou o `system.json`? Reinicie o MUNDO** (volte à configuração e inicie de novo): o servidor só lê o manifesto
+  ao iniciar o mundo, então recarregar o navegador (F5) não ativa `"socket": true`, e sem isso ninguém além do Mestre
+  recebe a partida. `socketIsOn()` (`game.system.socket`) detecta o caso e avisa o Mestre.
+- **Modelo de confiança do socket**: toda mensagem passa por `parseMessage`/`parseSnapshot` (validação
+  em runtime); só um usuário Mestre pode emitir `sync`/`open`; ordens só valem se o remetente for dono do
+  personagem daquele lado (`LiveMatch#handle` confere `io.canControl`). Nunca confie no cliente.
+- **Ambiente injetado**: `LiveMatch` recebe `io` (socket, timers, permissões) para ser testado sem Foundry.
+- **Atacar e Recuar** mudam quanto vale a margem da rodada (`STANCE_MARGIN_SCALE`): Atacar dobra a vantagem e
+  não piora a desvantagem; Recuar protege quem está perdendo e desperdiça parte da vantagem. Ordem explícita
+  usa a coluna "medida" da tabela de tiers; só o modo automático infere ousadia pelo temperamento.
+- **A ordem limita os movimentos** (`restrictByOrder`): Atacar não recua peça em jogada tranquila; Recuar não avança, salvo para
+  capturar uma AMEAÇA (peça na própria zona ou que já poderia capturar algo nosso, ex.: um Dragão à vista). Tiros ficam sempre
+  abertos. Se a ordem não deixar jogada, vale qualquer jogada legal. Capturas óbvias e lucrativas (`SELECTION.obviousGain`)
+  são tomadas por todo tier, menos o Erro Crasso: deixar um Dragão passear livre não é estilo, é burrice.
+- **Ações menores** (Blefar, Provocar, Intimidar, Truque, Pensar, Trapacear): regras puras em `cyvasse-minor.js`,
+  números em `MINOR` (`cyvasse-data.js`). Uma por jogador, com recarga de 3 rodadas contada por jogador; o teste é
+  rolado na hora contra o passivo do alvo e o efeito vale para as rolagens daquela rodada (`roundModifiers`).
+  O nível/benefícios do personagem só decidem se o teste acerta; o EFEITO é fixo e limitado (`MINOR.caps`), porque
+  qualquer bônus recorrente decide a partida (medido com o simulador). Só o resultado do Pensar é privado.
+  Trapacear tem risco real (falha no teste ou 15% de piso) e pego = derrota imediata (`reason: "caught"`).
+- **Rolagem sem chat**: use `CSRoll#evaluate()`; `doRoll()` continua sendo o que posta no chat.
+- **Registro da partida** é persistido em `flags.chroniclesystem.cyvasse.record` da carta final e
+  é dado não confiável ao ser relido: sempre passe por `validateRecord()` antes de renderizar.
+- **Testes**: `npm test` (runner nativo do Node, `specs/**/*.spec.js`, sem dependências). O
+  simulador de equilíbrio (`npm run balance [partidas] [tier]`) é manual e não roda no `npm test`.
