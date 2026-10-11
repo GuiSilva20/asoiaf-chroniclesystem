@@ -113,7 +113,7 @@ async function _showModifierDialog(formula) {
             default: "normal",
             close: () => resolve({cancelled: true})
         };
-        new Dialog(data, null).render(true);
+        new Dialog(data).render(true);
     })
 }
 
