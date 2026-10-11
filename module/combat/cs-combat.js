@@ -86,7 +86,7 @@ export class CsCombat extends Combat {
                 default: "normal",
                 close: () => resolve({cancelled: true})
             };
-            new Dialog(data, null).render(true);
+            new Dialog(data).render(true);
         })
     }
 }

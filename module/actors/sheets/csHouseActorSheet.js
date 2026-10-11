@@ -274,7 +274,7 @@ export class CSHouseActorSheet extends CSActorSheet {
                 default: 'normal',
                 close: () => resolve({ cancelled: true }),
             };
-            new Dialog(data, null).render(true);
+            new Dialog(data).render(true);
         });
     }
 
@@ -397,7 +397,7 @@ export class CSHouseActorSheet extends CSActorSheet {
                 default: 'normal',
                 close: () => resolve({ cancelled: true }),
             };
-            new Dialog(data, null).render(true);
+            new Dialog(data).render(true);
         });
     }
 
@@ -461,7 +461,7 @@ export class CSHouseActorSheet extends CSActorSheet {
                 default: 'normal',
                 close: () => resolve({ cancelled: true }),
             };
-            new Dialog(data, null).render(true);
+            new Dialog(data).render(true);
         });
     }
 
