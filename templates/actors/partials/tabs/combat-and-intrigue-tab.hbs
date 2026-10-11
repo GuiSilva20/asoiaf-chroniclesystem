@@ -397,7 +397,8 @@
                         <tr>
                             <th>{{localize "CS.ui.combatIntrigue.armor"}}</th>
                             <th>{{localize "CS.ui.common.rating"}}</th>
-                            <th>{{localize "CS.ui.common.penalty"}}</th>
+                            <th title="{{localize 'CS.ui.equipments.armorPenaltyHint'}}">{{localize "CS.ui.common.penalty"}}</th>
+                            <th title="{{localize 'CS.ui.equipments.armorBulkHint'}}">{{localize "CS.ui.common.bulk"}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -407,10 +408,19 @@
                                     <td>{{armor.name}}</td>
                                     <td>{{armor.system.rating}}</td>
                                     <td>{{armor.system.penalty}}</td>
+                                    <td>{{armor.system.bulk}}</td>
                                 </tr>
                             {{/ifDifferent}}
                         {{/each}}
                         </tbody>
+                        <tfoot>
+                        <tr class="armor-summary" title="{{localize 'CS.ui.combatIntrigue.armorTotalHint'}}">
+                            <td>{{localize "CS.ui.combatIntrigue.armorTotal"}}</td>
+                            <td>{{armorSummary.rating}}</td>
+                            <td>-{{armorSummary.penalty}}</td>
+                            <td>{{armorSummary.bulk}}</td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </section>
             </section>

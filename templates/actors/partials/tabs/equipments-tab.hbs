@@ -105,6 +105,12 @@
             </div>
             {{#if @root.owner}}
                 <div class="header-field-add">
+                    <select class="armor-preset" title="{{localize 'CS.ui.equipments.armorPresetHint'}}">
+                        <option value="">{{localize "CS.ui.equipments.armorPreset"}}</option>
+                        {{#each armorPresets}}
+                            <option value="{{key}}">{{label}} ({{rating}} / -{{penalty}} / {{bulk}})</option>
+                        {{/each}}
+                    </select>
                     <a class="item-create" data-type="armor" title="{{localize 'CS.sheets.generalLabels.add'}}"><i class="fa fa-plus"></i></a>
                 </div>
             {{/if}}
@@ -112,9 +118,9 @@
         <ol  class="armors-list list equipment-list">
             <li class="list-header flexrow">
                 <div class="armor-label">{{localize "CS.ui.common.name"}}</div>
-                <div class="armor-rating">{{localize "CS.ui.common.rating"}}</div>
-                <div class="armor-penalty">{{localize "CS.ui.common.penalty"}}</div>
-                <div class="armor-bulk">{{localize "CS.ui.common.bulk"}}</div>
+                <div class="armor-rating" title="{{localize 'CS.ui.equipments.armorRatingHint'}}">{{localize "CS.ui.common.rating"}}</div>
+                <div class="armor-penalty" title="{{localize 'CS.ui.equipments.armorPenaltyHint'}}">{{localize "CS.ui.common.penalty"}}</div>
+                <div class="armor-bulk" title="{{localize 'CS.ui.equipments.armorBulkHint'}}">{{localize "CS.ui.common.bulk"}}</div>
                 <div class="equipment-weight">{{localize "CS.ui.common.weight"}}</div>
                 <div class="equipment-cost">{{localize "CS.ui.common.cost"}}</div>
                 <div class="item-qualities"><div>{{localize "CS.ui.common.qualities"}}</div></div>
