@@ -1,6 +1,7 @@
 import {CSConstants} from "../system/csConstants.js";
 import {task030} from "./task030.js";
 import {task061} from "./task061.js";
+import {task072} from "./task072.js";
 
 export async function migrateData() {
     if (!game.user?.isGM) {
@@ -30,4 +31,5 @@ export function registerTask(version, task) {
 
 registerTask("0.3.0", task030);
 registerTask("0.6.1", task061);
+registerTask("0.7.2", task072);
 

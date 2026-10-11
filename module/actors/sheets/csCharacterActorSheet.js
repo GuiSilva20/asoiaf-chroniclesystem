@@ -9,6 +9,7 @@ import LOGGER from "../../utils/logger.js";
 import SystemUtils from "../../utils/systemUtils.js";
 import {CSConstants} from "../../system/csConstants.js";
 import {buildMissingAbilityItems} from "../../system/csAbilities.js";
+import {ARMOR_TABLE, summarizeWornArmor} from "../../items/armor-table.js";
 
 
 export class CSCharacterActorSheet extends CSActorSheet {
@@ -109,6 +110,13 @@ export class CSCharacterActorSheet extends CSActorSheet {
     data.maxStress = this.actor.getMaxStress();
     data.currentStress = character.currentStress;
     data.character = character;
+
+    data.armorPresets = ARMOR_TABLE.map((preset) => ({
+      ...preset,
+      label: SystemUtils.localize(`CS.armorTable.${preset.key}`)
+    }));
+    data.armorSummary = summarizeWornArmor(
+      character.owned.armors.filter((armor) => Number(armor.system.equipped) === ChronicleSystem.equippedConstants.WEARING));
     return data;
   }
 
@@ -157,6 +165,7 @@ export class CSCharacterActorSheet extends CSActorSheet {
     html.find('.disposition.option').click(this._onDispositionChanged.bind(this));
 
     html.find('.equipped').click(this._onEquippedStateChanged.bind(this));
+    html.find('.armor-preset').change(this._onArmorPresetChosen.bind(this));
 
     html.find('.injury-create').on("click", this._onClickInjuryCreate.bind(this));
     html.find(".injuries-list").on("click", ".injury-control", this._onclickInjuryControl.bind(this));
@@ -371,6 +380,24 @@ export class CSCharacterActorSheet extends CSActorSheet {
         "system.modifiers" : this.actor.modifiers
       });
     }
+  }
+
+  /**
+   * Adds an armor from Tabela 9-2 to the character, with its rating, penalty
+   * and bulk already filled in.
+   */
+  async _onArmorPresetChosen(event) {
+    event.preventDefault();
+    const select = event.currentTarget;
+    const preset = ARMOR_TABLE.find((armor) => armor.key === select.value);
+    select.value = "";
+    if (!preset) return;
+
+    await this.actor.createEmbeddedDocuments("Item", [{
+      name: SystemUtils.localize(`CS.armorTable.${preset.key}`),
+      type: "armor",
+      system: {rating: preset.rating, penalty: preset.penalty, bulk: preset.bulk}
+    }]);
   }
 
   async _onEquippedStateChanged(event) {

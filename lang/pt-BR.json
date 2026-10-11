@@ -1,5 +1,22 @@
 {
   "CS": {
+    "armorTable": {
+      "clothes": "Roupas",
+      "robes": "Robes ou Hábito",
+      "padded": "Acolchoada",
+      "softLeather": "Couro Macio",
+      "hardLeather": "Couro Rígido",
+      "boneOrWood": "Ossos ou Madeira",
+      "ringmail": "Cota de Anéis",
+      "hides": "Peles",
+      "mail": "Cota de Malha",
+      "breastplate": "Placa de Peito",
+      "scale": "Cota de Escamas",
+      "splint": "Talas",
+      "brigandine": "Brigantina",
+      "halfPlate": "Meia Armadura",
+      "plate": "Placas"
+    },
     "notifications": {
       "dicePoolInvalid": "você não pode fazer este teste porque sua reserva de dados resulta em menos de 1 dado mantido.",
       "specialtyCapped": "Uma especialidade não pode exceder as graduações de sua habilidade, então foi limitada a {rating}.",
@@ -544,6 +561,8 @@
         "yardsSprint": "Jardas percorridas em disparada",
         "equippedWeapons": "Armas Equipadas",
         "equippedArmor": "Armadura Equipada",
+        "armorTotal": "Total",
+        "armorTotalHint": "Totais da armadura que você veste. O movimento já considera o Volume dela",
         "currentDisposition": "Postura Atual",
         "removeInjury": "Remover este ferimento",
         "removeWound": "Remover esta lesão",
@@ -617,6 +636,11 @@
         "silvers": "Pratas",
         "weapons": "Armas",
         "armors": "Armaduras",
+        "armorPreset": "Adicionar da Tabela 9-2...",
+        "armorPresetHint": "Adiciona uma armadura da Tabela 9-2 (Valor / Penalidade / Volume)",
+        "armorRatingHint": "Valor de Armadura: quando você sofre dano em combate, diminui o dano sofrido por este valor (mínimo 0)",
+        "armorPenaltyHint": "Penalidade de Armadura: aplicada a todos os testes de Agilidade (inclusive passivos) e à Defesa em Combate. Digite como número positivo",
+        "armorBulkHint": "Volume: some ao de outras fontes; a cada 2 pontos completos, seu movimento diminui em 1",
         "goldLabel": "Ouro:",
         "golds": "Ouros",
         "dmg": "Dano"

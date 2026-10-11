@@ -1,5 +1,22 @@
 {
   "CS": {
+    "armorTable": {
+      "clothes": "Clothes",
+      "robes": "Robes or Habit",
+      "padded": "Padded",
+      "softLeather": "Soft Leather",
+      "hardLeather": "Hard Leather",
+      "boneOrWood": "Bone or Wood",
+      "ringmail": "Ringmail",
+      "hides": "Hides",
+      "mail": "Mail",
+      "breastplate": "Breastplate",
+      "scale": "Scale",
+      "splint": "Splint",
+      "brigandine": "Brigandine",
+      "halfPlate": "Half Plate",
+      "plate": "Plate"
+    },
     "notifications": {
       "dicePoolInvalid": "you cannot roll this test because your dice pool results in less than 1 die being kept.",
       "specialtyCapped": "A specialty cannot exceed the ranks of its ability, so it was capped at {rating}.",
@@ -544,6 +561,8 @@
         "yardsSprint": "Yards covered when sprinting",
         "equippedWeapons": "Current Equipped Weapons",
         "equippedArmor": "Current Equipped Armor",
+        "armorTotal": "Total",
+        "armorTotalHint": "Totals of the armor you are wearing. Movement already accounts for its Bulk",
         "currentDisposition": "Current Disposition",
         "removeInjury": "Remove this injury",
         "removeWound": "Remove this wound",
@@ -617,6 +636,11 @@
         "silvers": "Silvers",
         "weapons": "Weapons",
         "armors": "Armors",
+        "armorPreset": "Add from Table 9-2...",
+        "armorPresetHint": "Adds an armor from Table 9-2 (Armor Value / Penalty / Bulk)",
+        "armorRatingHint": "Armor Value: when you take damage in combat, reduce the damage by this value (to a minimum of 0)",
+        "armorPenaltyHint": "Armor Penalty: applied to all Agility tests (including passive ones) and to Combat Defense. Enter it as a positive number",
+        "armorBulkHint": "Bulk: add it to other sources of Bulk; every full 2 points reduce your movement by 1",
         "goldLabel": "Gold:",
         "golds": "Golds",
         "dmg": "Dmg"

@@ -83,6 +83,18 @@
     text-align: center;
 }
 
+.chroniclesystem.sheet.actor .armor-preset {
+    width: auto;
+    max-width: 190px;
+    height: 22px;
+    margin-right: 4px;
+}
+
+.chroniclesystem.sheet.actor .armor-summary td {
+    font-weight: bold;
+    border-top: 1px solid currentColor;
+}
+
 .chroniclesystem.sheet.actor .armor-bulk {
     flex: 0 0 50px;
     text-align: center;
