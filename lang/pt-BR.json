@@ -109,6 +109,7 @@
         "fumbleTitle": "Fracasso!",
         "miss": "{name} erra o ataque contra {target} (total {total} contra Defesa {defense}).",
         "hit": "{name} acerta {target}: {vezes}x{damage} − {soak} de redução de armadura = {final} de dano.",
+        "hitCritical": "{name} acerta {target}: {vezes}x({damage} base + {bonus} crítico) − {soak} de redução de armadura = {final} de dano.",
         "criticalRowTitle": "Tabela 9-5, linha {row}",
         "fumbleRowTitle": "Tabela 9-6, linha {row}",
         "spendDestiny": "Gastar 1 Ponto de Destino (reduz para a linha anterior)",

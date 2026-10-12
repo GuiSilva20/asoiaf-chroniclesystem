@@ -8,7 +8,7 @@
     {{/ifEquals}}
 
     {{#ifEquals outcome "critical"}}
-        <p>{{localize "CS.chat.results.hit" name=attackerName target=targetName vezes=numeroDeVezes damage=baseDamage soak=armorSoak final=finalDamage}}</p>
+        <p>{{localize "CS.chat.results.hitCritical" name=attackerName target=targetName vezes=numeroDeVezes damage=baseDamage bonus=extraDamage soak=armorSoak final=finalDamage}}</p>
         <p class="cs-damage-result-critical-title">{{localize "CS.chat.results.criticalRowTitle" row=critical.row}}</p>
         <p class="cs-damage-result-critical-label"><strong>{{critical.label}}</strong></p>
         <p class="cs-damage-result-critical-desc">{{critical.description}}</p>

@@ -109,6 +109,7 @@
         "fumbleTitle": "Fumble!",
         "miss": "{name} misses the attack against {target} (total {total} vs. Defense {defense}).",
         "hit": "{name} hits {target}: {vezes}x{damage} - {soak} armor reduction = {final} damage.",
+        "hitCritical": "{name} hits {target}: {vezes}x({damage} base + {bonus} critical) - {soak} armor reduction = {final} damage.",
         "criticalRowTitle": "Tabela 9-5, row {row}",
         "fumbleRowTitle": "Tabela 9-6, row {row}",
         "spendDestiny": "Spend 1 Destiny Point (reduces to the previous row)",
