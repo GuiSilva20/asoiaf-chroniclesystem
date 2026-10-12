@@ -40,13 +40,17 @@ export function clampRow(row) {
 }
 
 /**
- * rawDamage: weapon damage x Numero de Vezes, before any bonus/mitigation.
- * mitigated: rawDamage + extraDamage (flat crit bonus) - armorSoak.
+ * Tabela 9-5 rows 1-2 say "increase the weapon's base damage by +N", so the
+ * critical bonus joins the base damage BEFORE it is multiplied by the Numero
+ * de Vezes; armor then reduces the multiplied total.
+ *
+ * rawDamage: (weapon damage + extraDamage) x Numero de Vezes.
+ * mitigated: rawDamage - armorSoak.
  * final: mitigated, floored at 0.
  */
 export function computeDamage(weaponDamageValue, numeroDeVezes, armorSoak = 0, extraDamage = 0) {
-    const rawDamage = weaponDamageValue * numeroDeVezes;
-    const mitigated = rawDamage + extraDamage - armorSoak;
+    const rawDamage = (weaponDamageValue + extraDamage) * numeroDeVezes;
+    const mitigated = rawDamage - armorSoak;
     const final = Math.max(0, mitigated);
     return {rawDamage, mitigated, final};
 }
